@@ -9,7 +9,7 @@
         }
     },
     "profiles": {
-        "MySpot.Api": {
+        "MachineReservations.Api": {
             "commandName": "Project",
             "dotnetRunMessages": true,
             "launchBrowser": false,

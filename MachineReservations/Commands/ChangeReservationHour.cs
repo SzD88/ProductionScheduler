@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace MachineReservations.Api.Commands
 {
-    public record ChangeReservationHour(
+    public record ChangeReservationHour( 
 
         Guid ReservationId, 
-        string Hour  
-        
+        string Hour   
         );
       
 }

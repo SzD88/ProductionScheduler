@@ -39,9 +39,9 @@ namespace MachineReservations.Api.Services
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var weeklyMachineSpot = WeeklyMachineReservations
+            var weeklyMachineReservation = WeeklyMachineReservations
                 .SingleOrDefault(x => x.Id == machineId);
-            if (weeklyMachineSpot == null)
+            if (weeklyMachineReservation == null)
             {
                 return default;
             }
@@ -49,7 +49,7 @@ namespace MachineReservations.Api.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, command.Hour, new Date(command.Date));
 
-            weeklyMachineSpot.AddReservation(reservation, new Date(Clock.Current()));
+            weeklyMachineReservation.AddReservation(reservation, new Date(Clock.Current()));
             return reservation.Id;
         }
 
@@ -62,13 +62,14 @@ namespace MachineReservations.Api.Services
                 return false;
             }
             var reservationId = new ReservationId(command.ReservationId);
+
             var existingReservation = weeklyMachineReservation.Reservations
                 .SingleOrDefault(x => x.Id == reservationId);
             if (existingReservation is null)
             {
                 return false;
             }
-            if (existingReservation.Date.Value.Date <= Clock.Current())
+            if (existingReservation.Date.Value.Date < Clock.Current()) //  <=
             {
                 return false;
             }
