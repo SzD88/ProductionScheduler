@@ -10,7 +10,7 @@ namespace MachineReservations.Api.Controllers;
 [Route(template: "reservations")]
 public class ReservationsController : ControllerBase
 {
-    private readonly ReservationsServices _service = new();
+    private readonly ReservationsService _service = new();
 
     [HttpGet]
     public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAllWeekly());
@@ -28,9 +28,10 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     public ActionResult Post(CreateReservation command)
     {
+        //bo tworzac wg resta add nie podajesz godziny xD tuq
 
         var id = _service.Create(command with { ReservationId = Guid.NewGuid() });
-
+        //na tym etapie przekazuje godzine
         if (id is null)
         {
             return BadRequest();

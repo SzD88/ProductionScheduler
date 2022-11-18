@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MachineReservations.Api.Commands
+﻿namespace MachineReservations.Api.Commands
 {
     public record CreateReservation(
 
@@ -12,8 +6,7 @@ namespace MachineReservations.Api.Commands
         Guid ReservationId,
         DateTime Date, 
         string EmployeeName, 
-        string Hour   
-        
+        short Hour    
         );
      
 }

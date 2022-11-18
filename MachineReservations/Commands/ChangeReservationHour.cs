@@ -9,7 +9,7 @@ namespace MachineReservations.Api.Commands
     public record ChangeReservationHour( 
 
         Guid ReservationId, 
-        string Hour   
+        short Hour   
         );
       
 }

@@ -4,9 +4,10 @@ public sealed record Date
 {
     public DateTimeOffset Value { get; }
 
-    public Date(DateTimeOffset value)
+    public Date(DateTimeOffset value) // tutaj jak dochodzi do stworzenia Date to 
+        //kasuje z daty i godziny na sama daste
     {
-        Value = value.Date;
+        Value = value;
     }
     
     public Date AddDays(int days) => new(Value.AddDays(days));

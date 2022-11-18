@@ -2,12 +2,13 @@
 using MachineReservations.Api.Controllers.Models;
 using MachineReservations.Api.DTO;
 using MachineReservations.Api.Entities;
+using MachineReservations.Api.Exceptions;
 using MachineReservations.Api.ValueObjects;
 using MachineReservations.Core.ValueObjects;
 
 namespace MachineReservations.Api.Services
 {
-    public class ReservationsServices
+    public class ReservationsService
     {
         private static Clock Clock = new();
 
@@ -49,6 +50,7 @@ namespace MachineReservations.Api.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, command.Hour, new Date(command.Date));
 
+            var curr = Clock.Current();
             weeklyMachineReservation.AddReservation(reservation, new Date(Clock.Current()));
             return reservation.Id;
         }
@@ -69,9 +71,13 @@ namespace MachineReservations.Api.Services
             {
                 return false;
             }
-            if (existingReservation.Date.Value.Date < Clock.Current()) //  <=
+            var clk = Clock.Current().Hour;
+            var dt = existingReservation.Date.Value.Date.Hour;
+
+            if (existingReservation.Date.Value.Date.Hour <= Clock.Current().Date.Hour) //  <=
             {
-                return false;
+                if (existingReservation.Date.Value.Date.Hour < clk) //#refactor
+                throw new InvalidTimeOfReservation();
             }
             existingReservation.ChangeHourOfReservation(command.Hour);
             return true;

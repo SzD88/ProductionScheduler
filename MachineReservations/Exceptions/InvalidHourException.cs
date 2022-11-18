@@ -2,8 +2,8 @@
 {
     public sealed class InvalidHourException : CustomException
     {
-        public string Hour { get;   }
-        public InvalidHourException(string hour)
+        public short Hour { get; }
+        public InvalidHourException(short hour)
             : base($"Hour: {hour} is invalid")
         {
             Hour = hour;

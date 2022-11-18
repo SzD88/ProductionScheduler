@@ -4,29 +4,29 @@ namespace MachineReservations.Api.ValueObjects
 {
     public record Hour
     {
-        public string Value { get; }   
+        public short Value { get; }   
 
-        public Hour(string value)
+        public Hour(short value)
         {
             Value = value;
 
-            if (string.IsNullOrWhiteSpace(value)) 
+            if (value == null) 
             {
                 throw new EmptyHourException();
             }
-            if (Value.Length is  > 2)
+            if (Value is  < 7 or > 14)
             {
                 throw new InvalidHourException(value);
             }
 
         }
 
-        public static implicit operator string(Hour hour)
+        public static implicit operator short(Hour hour)
         {
-        return hour?.Value;
+        return hour.Value;
         }
 
-        public static implicit operator Hour(string hour)
+        public static implicit operator Hour(short hour)
         => new Hour(hour);
     }
 }
