@@ -73,12 +73,13 @@ namespace MachineReservations.Api.Services
             {
                 return false;
             }
-            var clk = Clock.Current().Hour;
-            var dt = existingReservation.Date.Value.Date.Hour;
-
-            if (existingReservation.Date.Value.Date.Hour <= Clock.Current().Date.Hour) //  <=
+            var clockHour = Clock.Current().Hour;
+            var existingReservationHour = existingReservation.Date.Value.Hour;
+             
+            // if it is already created you dont need check day just hour 
+            if (existingReservationHour <= Clock.Current().Date.Hour) //  <=
             {
-                if (existingReservation.Date.Value.Date.Hour < clk) //#refactor
+                if (existingReservationHour < clockHour) //#refactor
                 throw new InvalidTimeOfReservation();
             }
             existingReservation.ChangeHourOfReservation(command.Hour);

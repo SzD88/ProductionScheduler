@@ -1,6 +1,6 @@
 ﻿﻿
 @url = https://localhost:5000 
-@reservationId = e7fa1921-7c4b-4f06-a535-ecabc3a7acd0
+@reservationId = f9d21cbf-b620-407b-8322-a51a21cebc91
 @machineId = 00000000-0000-0000-0000-000000000001
 
 ###
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
   "machineId": "{{machineId}}",
-  "date": "2022-11-20", 
+  "date": "2022-11-22", 
   "employeeName": "string",
   "hour": "12"
 }

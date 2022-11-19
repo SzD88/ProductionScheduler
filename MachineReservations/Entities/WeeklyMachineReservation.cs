@@ -28,7 +28,7 @@ namespace MachineReservations.Api.Entities
             //#tutaj 
             //week zadeklarowano na poczaatku servisu
             // czyli week masz od 14-20
-            var isInvalidDate = date < from //14
+            var isInvalidDate = date < from  //14
                 || date > to //20
                 || date < now ; // .Date? // sprawdza dzien 
              
