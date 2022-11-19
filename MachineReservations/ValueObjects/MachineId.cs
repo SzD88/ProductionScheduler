@@ -1,3 +1,4 @@
+
 using MachineReservations.Api.Exceptions;
 
 namespace MachineReservations.Core.ValueObjects;

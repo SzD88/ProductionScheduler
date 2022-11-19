@@ -30,7 +30,7 @@ public class ReservationsController : ControllerBase
     {
         //bo tworzac wg resta add nie podajesz godziny xD tuq
 
-        var id = _service.Create(command with { ReservationId = Guid.NewGuid() });
+        var id = _service.Create(command with {ReservationId = Guid.NewGuid()});
         //na tym etapie przekazuje godzine
         if (id is null)
         {

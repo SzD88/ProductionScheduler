@@ -9,11 +9,11 @@ namespace MachineReservations.Api.Entities
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
         public MachineId Id { get; } 
-        public Week Week { get;   }
+        public ReservationTimeForward Week { get;   }
         public MachineName Name { get;  }
         public IEnumerable<Reservation> Reservations => _reservations;
 
-        public WeeklyMachineReservation(MachineId id, Week week, MachineName name)
+        public WeeklyMachineReservation(MachineId id, ReservationTimeForward week, MachineName name)
         {
             Id = id;
             Week = week;
@@ -22,14 +22,24 @@ namespace MachineReservations.Api.Entities
 
         public void AddReservation(Reservation reservation, Date now)
         {
-            var isInvalidDate = reservation.Date < Week.From
-                || reservation.Date > Week.To
-                || reservation.Date < now ; // .Date?
+            var date = reservation.Date;
+            var from = Week.From;
+            var to = Week.To;   
+            //#tutaj 
+            //week zadeklarowano na poczaatku servisu
+            // czyli week masz od 14-20
+            var isInvalidDate = date < from //14
+                || date > to //20
+                || date < now ; // .Date? // sprawdza dzien 
              
             if (isInvalidDate)
             {
-                throw new InvalidReservationDateException(reservation.Date.Value.Date);
-            } 
+                 throw new InvalidReservationDateException(reservation.Date.Value.Date);
+            }
+            if (date.IsSunday())
+            {
+                throw new ReservationDayIsSundayException();
+            }
             var reservationAlredyExists = Reservations.Any (
                 x => x.Date  == reservation.Date);
             if (reservationAlredyExists)

@@ -1,0 +1,8 @@
+﻿#to musi obecnie rezerwowac do niedzieli, trzeba zmienic 
+#week zeby to zmienic jakos na 7 dni do przodu 
+
+nie moze tez byc obecnie z dnia dzisiejszego a chcesz miec
+
+od dzisiaj - tej godziny 
+
+do + 7 dni do konca dnia 

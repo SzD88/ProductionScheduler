@@ -14,11 +14,11 @@ namespace MachineReservations.Api.Services
 
         private static readonly List<WeeklyMachineReservation> WeeklyMachineReservations = new()
         {
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000001"), new Week(Clock.Current()), "P1"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000002"), new Week(Clock.Current()), "P2"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000003"), new Week(Clock.Current()), "P3"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000004"), new Week(Clock.Current()), "P4"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000005"), new Week(Clock.Current()), "P5")
+            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(Clock.Current()), "P1"),
+            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(Clock.Current()), "P2"),
+            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(Clock.Current()), "P3"),
+            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(Clock.Current()), "P4"),
+            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(Clock.Current()), "P5")
 
         };
         public ReservationDto Get(Guid id)
@@ -48,9 +48,11 @@ namespace MachineReservations.Api.Services
             }
 
             var reservation = new Reservation(command.ReservationId, command.MachineId,
-                command.EmployeeName, command.Hour, new Date(command.Date));
+                command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             var curr = Clock.Current();
+
+            //przekazujesz rezerwacje i czas obecny 
             weeklyMachineReservation.AddReservation(reservation, new Date(Clock.Current()));
             return reservation.Id;
         }
