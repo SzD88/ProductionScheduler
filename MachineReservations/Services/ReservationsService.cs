@@ -31,7 +31,8 @@ namespace MachineReservations.Api.Services
                 Id = x.Id,
                 MachineId = x.MachineId,
                 EmployeeName = x.EmployeeName,
-                Date = x.Date.Value.Date
+                Date = x.Date.Value.Date,
+                Hour = x.Hour
             }); // ?? w okolicahc 13 odcinka 
 
 
@@ -61,10 +62,9 @@ namespace MachineReservations.Api.Services
         {
             var weeklyMachineReservation = GetWeeklyMachineReservationByReservation(command.ReservationId);
 
-            if (weeklyMachineReservation is null)
-            {
-                return false;
-            }
+            if (weeklyMachineReservation is null) 
+                return false; 
+
             var reservationId = new ReservationId(command.ReservationId);
 
             var existingReservation = weeklyMachineReservation.Reservations
@@ -74,14 +74,19 @@ namespace MachineReservations.Api.Services
                 return false;
             }
             var clockHour = Clock.Current().Hour;
-            var existingReservationHour = existingReservation.Date.Value.Hour;
-             
-            // if it is already created you dont need check day just hour 
-            if (existingReservationHour <= Clock.Current().Date.Hour) //  <=
+            var existingReservationHour = existingReservation.Hour;
+            // ty chcesz sprawdzic czy  godzina rezerwacji jest pozniej niz obecnie rozpoczeta godzina
+
+            // if it is today 
+            if (existingReservation.Date.Value.Date == Clock.Current().Date)
             {
-                if (existingReservationHour < clockHour) //#refactor
-                throw new InvalidTimeOfReservation();
+                //check if reservation hour is after current hour
+                if (existingReservation.Hour.Value <= Clock.Current().Hour)
+                {
+                    throw new InvalidTimeOfReservation(); 
+                }
             }
+           
             existingReservation.ChangeHourOfReservation(command.Hour);
             return true;
         }

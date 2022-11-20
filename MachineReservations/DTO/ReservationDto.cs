@@ -8,9 +8,10 @@ namespace MachineReservations.Api.DTO
 {
     public class ReservationDto
     {
-        public Guid Id { get; set; } = Guid.NewGuid ();
+        public Guid Id { get; set; }  
         public Guid MachineId { get; set; }
         public string EmployeeName { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get;set; }
+        public short Hour { get; set; }
     }
 }
