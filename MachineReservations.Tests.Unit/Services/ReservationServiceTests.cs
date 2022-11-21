@@ -1,9 +1,6 @@
-﻿using MySpot.Api.Commands;
-using MySpot.Api.Controllers.Models;
-using MySpot.Api.Entities;
-using MySpot.Api.Exceptions;
-using MySpot.Api.Services;
-using MySpot.Api.ValueObjects;
+﻿using MachineReservations;
+using MachineReservations.Api.Commands;
+using MachineReservations.Api.Services;
 using Shouldly;
 using System;
 using Xunit;
@@ -19,10 +16,17 @@ namespace SDMySpot.Tests.Unit.Services
             var command = new CreateReservation(
                 Guid.Parse("00000000-0000-0000-0000-000000000001"),
                 Guid.NewGuid(),
-                DateTime.UtcNow.AddMinutes(5),
+                DateTime.UtcNow.AddDays(2),
                 "Szop",
-                "licPl23");
-          var reservationId =   _reservationServie.Create(command);
+                12);
+
+            //Guid MachineId, 
+           // Guid ReservationId,
+          // DateTime Date, 
+      //  string EmployeeName,
+       // short Hour
+       
+            var reservationId =   _reservationServie.Create(command);
 
             reservationId.ShouldNotBeNull();
             reservationId.Value.ShouldBe(command.ReservationId);

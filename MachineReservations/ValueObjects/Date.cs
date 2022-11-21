@@ -8,7 +8,7 @@ public sealed record Date
     public Date(DateTimeOffset value) // tutaj jak dochodzi do stworzenia Date to 
         //kasuje z daty i godziny na sama date
     {
-        _hour = value.Hour; 
+        
         Value = value ; // date
     }
 
