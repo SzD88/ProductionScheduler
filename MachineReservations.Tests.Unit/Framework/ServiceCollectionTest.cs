@@ -17,16 +17,29 @@ namespace MachineReservations.Tests.Unit.Framework
 
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddTransient<IMessanger, Messanger>();
 
-            var servicePovider = serviceCollection.BuildServiceProvider();
+            serviceCollection.AddScoped<IMessanger, Messanger>();
+            serviceCollection.AddScoped<IMessanger, Messanger>();
+            serviceCollection.AddScoped<IMessanger, Messanger>();
+            serviceCollection.AddScoped<IMessanger, Messanger2>();
 
-            var messanager = servicePovider.GetRequiredService< IMessanger>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var messanager = serviceProvider.GetRequiredService<IMessanger>();
+            messanager.Send();
+
+
+            var messanage2 = serviceProvider.GetRequiredService<IMessanger>();
+            messanage2.Send();
+
+            var messangers = serviceProvider.GetServices<IMessanger>();
 
             messanager.ShouldNotBe(null);
+            messanager.ShouldBe(messanage2);
+
         }
 
-            private interface IMessanger
+        private interface IMessanger
         {
             void Send();
         }
@@ -38,8 +51,16 @@ namespace MachineReservations.Tests.Unit.Framework
                 Console.WriteLine("zz");
             }
         }
+        private class Messanger2 : IMessanger
+        {
+            private readonly Guid _id = Guid.NewGuid();
+            public void Send()
+            {
+                Console.WriteLine("zz");
+            }
+        }
     }
 
 
 }
- 
+

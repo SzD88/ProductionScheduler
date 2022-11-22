@@ -1,5 +1,6 @@
 ﻿using MachineReservations;
 using MachineReservations.Api.Commands;
+using MachineReservations.Api.Entities;
 using MachineReservations.Api.Services;
 using Shouldly;
 using System;
@@ -32,10 +33,13 @@ namespace SDMySpot.Tests.Unit.Services
             reservationId.Value.ShouldBe(command.ReservationId);
         }
         #region arrange
-        private readonly ReservationsService _reservationServie;
+        private readonly IReservationService _reservationServie;
+        private readonly IClock _clock;
+        private readonly List<WeeklyMachineReservation> _weeklyMachineReservation;
         public ReservationServiceTests()
         {
-            _reservationServie = new ReservationsService();
+            /// add all machine spots
+            _weeklyMachineReservation
         }
         #endregion
     }

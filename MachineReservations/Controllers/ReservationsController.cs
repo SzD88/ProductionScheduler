@@ -10,8 +10,16 @@ namespace MachineReservations.Api.Controllers;
 [Route(template: "reservations")]
 public class ReservationsController : ControllerBase
 {
-    private readonly ReservationsService _service = new();
 
+    private readonly Clock _clock;
+
+    private readonly ReservationsService _service;
+
+    public ReservationsController(ReservationsService service , Clock clock)
+    {
+        _service = service;
+        _clock = clock;
+    }
     [HttpGet]
     public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAllWeekly());
     [HttpGet("{id:guid}")]

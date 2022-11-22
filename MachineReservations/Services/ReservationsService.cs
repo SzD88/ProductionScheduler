@@ -8,24 +8,22 @@ using MachineReservations.Core.ValueObjects;
 
 namespace MachineReservations.Api.Services
 {
-    public class ReservationsService
+    public class ReservationsService : IReservationService
     {
-        private static Clock Clock = new();
+        private readonly IClock _clock;
+        private readonly IEnumerable< WeeklyMachineReservation> _weeklyMachineReservations;
 
-        private static readonly List<WeeklyMachineReservation> WeeklyMachineReservations = new()
+        public ReservationsService(IClock clock, IEnumerable<WeeklyMachineReservation> weeklyMachineReservations)
         {
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(Clock.Current()), "P1"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(Clock.Current()), "P2"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(Clock.Current()), "P3"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(Clock.Current()), "P4"),
-            new WeeklyMachineReservation(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(Clock.Current()), "P5")
-
-        };
+            _clock = clock; 
+            _weeklyMachineReservations = weeklyMachineReservations;
+        }
+       
         public ReservationDto Get(Guid id)
        => GetAllWeekly().SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<ReservationDto> GetAllWeekly()
-            => WeeklyMachineReservations.SelectMany(x => x.Reservations)
+            => _weeklyMachineReservations.SelectMany(x => x.Reservations)
             .Select(x => new ReservationDto
             {
                 Id = x.Id,
@@ -41,7 +39,7 @@ namespace MachineReservations.Api.Services
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var weeklyMachineReservation = WeeklyMachineReservations
+            var weeklyMachineReservation = _weeklyMachineReservations
                 .SingleOrDefault(x => x.Id == machineId);
             if (weeklyMachineReservation == null)
             {
@@ -51,10 +49,10 @@ namespace MachineReservations.Api.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-            var curr = Clock.Current();
+            var curr = _clock.Current();
 
             //przekazujesz rezerwacje i czas obecny 
-            weeklyMachineReservation.AddReservation(reservation, new Date(Clock.Current()));
+            weeklyMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
             return reservation.Id;
         }
 
@@ -73,15 +71,15 @@ namespace MachineReservations.Api.Services
             {
                 return false;
             }
-            var clockHour = Clock.Current().Hour;
+            var clockHour = _clock.Current().Hour;
             var existingReservationHour = existingReservation.Hour;
             // ty chcesz sprawdzic czy  godzina rezerwacji jest pozniej niz obecnie rozpoczeta godzina
 
             // if it is today 
-            if (existingReservation.Date.Value.Date == Clock.Current().Date)
+            if (existingReservation.Date.Value.Date == _clock.Current().Date)
             {
                 //check if reservation hour is after current hour
-                if (existingReservation.Hour.Value <= Clock.Current().Hour)
+                if (existingReservation.Hour.Value <= _clock.Current().Hour)
                 {
                     throw new InvalidTimeOfReservation(); 
                 }
@@ -112,7 +110,7 @@ namespace MachineReservations.Api.Services
         }
 
         private WeeklyMachineReservation GetWeeklyMachineReservationByReservation(ReservationId reservationId) //
-            => WeeklyMachineReservations.SingleOrDefault(x => x.Reservations.Any
+            => _weeklyMachineReservations.SingleOrDefault(x => x.Reservations.Any
             (r => r.Id == reservationId));
     }
 }
