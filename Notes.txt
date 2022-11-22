@@ -6,3 +6,6 @@ nie moze tez byc obecnie z dnia dzisiejszego a chcesz miec
 od dzisiaj - tej godziny 
 
 do + 7 dni do konca dnia 
+
+/// obecnie mozna dodac na wsdteczna godzine o ile zgadza sie dzien
+trzeba poprawic 
