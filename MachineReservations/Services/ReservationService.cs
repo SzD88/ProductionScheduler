@@ -8,12 +8,12 @@ using MachineReservations.Core.ValueObjects;
 
 namespace MachineReservations.Api.Services
 {
-    public class ReservationsService : IReservationService
+    public class ReservationService : IReservationService
     {
         private readonly IClock _clock;
         private readonly IEnumerable< WeeklyMachineReservation> _weeklyMachineReservations;
 
-        public ReservationsService(IClock clock, IEnumerable<WeeklyMachineReservation> weeklyMachineReservations)
+        public ReservationService(IClock clock, IEnumerable<WeeklyMachineReservation> weeklyMachineReservations)
         {
             _clock = clock; 
             _weeklyMachineReservations = weeklyMachineReservations;

@@ -9,9 +9,9 @@ builder.Services
 
     .AddSingleton<IClock, Clock>()
     .AddSingleton<IEnumerable<WeeklyMachineReservation>>(
-        ServiceProvider =>
+        serviceProvider =>
         {
-            var clock = ServiceProvider.GetService<Clock>();
+            var clock = serviceProvider.GetService<IClock>();
             return new List<WeeklyMachineReservation>()
          {
         new  (Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
@@ -21,7 +21,7 @@ builder.Services
         new  (Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
          };
         })
-    .AddSingleton<IReservationService, ReservationsService>()
+    .AddSingleton<IReservationService, ReservationService>()
 
     .AddControllers();
 

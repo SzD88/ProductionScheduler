@@ -11,14 +11,12 @@ namespace MachineReservations.Api.Controllers;
 public class ReservationsController : ControllerBase
 {
 
-    private readonly Clock _clock;
 
-    private readonly ReservationsService _service;
+    private readonly IReservationService _service;
 
-    public ReservationsController(ReservationsService service , Clock clock)
+    public ReservationsController(IReservationService service )
     {
         _service = service;
-        _clock = clock;
     }
     [HttpGet]
     public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAllWeekly());
