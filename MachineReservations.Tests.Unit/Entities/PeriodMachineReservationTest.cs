@@ -9,7 +9,7 @@ using Xunit;
 
 namespace SDMySpot.Tests.Unit.Entities
 {
-    public class WeeklyMachineReservationTest
+    public class PeriodMachineReservationTest
     {   // snake case
         //arrange act assert
 
@@ -126,13 +126,13 @@ namespace SDMySpot.Tests.Unit.Entities
         }
 
         #region
-        private readonly WeeklyMachineReservation _weeklyMachineReservation;
+        private readonly PeriodMachineReservation _weeklyMachineReservation;
         private readonly Date _now;
-        public WeeklyMachineReservationTest()
+        public PeriodMachineReservationTest()
         {
             //arrange on ctor lvl
             _now = new Date(new DateTime(2022, 11, 22));
-            _weeklyMachineReservation = new WeeklyMachineReservation(
+            _weeklyMachineReservation = new PeriodMachineReservation(
                 Guid.NewGuid(),
                 new ReservationTimeForward(_now), 
                 "P1");

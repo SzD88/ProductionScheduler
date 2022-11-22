@@ -5,25 +5,26 @@ using MachineReservations.Api.Entities;
 using MachineReservations.Api.Exceptions;
 using MachineReservations.Api.ValueObjects;
 using MachineReservations.Core.ValueObjects;
+using MachineReservations.Repositories;
 
 namespace MachineReservations.Api.Services
 {
     public class ReservationService : IReservationService
     {
         private readonly IClock _clock;
-        private readonly IEnumerable< WeeklyMachineReservation> _weeklyMachineReservations;
+        private readonly IPeriodMachineReservationRepository _repository;
 
-        public ReservationService(IClock clock, IEnumerable<WeeklyMachineReservation> weeklyMachineReservations)
+        public ReservationService(IClock clock, IPeriodMachineReservationRepository repository)
         {
-            _clock = clock; 
-            _weeklyMachineReservations = weeklyMachineReservations;
+            _clock = clock;
+            _repository = repository;
         }
        
         public ReservationDto Get(Guid id)
        => GetAllWeekly().SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<ReservationDto> GetAllWeekly()
-            => _weeklyMachineReservations.SelectMany(x => x.Reservations)
+            => _repository.GetAll().SelectMany(x => x.Reservations)
             .Select(x => new ReservationDto
             {
                 Id = x.Id,
@@ -39,9 +40,9 @@ namespace MachineReservations.Api.Services
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var weeklyMachineReservation = _weeklyMachineReservations
+            var periodMachineReservation = _repository.GetAll()
                 .SingleOrDefault(x => x.Id == machineId);
-            if (weeklyMachineReservation == null)
+            if (periodMachineReservation == null)
             {
                 return default;
             }
@@ -52,20 +53,20 @@ namespace MachineReservations.Api.Services
             var curr = _clock.Current();
 
             //przekazujesz rezerwacje i czas obecny 
-            weeklyMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
+            periodMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
             return reservation.Id;
         }
 
         public bool Update(ChangeReservationHour command)
         {
-            var weeklyMachineReservation = GetWeeklyMachineReservationByReservation(command.ReservationId);
+            var periodMachineReservation = GetPeriodMachineReservationByReservation(command.ReservationId);
 
-            if (weeklyMachineReservation is null) 
+            if (periodMachineReservation is null) 
                 return false; 
 
             var reservationId = new ReservationId(command.ReservationId);
 
-            var existingReservation = weeklyMachineReservation.Reservations
+            var existingReservation = periodMachineReservation.Reservations
                 .SingleOrDefault(x => x.Id == reservationId);
             if (existingReservation is null)
             {
@@ -90,7 +91,7 @@ namespace MachineReservations.Api.Services
         }
         public bool Delete(DeleteReservation command)
         {
-            var weeklyMachineReservation = GetWeeklyMachineReservationByReservation
+            var weeklyMachineReservation = GetPeriodMachineReservationByReservation
                (command.ReservationId);
             if (weeklyMachineReservation is null)
             {
@@ -109,8 +110,8 @@ namespace MachineReservations.Api.Services
             return true;
         }
 
-        private WeeklyMachineReservation GetWeeklyMachineReservationByReservation(ReservationId reservationId) //
-            => _weeklyMachineReservations.SingleOrDefault(x => x.Reservations.Any
+        private PeriodMachineReservation GetPeriodMachineReservationByReservation(ReservationId reservationId) //
+            => _repository.GetAll().SingleOrDefault(x => x.Reservations.Any
             (r => r.Id == reservationId));
     }
 }

@@ -5,7 +5,7 @@ using MachineReservations.Core.ValueObjects;
 
 namespace MachineReservations.Api.Entities
 {
-    public class WeeklyMachineReservation
+    public class PeriodMachineReservation
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
         public MachineId Id { get; } 
@@ -13,7 +13,7 @@ namespace MachineReservations.Api.Entities
         public MachineName Name { get;  }
         public IEnumerable<Reservation> Reservations => _reservations;
 
-        public WeeklyMachineReservation(MachineId id, ReservationTimeForward week, MachineName name)
+        public PeriodMachineReservation(MachineId id, ReservationTimeForward week, MachineName name)
         {
             Id = id;
             Week = week;

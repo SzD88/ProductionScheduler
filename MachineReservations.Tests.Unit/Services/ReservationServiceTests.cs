@@ -3,6 +3,7 @@ using MachineReservations.Api.Commands;
 using MachineReservations.Api.Entities;
 using MachineReservations.Api.Services;
 using MachineReservations.Api.ValueObjects;
+using MachineReservations.Repositories;
 using MachineReservations.Tests.Unit.Shared;
 using Shouldly;
 using System;
@@ -36,13 +37,15 @@ namespace SDMySpot.Tests.Unit.Services
             reservationId.Value.ShouldBe(command.ReservationId);
         }
         #region arrange
+        private readonly IClock _clock = new TestClock(); 
+        private readonly IPeriodMachineReservationRepository _repository;
         private readonly IReservationService _reservationService;
-        private readonly IClock _clock = new TestClock();
-        private readonly List<WeeklyMachineReservation> _weeklyMachineReservation;
+        private readonly List<PeriodMachineReservation> _periodMachineReservation;
         public ReservationServiceTests()
         {
             /// add all machine spots
-            _weeklyMachineReservation = new List<WeeklyMachineReservation>()
+            _repository = new InMemoryPeriodMachineReservationRepository(_clock);
+            _periodMachineReservation = new List<PeriodMachineReservation>()
              {
              new  (Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(_clock.Current()), "P1"),
              new  (Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(_clock.Current()), "P2"),
@@ -51,7 +54,7 @@ namespace SDMySpot.Tests.Unit.Services
              new  (Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(_clock.Current()), "P5")
 
              };
-            _reservationService = new ReservationService(_clock, _weeklyMachineReservation);
+            _reservationService = new ReservationService(_clock, _repository);
         }
         #endregion
     }
