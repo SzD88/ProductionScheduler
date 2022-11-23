@@ -1,6 +1,4 @@
-﻿using MachineReservations.Api.Exceptions;
-
-namespace MachineReservations.Api.ValueObjects
+﻿namespace ProductionScheduler.Core.Exceptions
 {
     public sealed class DateFromPastException : CustomException
     {

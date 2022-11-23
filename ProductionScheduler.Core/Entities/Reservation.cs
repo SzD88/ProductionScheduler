@@ -1,29 +1,27 @@
-﻿using MachineReservations.Api.ValueObjects;
-using MachineReservations.Core.ValueObjects;
-using MachineReservations.ValueObjects;
+﻿using ProductionScheduler.Core.ValueObjects;
 
-namespace MachineReservations.Api.Controllers.Models;
+namespace ProductionScheduler.Core.Entities;
 
 public class Reservation
-    {
-    public ReservationId Id { get;  }
-    public MachineId MachineId { get;  }
-    public EmployeeName EmployeeName { get;   }
+{
+    public ReservationId Id { get; }
+    public MachineId MachineId { get; }
+    public EmployeeName EmployeeName { get; }
     public Hour Hour { get; private set; }
-    public Date Date { get;   }
+    public Date Date { get; }
 
-    public Reservation(ReservationId id, MachineId machineId, 
+    public Reservation(ReservationId id, MachineId machineId,
         EmployeeName employeeName, Hour hour, Date dateTime)
     {
         Id = id;
         MachineId = machineId;
         EmployeeName = employeeName;
-        ChangeHourOfReservation(hour);    
-        Date = dateTime;    
+        ChangeHourOfReservation(hour);
+        Date = dateTime;
     }
 
     public void ChangeHourOfReservation(Hour hour)
-    { 
+    {
         Hour = hour;
     }
 }

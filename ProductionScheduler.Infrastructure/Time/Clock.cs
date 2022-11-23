@@ -1,5 +1,4 @@
-﻿
-namespace MachineReservations.Api.Services
+﻿namespace ProductionScheduler.Application.Services
 {
     public class Clock : IClock
     {

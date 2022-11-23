@@ -1,7 +1,7 @@
-﻿using MachineReservations.Api.Commands;
-using MachineReservations.Api.DTO;
+﻿using ProductionScheduler.Application.Commands;
+using ProductionScheduler.Application.DTO;
 
-namespace MachineReservations.Api.Services
+namespace ProductionScheduler.Application.Services
 {
     public interface IReservationService
     {

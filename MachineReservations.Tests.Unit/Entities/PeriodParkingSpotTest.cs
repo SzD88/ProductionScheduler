@@ -1,4 +1,4 @@
-﻿namespace SDMySpot.Tests.Unit.Entities
+﻿namespace MachineReservations.Tests.Unit.Entities
 {
     internal class PeriodParkingSpotTest
     {

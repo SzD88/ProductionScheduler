@@ -1,6 +1,6 @@
-using MachineReservations.Api.Exceptions;
+using ProductionScheduler.Core.Exceptions;
 
-namespace MachineReservations.Core.ValueObjects;
+namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record ReservationId
 {
@@ -20,7 +20,7 @@ public sealed record ReservationId
 
     public static implicit operator Guid(ReservationId date)
         => date.Value;
-    
+
     public static implicit operator ReservationId(Guid value)
         => new(value);
 }

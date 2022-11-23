@@ -1,4 +1,4 @@
-namespace MachineReservations.Api.Exceptions;
+namespace ProductionScheduler.Core.Exceptions;
 
 public class InvalidMachineException : CustomException
 {

@@ -1,6 +1,6 @@
-using MachineReservations.Api.Exceptions;
+using ProductionScheduler.Core.Exceptions;
 
-namespace MachineReservations.Core.ValueObjects;
+namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record MachineName(string Value)
 {
@@ -8,7 +8,7 @@ public sealed record MachineName(string Value)
 
     public static implicit operator string(MachineName name)
         => name.Value;
-    
+
     public static implicit operator MachineName(string value)
         => new(value);
 }

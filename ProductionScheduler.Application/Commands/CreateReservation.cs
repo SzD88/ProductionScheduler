@@ -1,12 +1,12 @@
-﻿namespace MachineReservations.Api.Commands
+﻿namespace ProductionScheduler.Application.Commands
 {
     public record CreateReservation(
 
-        Guid MachineId, 
+        Guid MachineId,
         Guid ReservationId,
-        DateTime Date, 
-        string EmployeeName, 
-        short Hour    
+        DateTime Date,
+        string EmployeeName,
+        short Hour
         );
-     
+
 }

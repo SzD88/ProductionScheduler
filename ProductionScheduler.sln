@@ -5,6 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductionScheduler.Api", "MachineReservations\ProductionScheduler.Api.csproj", "{5E530FD5-4B65-4704-BE49-8DF97450E773}"
 	ProjectSection(ProjectDependencies) = postProject
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0} = {7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}
 		{7D21DDFE-59A0-431C-B485-EB000F2D9ABA} = {7D21DDFE-59A0-431C-B485-EB000F2D9ABA}
 	EndProjectSection
 EndProject
@@ -19,12 +20,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{30BD8D44-EDC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{03EE3ED1-64E9-4263-97E8-6B1834D2D711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionScheduler.Core", "ProductionScheduler.Core\ProductionScheduler.Core.csproj", "{DF187127-4A0E-46B7-AE2D-4773921A3DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductionScheduler.Core", "ProductionScheduler.Core\ProductionScheduler.Core.csproj", "{DF187127-4A0E-46B7-AE2D-4773921A3DEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionScheduler.Application", "ProductionScheduler.Application\ProductionScheduler.Application.csproj", "{7D21DDFE-59A0-431C-B485-EB000F2D9ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductionScheduler.Application", "ProductionScheduler.Application\ProductionScheduler.Application.csproj", "{7D21DDFE-59A0-431C-B485-EB000F2D9ABA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DF187127-4A0E-46B7-AE2D-4773921A3DEC} = {DF187127-4A0E-46B7-AE2D-4773921A3DEC}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionScheduler.Infrastructure", "ProductionScheduler.Infrastructure\ProductionScheduler.Infrastructure.csproj", "{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +51,10 @@ Global
 		{7D21DDFE-59A0-431C-B485-EB000F2D9ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D21DDFE-59A0-431C-B485-EB000F2D9ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D21DDFE-59A0-431C-B485-EB000F2D9ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +64,7 @@ Global
 		{CB962EDE-CE19-4814-8D6E-3B63E2018A01} = {03EE3ED1-64E9-4263-97E8-6B1834D2D711}
 		{DF187127-4A0E-46B7-AE2D-4773921A3DEC} = {30BD8D44-EDC9-4005-9689-185226DEE510}
 		{7D21DDFE-59A0-431C-B485-EB000F2D9ABA} = {30BD8D44-EDC9-4005-9689-185226DEE510}
+		{7DDD6E10-8DCD-44B7-86CF-A6A94678E1D0} = {30BD8D44-EDC9-4005-9689-185226DEE510}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7ECFBC5-5A32-441A-83B3-CC2301F3833D}

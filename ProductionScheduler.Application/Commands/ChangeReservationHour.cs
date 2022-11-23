@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineReservations.Api.Commands
+namespace ProductionScheduler.Application.Commands
 {
-    public record ChangeReservationHour( 
+    public record ChangeReservationHour(
 
-        Guid ReservationId, 
-        short Hour   
+        Guid ReservationId,
+        short Hour
         );
-      
+
 }

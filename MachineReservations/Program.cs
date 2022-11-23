@@ -1,16 +1,16 @@
-using MachineReservations.Api.Entities;
-using MachineReservations.Api.Services;
-using MachineReservations.Api.ValueObjects;
-using MachineReservations.Repositories;
+using ProductionScheduler.Application;
+using ProductionScheduler.Application.Services;
+using ProductionScheduler.Core;
+using ProductionScheduler.Core.Repositories;
+using ProductionScheduler.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
 
     .AddSingleton<IClock, Clock>()
-    .AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>()
-     
-    .AddSingleton<IReservationService, ReservationService>()
-
+    .AddCore()
+    .AddApplication()
+    .AddInfrastructure()
     .AddControllers();
 
 

@@ -1,52 +1,48 @@
-﻿using MachineReservations;
-using MachineReservations.Api.Commands;
-using MachineReservations.Api.Entities;
-using MachineReservations.Api.Services;
-using MachineReservations.Api.ValueObjects;
-using MachineReservations.Repositories;
-using MachineReservations.Tests.Unit.Shared;
-using Shouldly;
-using System;
-using System.Collections.Generic;
-using Xunit;
+﻿//using System;
+//using MachineReservations.Tests.Unit.Shared;
+//using ProductionScheduler.Application.Commands;
+//using ProductionScheduler.Application.Services;
+//using ProductionScheduler.Core.Repositories;
+//using Shouldly;
+//using Xunit;
 
-namespace SDMySpot.Tests.Unit.Services
-{
-    public class ReservationServiceTests
-    {
+//namespace MachineReservations.Tests.Unit.Services
+//{
+//    public class ReservationServiceTests
+//    {
 
-        [Fact] // exxpanded #18 - 1:01:01
-        public void given_reservation_for_not_taken_date_create_reservation_should_succeed()
-        {
-            var command = new CreateReservation(
-                Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                Guid.NewGuid(),
-                DateTime.UtcNow.AddDays(2),
-                "Szop",
-                12);
+//        [Fact] // exxpanded #18 - 1:01:01
+//        public void given_reservation_for_not_taken_date_create_reservation_should_succeed()
+//        {
+//            var command = new CreateReservation(
+//                Guid.Parse("00000000-0000-0000-0000-000000000001"),
+//                Guid.NewGuid(),
+//                DateTime.UtcNow.AddDays(2),
+//                "Szop",
+//                12);
 
-            //Guid MachineId, 
-            // Guid ReservationId,
-            // DateTime Date, 
-            //  string EmployeeName,
-            // short Hour
+//            //Guid MachineId, 
+//            // Guid ReservationId,
+//            // DateTime Date, 
+//            //  string EmployeeName,
+//            // short Hour
 
-            var reservationId = _reservationService.Create(command);
+//            var reservationId = _reservationService.Create(command);
 
-            reservationId.ShouldNotBeNull();
-            reservationId.Value.ShouldBe(command.ReservationId);
-        }
-        #region arrange
-        private readonly IClock _clock;
-        private readonly IPeriodMachineReservationRepository _repository;
-        private readonly IReservationService _reservationService;
-        public ReservationServiceTests()
-        {
-            /// add all machine spots
-            _clock = new TestClock();
-            _repository = new InMemoryPeriodMachineReservationRepository(_clock);   
-            _reservationService = new ReservationService(_clock, _repository);
-        }
-        #endregion
-    }
-}
+//            reservationId.ShouldNotBeNull();
+//            reservationId.Value.ShouldBe(command.ReservationId);
+//        }
+//        #region arrange
+//        private readonly IClock _clock;
+//        private readonly IPeriodMachineReservationRepository _repository;
+//        private readonly IReservationService _reservationService;
+//        public ReservationServiceTests()
+//        {
+//            /// add all machine spots
+//            _clock = new TestClock();
+//            _repository = new InMemoryPeriodMachineReservationRepository(_clock);
+//            _reservationService = new ReservationService(_clock, _repository);
+//        }
+//        #endregion
+//    }
+//}

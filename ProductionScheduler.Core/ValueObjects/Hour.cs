@@ -1,10 +1,10 @@
-﻿using MachineReservations.Api.Exceptions;
+﻿using ProductionScheduler.Core.Exceptions;
 
-namespace MachineReservations.Api.ValueObjects
+namespace ProductionScheduler.Core.ValueObjects
 {
     public record Hour
     {
-        public short Value { get; }   
+        public short Value { get; }
 
         public Hour(short value)
         {
@@ -14,7 +14,7 @@ namespace MachineReservations.Api.ValueObjects
             //{
             //    throw new EmptyHourException();
             //}
-            if (Value is  < 7 or > 14)
+            if (Value is < 7 or > 14)
             {
                 throw new InvalidHourException(value);
             }
@@ -23,7 +23,7 @@ namespace MachineReservations.Api.ValueObjects
 
         public static implicit operator short(Hour hour)
         {
-        return hour.Value;
+            return hour.Value;
         }
 
         public static implicit operator Hour(short hour)

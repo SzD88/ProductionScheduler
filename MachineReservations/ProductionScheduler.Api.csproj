@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ProductionScheduler.Application\ProductionScheduler.Application.csproj" />
+	  <ProjectReference Include="..\ProductionScheduler.Infrastructure\ProductionScheduler.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

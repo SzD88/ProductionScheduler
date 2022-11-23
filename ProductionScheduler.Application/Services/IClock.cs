@@ -1,8 +1,7 @@
-﻿
-namespace MachineReservations.Api.Services
+﻿namespace ProductionScheduler.Application.Services
 {
     public interface IClock
     {
-          DateTime Current();
+        DateTime Current();
     }
 }

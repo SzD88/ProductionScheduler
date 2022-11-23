@@ -1,13 +1,11 @@
-﻿using MachineReservations.Api.Commands;
-using MachineReservations.Api.Controllers.Models;
-using MachineReservations.Api.DTO;
-using MachineReservations.Api.Entities;
-using MachineReservations.Api.Exceptions;
-using MachineReservations.Api.ValueObjects;
-using MachineReservations.Core.ValueObjects;
-using MachineReservations.Repositories;
+﻿using ProductionScheduler.Application.Commands;
+using ProductionScheduler.Application.DTO;
+using ProductionScheduler.Core.Entities;
+using ProductionScheduler.Core.Exceptions;
+using ProductionScheduler.Core.Repositories;
+using ProductionScheduler.Core.ValueObjects;
 
-namespace MachineReservations.Api.Services
+namespace ProductionScheduler.Application.Services
 {
     public class ReservationService : IReservationService
     {
@@ -19,7 +17,7 @@ namespace MachineReservations.Api.Services
             _clock = clock;
             _repository = repository;
         }
-       
+
         public ReservationDto Get(Guid id)
        => GetAllWeekly().SingleOrDefault(x => x.Id == id);
 
@@ -61,8 +59,8 @@ namespace MachineReservations.Api.Services
         {
             var periodMachineReservation = GetPeriodMachineReservationByReservation(command.ReservationId);
 
-            if (periodMachineReservation is null) 
-                return false; 
+            if (periodMachineReservation is null)
+                return false;
 
             var reservationId = new ReservationId(command.ReservationId);
 
@@ -82,10 +80,10 @@ namespace MachineReservations.Api.Services
                 //check if reservation hour is after current hour
                 if (existingReservation.Hour.Value <= _clock.Current().Hour)
                 {
-                    throw new InvalidTimeOfReservation(); 
+                    throw new InvalidTimeOfReservation();
                 }
             }
-           
+
             existingReservation.ChangeHourOfReservation(command.Hour);
             return true;
         }

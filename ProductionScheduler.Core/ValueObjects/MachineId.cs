@@ -1,7 +1,4 @@
-
-using MachineReservations.Api.Exceptions;
-
-namespace MachineReservations.Core.ValueObjects;
+namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record MachineId
 {
@@ -11,7 +8,7 @@ public sealed record MachineId
     {
         if (value == Guid.Empty)
         {
-            throw new Exception( ); // value // #refactor 
+            throw new Exception(); // value // #refactor 
         }
 
         Value = value;
@@ -21,7 +18,7 @@ public sealed record MachineId
 
     public static implicit operator Guid(MachineId date)
         => date.Value;
-    
+
     public static implicit operator MachineId(Guid value)
         => new(value);
 

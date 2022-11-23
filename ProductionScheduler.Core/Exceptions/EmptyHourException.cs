@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineReservations.Api.Exceptions
+namespace ProductionScheduler.Core.Exceptions
 {
 
     public sealed class EmptyHourException : CustomException

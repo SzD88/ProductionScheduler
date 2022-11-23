@@ -1,21 +1,22 @@
-﻿using MachineReservations.Api.Entities;
-using MachineReservations.Api.Services;
-using MachineReservations.Api.ValueObjects;
-using MachineReservations.Core.ValueObjects;
+﻿ 
+using ProductionScheduler.Application.Services;
+using ProductionScheduler.Core.Entities;
+using ProductionScheduler.Core.Repositories;
+using ProductionScheduler.Core.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineReservations.Repositories
+namespace ProductionScheduler.Infrastructure.Repositories
 {
-    public class InMemoryPeriodMachineReservationRepository : IPeriodMachineReservationRepository
+    internal class InMemoryPeriodMachineReservationRepository : IPeriodMachineReservationRepository
     {
         private readonly IClock _clock;
 
         private readonly List<PeriodMachineReservation> _periodMachineReservations;
-         
+
 
         public InMemoryPeriodMachineReservationRepository(IClock clock)
         {
@@ -51,9 +52,9 @@ namespace MachineReservations.Repositories
 
         public void Delete(PeriodMachineReservation command)
         {
-             _periodMachineReservations.Remove(command);
+            _periodMachineReservations.Remove(command);
         }
 
-       
+
     }
 }
