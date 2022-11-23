@@ -8,14 +8,21 @@ public sealed record ReservationTimeForward
 
     public ReservationTimeForward(DateTimeOffset value)
     {
+        // dostajesz clock.current - czyli obecny czas, w celu sprawdzenia
         // if hour is later than 13 from should be day + 1
-        From = new Date(DateTime.UtcNow);   
+        From = new Date(DateTime.UtcNow);
+
+        if (value.Hour > 13)
+        {
+            //if reservation happens after 13
+         From.AddDays(1);
+         From = From.IsSunday() ? From.AddDays(1) : From.AddDays(0);
+        }
+
         To = From.AddDays(_daysAhead);
-        var from1 = From;
-        var current = value;
-
-        bool later = From < current.AddSeconds(11); // tutaj here #here
-
+         
+        // value powstaje wczesniej a tu jest przekazaane ! 
+        
     }
 
     public override string ToString() => $"{From} -> {To}";

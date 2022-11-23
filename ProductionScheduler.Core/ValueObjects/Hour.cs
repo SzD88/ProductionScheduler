@@ -9,11 +9,7 @@ namespace ProductionScheduler.Core.ValueObjects
         public Hour(short value)
         {
             Value = value;
-
-            //if (value == null) 
-            //{
-            //    throw new EmptyHourException();
-            //}
+             
             if (Value is < 7 or > 14)
             {
                 throw new InvalidHourException(value);
