@@ -1,10 +1,8 @@
-﻿
-using MachineReservations.Api.Controllers.Models;
-using MachineReservations.Api.Entities;
-using MachineReservations.Api.Exceptions;
-using MachineReservations.Api.ValueObjects;
+﻿using System;
+using ProductionScheduler.Core.Entities;
+using ProductionScheduler.Core.Exceptions;
+using ProductionScheduler.Core.ValueObjects;
 using Shouldly;
-using System;
 using Xunit;
 
 namespace MachineReservations.Tests.Unit.Entities
@@ -21,16 +19,9 @@ namespace MachineReservations.Tests.Unit.Entities
             // public Reservation(ReservationId id, MachineId machineId, 
             //  EmployeeName employeeName, Hour hour, Date dateTime)
             //arrange+-
-            var invalidDate = DateTime.Parse(dateString);
+            var exception0 = Record.Exception(() => new Date((DateTime.Parse(dateString))));
 
-            var exception0 = Record.Exception(() =>
-               new Reservation
-                (Guid.NewGuid(),
-                _weeklyMachineReservation.Id,
-                "JohnSzop",
-                13,
-                new Date(invalidDate)));
-            //act
+            
 
             exception0.ShouldNotBeNull();
             exception0.ShouldBeOfType<DateFromPastException>();
@@ -131,7 +122,7 @@ namespace MachineReservations.Tests.Unit.Entities
         public PeriodMachineReservationTest()
         {
             //arrange on ctor lvl
-            _now = new Date(new DateTime(2022, 11, 22));
+            _now = new Date(new DateTime(2022, 11, 24));
             _weeklyMachineReservation = new PeriodMachineReservation(
                 Guid.NewGuid(),
                 new ReservationTimeForward(_now),

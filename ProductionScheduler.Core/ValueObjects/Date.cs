@@ -1,19 +1,23 @@
+using ProductionScheduler.Core.Exceptions;
+
 namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record Date
 {
     public DateTimeOffset Value { get; }
-    // private int _hour;
 
-    public Date(DateTimeOffset value) // tutaj jak dochodzi do stworzenia Date to 
-                                      //kasuje z daty i godziny na sama date
+    public Date(DateTimeOffset value)  
     {
-
+        if (value.Date < DateTime.UtcNow.Date)
+        {
+             throw new DateFromPastException();
+        }
+        
         Value = value; // date
+
     }
 
     public bool IsSunday() => Value.DayOfWeek == DayOfWeek.Sunday;
-   // public int GetHour() => _hour;
     public Date AddDays(int days) => new(Value.AddDays(days));
 
     public static implicit operator DateTimeOffset(Date date)
@@ -35,5 +39,5 @@ public sealed record Date
 
     public static Date Now => new(DateTimeOffset.Now);
 
-    public override string ToString() => Value.ToString("d"); //?? #refactor
+    public override string ToString() => Value.ToString("d"); 
 }

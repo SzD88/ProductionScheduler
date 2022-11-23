@@ -11,7 +11,8 @@ namespace MachineReservations.Tests.Unit.Shared
     {
         public DateTime Current()
         {
-            return new DateTime(2022, 11, 22);
+          //  return new DateTime(2022, 11, 22);
+            return   DateTime.UtcNow.AddDays(1);
         }
     }
 }

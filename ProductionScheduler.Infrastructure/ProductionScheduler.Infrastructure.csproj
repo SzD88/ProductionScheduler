@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,4 +13,9 @@
     <ProjectReference Include="..\ProductionScheduler.Application\ProductionScheduler.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+	<InternalsVisibleTO Include ="MachineReservations.Tests.Unit" />
+	</ItemGroup>
+		 
+	
 </Project>
