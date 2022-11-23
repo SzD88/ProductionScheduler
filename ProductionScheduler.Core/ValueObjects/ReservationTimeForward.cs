@@ -8,13 +8,13 @@ public sealed record ReservationTimeForward
 
     public ReservationTimeForward(DateTimeOffset value)
     {
-        //var pastDays = value.DayOfWeek is DayOfWeek.Sunday ? 7 : (int) value.DayOfWeek;
-        //var remainingDays = 7 - pastDays;
+        // if hour is later than 13 from should be day + 1
+        From = new Date(DateTime.UtcNow);   
+        To = From.AddDays(_daysAhead);
+        var from1 = From;
+        var current = value;
 
-        From = new Date(value);
-        To = new Date(value.AddDays(_daysAhead));
-        //version to end of next week after _daysAhead value
-        // To = new Date(value.AddDays(remainingDays + _daysAhead));
+        bool later = From < current.AddSeconds(11); // tutaj here #here
 
     }
 
