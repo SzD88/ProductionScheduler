@@ -1,8 +1,11 @@
 using ProductionScheduler.Application;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;
+using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
+using ProductionScheduler.Core.ValueObjects;
 using ProductionScheduler.Infrastructure;
+using ProductionScheduler.Infrastructure.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -23,4 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapControllers();
+
+
+
 app.Run();

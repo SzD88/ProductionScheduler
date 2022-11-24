@@ -5,7 +5,7 @@ using ProductionScheduler.Core.Entities;
 
 namespace ProductionScheduler.Infrastructure.DAL
 {
-    internal sealed class ProductionSchedulerDbContext : DbContext
+    internal  sealed class ProductionSchedulerDbContext : DbContext
     {
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<PeriodMachineReservation> PeriodMachineReservations { get; set; }

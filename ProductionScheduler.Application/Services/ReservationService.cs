@@ -48,10 +48,11 @@ namespace ProductionScheduler.Application.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-            var curr = _clock.Current();
+            
 
             //przekazujesz rezerwacje i czas obecny 
             periodMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
+            _repository.Update(periodMachineReservation);
             return reservation.Id;
         }
 
@@ -85,6 +86,7 @@ namespace ProductionScheduler.Application.Services
             }
 
             existingReservation.ChangeHourOfReservation(command.Hour);
+            _repository.Update(periodMachineReservation);
             return true;
         }
         public bool Delete(DeleteReservation command)
@@ -104,7 +106,7 @@ namespace ProductionScheduler.Application.Services
                 return false;
             }
             weeklyMachineReservation.RemoveReservation(command.ReservationId);
-
+            _repository.Delete(weeklyMachineReservation);
             return true;
         }
 
