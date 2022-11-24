@@ -7,22 +7,26 @@ namespace ProductionScheduler.Core.Entities
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
         public MachineId Id { get; }
-        public ReservationTimeForward Week { get; }
+        public ReservationTimeForward TimeForward { get; }
         public MachineName Name { get; }
         public IEnumerable<Reservation> Reservations => _reservations;
 
         public PeriodMachineReservation(MachineId id, ReservationTimeForward week, MachineName name)
         {
             Id = id;
-            Week = week;
+            TimeForward = week;
             Name = name;
+        }
+        private PeriodMachineReservation()
+        {
+
         }
 
         public void AddReservation(Reservation reservation, Date now)
         {
             var date = reservation.Date;
-            var from = Week.From.Value.Date;
-            var to = Week.To.Value.Date;
+            var from = TimeForward.From.Value.Date;
+            var to = TimeForward.To.Value.Date;
             //#tutaj 
             //week zadeklarowano na poczaatku servisu
             // czyli week masz od 14-20

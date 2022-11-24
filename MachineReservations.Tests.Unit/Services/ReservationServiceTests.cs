@@ -4,7 +4,7 @@ using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
-using ProductionScheduler.Infrastructure.Repositories;
+using ProductionScheduler.Infrastructure.DAL.Repositories;
 using Shouldly;
 using Xunit;
 

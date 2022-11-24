@@ -10,7 +10,7 @@ builder.Services
     .AddSingleton<IClock, Clock>()
     .AddCore()
     .AddApplication()
-    .AddInfrastructure()
+    .AddInfrastructure()//sql wolasz razem z cala infrastruktura
     .AddControllers();
 
 

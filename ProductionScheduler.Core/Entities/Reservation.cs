@@ -19,7 +19,10 @@ public class Reservation
         ChangeHourOfReservation(hour);
         Date = dateTime;
     }
+    private Reservation()
+    {
 
+    }
     public void ChangeHourOfReservation(Hour hour)
     {
         Hour = hour;

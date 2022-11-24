@@ -1,5 +1,4 @@
-﻿ 
-using ProductionScheduler.Application.Services;
+﻿using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
@@ -9,18 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductionScheduler.Infrastructure.Repositories
+namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
     internal class InMemoryPeriodMachineReservationRepository : IPeriodMachineReservationRepository
     {
-        private readonly IClock _clock;
 
         private readonly List<PeriodMachineReservation> _periodMachineReservations;
 
 
         public InMemoryPeriodMachineReservationRepository(IClock clock)
         {
-            _clock = clock;
             _periodMachineReservations = new List<PeriodMachineReservation>()
             {
                 new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
