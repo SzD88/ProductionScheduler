@@ -19,7 +19,7 @@ namespace MachineReservations.Tests.Unit.Services
             var command = new CreateReservation(
                 Guid.Parse("00000000-0000-0000-0000-000000000001"),
                 Guid.NewGuid(),
-                new DateTime(2022, 11, 24), // tutaj 
+                new DateTime(2022, 11, 25), // tutaj 
                 "Szop",
                 12);
 

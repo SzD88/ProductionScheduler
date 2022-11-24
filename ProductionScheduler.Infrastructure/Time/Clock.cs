@@ -2,7 +2,7 @@
 {
     public class Clock : IClock
     {
-        public DateTime Current() => DateTime.UtcNow;
+        public DateTimeOffset Current() => DateTime.UtcNow;
         public Clock()
         {
 

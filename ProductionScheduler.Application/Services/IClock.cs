@@ -2,6 +2,6 @@
 {
     public interface IClock
     {
-        DateTime Current();
+        DateTimeOffset Current();
     }
 }

@@ -21,11 +21,14 @@ namespace ProductionScheduler.Core.Entities
         public void AddReservation(Reservation reservation, Date now)
         {
             var date = reservation.Date;
-            var from = Week.From;
-            var to = Week.To;
+            var from = Week.From.Value.Date;
+            var to = Week.To.Value.Date;
             //#tutaj 
             //week zadeklarowano na poczaatku servisu
             // czyli week masz od 14-20
+            var one = date < from;
+            var two =  date > to;
+            var three = date < now;   
             var isInvalidDate = date < from  //14
                 || date > to //20
                 || date < now; // .Date? // sprawdza dzien 

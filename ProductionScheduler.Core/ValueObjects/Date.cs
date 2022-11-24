@@ -30,11 +30,11 @@ public sealed record Date
     public static bool operator <(DateTimeOffset date1, Date date2)
        => date1 < date2.Value;
     public static bool operator >(DateTimeOffset date1, Date date2)
-      => date1 < date2.Value;
+      => date1 > date2.Value;
     public static bool operator <(Date date1, DateTimeOffset date2)
        => date1.Value < date2;
     public static bool operator >(Date date1, DateTimeOffset date2)
-      => date1.Value < date2;
+      => date1.Value > date2;
     public static bool operator >(Date date1, Date date2)
         => date1.Value.Day > date2.Value.Day;
 

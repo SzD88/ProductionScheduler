@@ -9,10 +9,10 @@ namespace MachineReservations.Tests.Unit.Shared
 {
     public class TestClock : IClock
     {
-        public DateTime Current()
+        public DateTimeOffset Current()
         {
           //  return new DateTime(2022, 11, 22);
-            return   DateTime.UtcNow.AddDays(1);
+            return DateTime.UtcNow.AddDays(0);
         }
     }
 }
