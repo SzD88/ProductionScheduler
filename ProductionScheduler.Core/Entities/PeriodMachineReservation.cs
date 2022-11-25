@@ -31,8 +31,8 @@ namespace ProductionScheduler.Core.Entities
             //week zadeklarowano na poczaatku servisu
             // czyli week masz od 14-20
             var one = date < from;
-            var two =  date > to;
-            var three = date < now;   
+            var two = date > to;
+            var three = date < now;
             var isInvalidDate = date < from  //14
                 || date > to //20
                 || date < now; // .Date? // sprawdza dzien 
@@ -45,11 +45,17 @@ namespace ProductionScheduler.Core.Entities
             {
                 throw new ReservationDayIsSundayException();
             }
-            var reservationAlredyExists = Reservations.Any(
+            var reservationDateAlredyExists = Reservations.Any(
                 x => x.Date == reservation.Date);
-            if (reservationAlredyExists)
+
+            if (reservationDateAlredyExists)
             {
-                throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date);
+                var reservationHourAlredyExists = Reservations.Any(
+                 x => x.Hour == reservation.Hour);
+                if (reservationHourAlredyExists)
+                {
+                    throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date);
+                }
             }
             _reservations.Add(reservation);
         }
