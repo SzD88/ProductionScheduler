@@ -54,7 +54,7 @@ namespace ProductionScheduler.Core.Entities
                  x => x.Hour == reservation.Hour);
                 if (reservationHourAlredyExists)
                 {
-                    throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date);
+                    throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date.Date, reservation.Hour.Value);
                 }
             }
             _reservations.Add(reservation);

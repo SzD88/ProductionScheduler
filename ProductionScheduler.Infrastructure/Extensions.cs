@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Infrastructure.DAL;
@@ -11,11 +12,15 @@ namespace ProductionScheduler.Infrastructure
 {
     public static class Extensions
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure
+            (this IServiceCollection services,
+            IConfiguration configuration)
         {
+            var section = configuration.GetSection("app");
+            services.Configure<AppOptions>(section);
             services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
-            services.AddMSSql();
+             services.AddMSSql(configuration);
             return services;
         }
     }
