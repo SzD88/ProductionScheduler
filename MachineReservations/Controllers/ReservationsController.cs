@@ -19,11 +19,13 @@ public class ReservationsController : ControllerBase
         _service = service;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAllWeekly());
+    public async Task< ActionResult<IEnumerable<Reservation>>> Get() 
+        => Ok( await _service.GetAllAsync());
+
     [HttpGet("{id:guid}")]
-    public ActionResult<Reservation> Get(Guid id)
+    public async Task<ActionResult<Reservation>> Get(Guid id)
     {
-        var reservation = _service.Get(id);
+        var reservation = await _service.GetAsync(id);
         if (reservation is null)
         {
             return NotFound();
@@ -32,11 +34,11 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post(CreateReservation command)
+    public async Task<ActionResult> Post(CreateReservation command)
     {
         //bo tworzac wg resta add nie podajesz godziny xD tuq
 
-        var id = _service.Create(command with { ReservationId = Guid.NewGuid() });
+        var id = await _service.CreateAsync(command with { ReservationId = Guid.NewGuid() });
         //na tym etapie przekazuje godzine
         if (id is null)
         {
@@ -48,18 +50,18 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public ActionResult Put(Guid id, ChangeReservationHour command)
+    public async Task<ActionResult> Put(Guid id, ChangeReservationHour command)
     {
-        if (_service.Update(command with { ReservationId = id }))
+        if (await _service.UpdateAsync(command with { ReservationId = id }))
         {
             return NoContent();
         }
         return NotFound();
     }
     [HttpDelete("{id:guid}")]
-    public ActionResult Delete(Guid id)
+    public async Task<ActionResult> Delete(Guid id)
     {
-        if (_service.Delete(new DeleteReservation(id)))
+        if (await _service.DeleteAsync(new DeleteReservation(id)))
         {
             return NoContent();
         }

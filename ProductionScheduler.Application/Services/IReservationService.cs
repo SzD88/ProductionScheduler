@@ -6,10 +6,10 @@ namespace ProductionScheduler.Application.Services
     public interface IReservationService
     {
 
-        ReservationDto Get(Guid id);
-        IEnumerable<ReservationDto> GetAllWeekly();
-        Guid? Create(CreateReservation command);
-        bool Update(ChangeReservationHour command);
-        bool Delete(DeleteReservation command);
+        Task<ReservationDto> GetAsync(Guid id);
+        Task<IEnumerable<ReservationDto>> GetAllAsync();
+        Task<Guid?> CreateAsync(CreateReservation command);
+        Task<bool> UpdateAsync(ChangeReservationHour command);
+        Task<bool> DeleteAsync(DeleteReservation command);
     }
 }

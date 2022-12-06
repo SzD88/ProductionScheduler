@@ -18,28 +18,39 @@ namespace ProductionScheduler.Application.Services
             _repository = repository;
         }
 
-        public ReservationDto Get(Guid id)
-       => GetAllWeekly().SingleOrDefault(x => x.Id == id);
+        public async Task<ReservationDto> GetAsync(Guid id)
+        {
+            var reservations = await GetAllAsync();
 
-        public IEnumerable<ReservationDto> GetAllWeekly()
-            => _repository.GetAll().SelectMany(x => x.Reservations)
-            .Select(x => new ReservationDto
-            {
-                Id = x.Id,
-                MachineId = x.MachineId,
-                EmployeeName = x.EmployeeName,
-                Date = x.Date.Value.Date,
-                Hour = x.Hour
-            }); // ?? w okolicahc 13 odcinka 
+            return reservations.SingleOrDefault(x => x.Id == id);
+
+        }
+
+        public async Task<IEnumerable<ReservationDto>> GetAllAsync()
+        {
+            var reservations = await _repository.GetAllAsync();
+
+            return reservations
+                .SelectMany(x => x.Reservations)
+                .Select(x => new ReservationDto
+                {
+                    Id = x.Id,
+                    MachineId = x.MachineId,
+                    EmployeeName = x.EmployeeName,
+                    Date = x.Date.Value.Date,
+                    Hour = x.Hour
+                }); // ?? w okolicahc 13 odcinka 
+        }
 
 
-
-        public Guid? Create(CreateReservation command) // nullable daje to ze jak sie nie uda zwrocisz null
+        public async Task<Guid?> CreateAsync(CreateReservation command) // nullable daje to ze jak sie nie uda zwrocisz null
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var periodMachineReservation = _repository.GetAll()
-                .SingleOrDefault(x => x.Id == machineId);
+
+
+            var periodMachineReservation = await _repository.GetAsync(machineId);
+
             if (periodMachineReservation == null)
             {
                 return default;
@@ -48,17 +59,17 @@ namespace ProductionScheduler.Application.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-            
+
 
             //przekazujesz rezerwacje i czas obecny 
             periodMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
-            _repository.Update(periodMachineReservation);
+            await _repository.UpdateAsync(periodMachineReservation);
             return reservation.Id;
         }
 
-        public bool Update(ChangeReservationHour command)
+        public async Task<bool> UpdateAsync(ChangeReservationHour command)
         {
-            var periodMachineReservation = GetPeriodMachineReservationByReservation(command.ReservationId);
+            var periodMachineReservation = await GetPeriodMachineReservationByReservationAsync(command.ReservationId);
 
             if (periodMachineReservation is null)
                 return false;
@@ -86,12 +97,12 @@ namespace ProductionScheduler.Application.Services
             }
 
             existingReservation.ChangeHourOfReservation(command.Hour);
-            _repository.Update(periodMachineReservation);
+            await _repository.UpdateAsync(periodMachineReservation);
             return true;
         }
-        public bool Delete(DeleteReservation command)
+        public async Task<bool> DeleteAsync(DeleteReservation command)
         {
-            var weeklyMachineReservation = GetPeriodMachineReservationByReservation
+            var weeklyMachineReservation = await GetPeriodMachineReservationByReservationAsync
                (command.ReservationId);
             if (weeklyMachineReservation is null)
             {
@@ -106,12 +117,17 @@ namespace ProductionScheduler.Application.Services
                 return false;
             }
             weeklyMachineReservation.RemoveReservation(command.ReservationId);
-            _repository.Delete(weeklyMachineReservation);
+            await _repository.DeleteAsync(weeklyMachineReservation);
             return true;
         }
 
-        private PeriodMachineReservation GetPeriodMachineReservationByReservation(ReservationId reservationId) //
-            => _repository.GetAll().SingleOrDefault(x => x.Reservations.Any
-            (r => r.Id == reservationId));
+        private async Task<PeriodMachineReservation> GetPeriodMachineReservationByReservationAsync(ReservationId reservationId) //
+
+        {
+            var periodMachineReservations = await _repository.GetAllAsync();
+
+            return periodMachineReservations.SingleOrDefault(x => x.Reservations.Any
+                 (r => r.Id == reservationId));
+        }
     }
 }
