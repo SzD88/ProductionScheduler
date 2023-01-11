@@ -1,4 +1,8 @@
-﻿#to musi obecnie rezerwowac do niedzieli, trzeba zmienic 
+﻿zacznij od fragmentu odnosnie auto czynnosci w kodzie 
+
+ogolnie to to dziala ale masz nawalone z godzinami dosc srogo 
+
+#to musi obecnie rezerwowac do niedzieli, trzeba zmienic 
 #week zeby to zmienic jakos na 7 dni do przodu 
 
 nie moze tez byc obecnie z dnia dzisiejszego a chcesz miec

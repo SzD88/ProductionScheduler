@@ -16,9 +16,9 @@ Content-Type: application/json
 
 {
   "machineId": "{{machineId}}",
-  "date": "2022-11-25", 
+  "date": "2023-01-13", 
   "employeeName": "string",
-  "hour": "12"
+  "hour": "13"
 }
 ###
 PUT {{url}}/reservations/{{reservationId}}

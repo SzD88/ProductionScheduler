@@ -49,7 +49,7 @@ namespace ProductionScheduler.Core.Entities
                 x => x.Date == reservation.Date);
             if (reservationAlredyExists)
             {
-                throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date);
+                throw new MachineAlredyReservedException(Name, reservation.Date.Value.Date); //#refactor throws exception about a day not about a hour 
             }
             _reservations.Add(reservation);
         }

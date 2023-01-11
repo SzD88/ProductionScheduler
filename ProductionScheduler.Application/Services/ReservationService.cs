@@ -40,8 +40,12 @@ namespace ProductionScheduler.Application.Services
             var machineId = new MachineId(command.MachineId);
             var periodMachineReservation = _repository.GetAll()
                 .SingleOrDefault(x => x.Id == machineId);
+            // bierze wszystkie okresowe rezerwacje maszyny i 
+            //sprawdza czy ktoras ma takie same id maszyny jak podane id maszyny w zapytaniu
             if (periodMachineReservation == null)
             {
+                // nie ma takiej maszyny?
+                // czy nie ma rezerwacji na takiej maszynie 
                 return default;
             }
 

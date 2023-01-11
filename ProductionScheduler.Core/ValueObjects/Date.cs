@@ -10,7 +10,7 @@ public sealed record Date
     {
         if (value.Date < DateTime.UtcNow.Date)
         {
-             throw new DateFromPastException();
+      //       throw new DateFromPastException();
         }
         
         Value = value; // date

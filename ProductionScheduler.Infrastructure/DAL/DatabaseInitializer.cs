@@ -22,7 +22,9 @@ namespace ProductionScheduler.Infrastructure.DAL
                 dbContext.Database.Migrate();
 
                 var periodMachineReservations = dbContext.PeriodMachineReservations.ToList();
-                if (!periodMachineReservations.Any())
+
+                if (!periodMachineReservations.Any()) // #refactor - shouldnt it check if number of machines is 
+                    //equal to 5 or new created sum of machines?
                 {
                     var clock = new Clock();
                     periodMachineReservations = new List<PeriodMachineReservation>()
@@ -34,6 +36,7 @@ namespace ProductionScheduler.Infrastructure.DAL
                 new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
                 new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
                     };
+                    
                     dbContext.AddRange(periodMachineReservations);
                     dbContext.SaveChanges();
                 }
