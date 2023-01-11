@@ -6,6 +6,8 @@ public sealed record ReservationTimeForward
     public Date From { get; }
     public Date To { get; }
 
+    // chcesz jeszcze zaokr¹glaæ do ca³ego dnia, ¿eby nie tworzy³o nowej instancji maszyny z jej rezerwacjami caly czas np w DatabaseInitializer.cs
+    // chcesz to jakos sprawdzaæ , bo moze obecnie byc sytuacja ze To, jest ustawione na x dni ale do godziy ustawienia np 7 rano 
     public ReservationTimeForward(DateTimeOffset value)
     {
         // dostajesz clock.current - czyli obecny czas, w celu sprawdzenia
@@ -20,8 +22,11 @@ public sealed record ReservationTimeForward
         }
 
         To = From.AddDays(_daysAhead);
-         
-        // value powstaje wczesniej a tu jest przekazaane ! 
+
+        To = To.SetHour(value.Hour);
+
+
+        Console.WriteLine(); 
         
     }
 

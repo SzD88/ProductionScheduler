@@ -6,20 +6,32 @@ public sealed record Date
 {
     public DateTimeOffset Value { get; }
 
-    public Date(DateTimeOffset value)  
+    public Date(DateTimeOffset value)
     {
         if (value.Date < DateTime.UtcNow.Date)
         {
-      //       throw new DateFromPastException();
+            throw new DateFromPastException();
         }
-        
+
         Value = value; // date
 
     }
 
     public bool IsSunday() => Value.DayOfWeek == DayOfWeek.Sunday;
     public Date AddDays(int days) => new(Value.AddDays(days));
+    public Date SetHour(int hour)
+    {
+        int toAdd = 0;
+        // get hour
+        if (Value.Hour < 14 || Value.Hour > 0)
+        {
+            var currHour = Value.Hour;
+            // 14-hour
+            toAdd = 14 - currHour;//#refactor 
+        }
+        return new Date(Value.AddHours(toAdd));
 
+    }
     public static implicit operator DateTimeOffset(Date date)
         => date.Value;
 
@@ -46,5 +58,5 @@ public sealed record Date
 
     public static Date Now => new(DateTimeOffset.Now);
 
-    public override string ToString() => Value.ToString("d"); 
+    public override string ToString() => Value.ToString("d");
 }

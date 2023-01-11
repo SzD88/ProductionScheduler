@@ -1,7 +1,7 @@
 ﻿﻿
 @url = https://localhost:5000 
 @reservationId = 0b38c55d-d96c-4a2a-985c-042cb32d6a75
-@machineId = 00000000-0000-0000-0000-000000000001
+@machineId = 00000000-0000-0000-0000-000000000002
 
 ###
 GET  {{url}}

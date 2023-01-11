@@ -11,45 +11,46 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
-	internal class MSSqlPeriodMachineReservationRepository : IPeriodMachineReservationRepository
-	{
+    internal class MSSqlPeriodMachineReservationRepository : IPeriodMachineReservationRepository
+    {
 
-		private readonly ProductionSchedulerDbContext _periodMachineReservations;
-		public MSSqlPeriodMachineReservationRepository(ProductionSchedulerDbContext dbContext)
-		{
-			_periodMachineReservations = dbContext;
-		}
-		public PeriodMachineReservation Get(MachineId id)
-		{
-			return _periodMachineReservations.PeriodMachineReservations
-				.Include(x => x.Reservations ) // eager loading a nie lazy loading 
-				.SingleOrDefault(x => x.Id == id);
-		}
+        private readonly ProductionSchedulerDbContext _periodMachineReservations;
+        public MSSqlPeriodMachineReservationRepository(ProductionSchedulerDbContext dbContext)
+        {
+            _periodMachineReservations = dbContext;
+        }
+        public Task<PeriodMachineReservation> GetAsync(MachineId id)
+        {
+            return _periodMachineReservations.PeriodMachineReservations
+                .Include(x => x.Reservations) // eager loading a nie lazy loading 
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
 
-		public IEnumerable<PeriodMachineReservation> GetAll()
-		{
-			return _periodMachineReservations.PeriodMachineReservations
-				.Include(x => x.Reservations) // eager loading a nie lazy loading 
-				.ToList();
-		}
-
-
-		public void Create(PeriodMachineReservation command)
-		{
-			_periodMachineReservations.Add(command);
-			_periodMachineReservations.SaveChanges();
-		}
-		public void Update(PeriodMachineReservation command)
-		{
-			_periodMachineReservations.Update(command);
-			_periodMachineReservations.SaveChanges();
-		}
-		public void Delete(PeriodMachineReservation command)
-		{
-			_periodMachineReservations.Remove(command);
-			_periodMachineReservations.SaveChanges();
-		}
+        public async Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
+        {
+            var result = await _periodMachineReservations.PeriodMachineReservations
+                .Include(x => x.Reservations) // eager loading a nie lazy loading 
+                .ToListAsync();
+            return result.AsEnumerable();
+        }
 
 
-	}
+        public async Task CreateAsync(PeriodMachineReservation command)
+        {
+            await _periodMachineReservations.AddAsync(command);
+            await _periodMachineReservations.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(PeriodMachineReservation command)
+        {
+            _periodMachineReservations.Update(command);
+            await _periodMachineReservations.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(PeriodMachineReservation command)
+        {
+            _periodMachineReservations.Remove(command);
+            await _periodMachineReservations.SaveChangesAsync();
+        }
+
+        
+    }
 }

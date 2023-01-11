@@ -8,6 +8,7 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Infrastructure.DAL
 {
     internal sealed class DatabaseInitializer : IHostedService
+        //background operations #21
     {
         private readonly IServiceProvider _serviceProvider;
         public DatabaseInitializer(IServiceProvider serviceProvider)
@@ -28,13 +29,13 @@ namespace ProductionScheduler.Infrastructure.DAL
                 {
                     var clock = new Clock();
                     periodMachineReservations = new List<PeriodMachineReservation>()
-                     {
+                    {
 
-                new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
-                new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
-                new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "P3"),
-                new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
-                new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "P3"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
                     };
                     
                     dbContext.AddRange(periodMachineReservations);

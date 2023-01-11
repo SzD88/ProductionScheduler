@@ -27,29 +27,30 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
                 new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
             };
         }
-        public PeriodMachineReservation Get(MachineId id)
+        public Task<PeriodMachineReservation> GetAsync(MachineId id)
         {
-            return _periodMachineReservations.SingleOrDefault(x => x.Id == id);
+            return Task.FromResult(_periodMachineReservations.SingleOrDefault(x => x.Id == id));
         }
 
-        public IEnumerable<PeriodMachineReservation> GetAll()
+        public Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
         {
-            return _periodMachineReservations;
+            return Task.FromResult(_periodMachineReservations.AsEnumerable());
+        }
+        public Task CreateAsync(PeriodMachineReservation reservation)
+        {
+            _periodMachineReservations.Add(reservation);
+            return Task.CompletedTask;
         }
 
-        public void Update(PeriodMachineReservation command)
+        public Task UpdateAsync(PeriodMachineReservation command)
         {
-            // nothing
-        }
+            return Task.CompletedTask; 
+        } 
 
-        public void Create(PeriodMachineReservation command)
-        {
-            _periodMachineReservations.Add(command);
-        }
-
-        public void Delete(PeriodMachineReservation command)
+        public Task DeleteAsync(PeriodMachineReservation command)
         {
             _periodMachineReservations.Remove(command);
+            return Task.CompletedTask;
         }
 
 
