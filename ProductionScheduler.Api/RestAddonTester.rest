@@ -1,6 +1,6 @@
 ﻿﻿
 @url = https://localhost:5000 
-@reservationId = 54beda11-fc7c-4857-8793-29ae17046e62
+@reservationId = 43aa4336-4e34-4956-9b92-6398c01abc78
 @machineId = 00000000-0000-0000-0000-000000000001
 
 ###
