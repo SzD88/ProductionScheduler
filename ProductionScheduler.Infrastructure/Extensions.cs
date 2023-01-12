@@ -17,7 +17,7 @@ namespace ProductionScheduler.Infrastructure
             IConfiguration configuration)
         {
             var section = configuration.GetSection("app");
-            services.Configure<AppOptions>(section);
+            services.Configure<AppOptions>(section); //Microsoft.Extensions.Configuration;
             services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
              services.AddMSSql(configuration);

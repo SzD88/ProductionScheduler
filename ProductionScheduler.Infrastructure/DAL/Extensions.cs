@@ -10,10 +10,7 @@ namespace ProductionScheduler.Infrastructure.DAL
     {
         private const string SectionName = "database";
         public static IServiceCollection AddMSSql(this IServiceCollection services, IConfiguration configuration)
-        {
-
-
-
+        { 
             var section = configuration.GetSection(SectionName);
             services.Configure<MSSqlOptions>(section);
 
@@ -21,7 +18,7 @@ namespace ProductionScheduler.Infrastructure.DAL
             //section.Bind(options);
             //step 2 : 
             // var options = GetOptions<MSSqlOptions>(configuration, "dastabase");
-            var options = configuration.GetOptions<MSSqlOptions>(SectionName);
+            var options = configuration.GetOptions<MSSqlOptions>(SectionName); //GetOptions<MSSqlOptions>(configuration,"database"); // was
             
             
             string connectionString = options.ConnectionString;
