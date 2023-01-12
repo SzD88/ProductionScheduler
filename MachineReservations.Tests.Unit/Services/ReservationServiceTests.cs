@@ -58,7 +58,7 @@ namespace MachineReservations.Tests.Unit.Services
         {
             /// add all machine spots
             _clock = new TestClock();
-            _repository = new InMemoryPeriodMachineReservationRepository(_clock);
+           //  _repository = new InMemoryPeriodMachineReservationRepository(_clock);
             _reservationService = new ReservationService(_clock, _repository);
         }
         #endregion

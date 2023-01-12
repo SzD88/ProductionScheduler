@@ -33,7 +33,7 @@ namespace ProductionScheduler.Infrastructure.Exceptions
             };
 
             context.Response.StatusCode = statusCode;
-            context.
+          //  context.
         }
 
         private record Error(string Code, string Reason);
