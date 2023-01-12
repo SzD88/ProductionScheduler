@@ -1,7 +1,7 @@
 ﻿﻿
 @url = https://localhost:5000 
-@reservationId = 0b38c55d-d96c-4a2a-985c-042cb32d6a75
-@machineId = 00000000-0000-0000-0000-000000000002
+@reservationId = 54beda11-fc7c-4857-8793-29ae17046e62
+@machineId = 00000000-0000-0000-0000-000000000001
 
 ###
 GET  {{url}}
@@ -18,7 +18,7 @@ Content-Type: application/json
   "machineId": "{{machineId}}",
   "date": "2023-01-13", 
   "employeeName": "string",
-  "hour": "13"
+  "hour": "14"
 }
 ###
 PUT {{url}}/reservations/{{reservationId}}
