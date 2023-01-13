@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductionScheduler.Application.Services;
-using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Infrastructure.DAL;
-using ProductionScheduler.Infrastructure.DAL.Repositories;
-
-using System.Runtime.CompilerServices;
+using ProductionScheduler.Infrastructure.Exceptions;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -18,10 +17,22 @@ namespace ProductionScheduler.Infrastructure
         {
             var section = configuration.GetSection("app");
             services.Configure<AppOptions>(section); //Microsoft.Extensions.Configuration;
-            services.AddSingleton<IClock, Clock>();
+
+            services.AddSingleton<ExceptionMiddleware>();
+
+         //   services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
-             services.AddMSSql(configuration);
+             services.AddMSSql(configuration)
+                .AddSingleton<IClock,Clock>();
             return services;
+        }
+
+        public static WebApplication UseInfrastructure(this WebApplication app) { 
+        
+
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.MapControllers(); // could be hidden here #refactor
+            return app;
         }
     }
 }

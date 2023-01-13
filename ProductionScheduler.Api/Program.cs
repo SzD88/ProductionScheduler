@@ -22,22 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.Use(async (ctx, next) =>
-{
-    Console.WriteLine("step 1 otworz ");
-    await next(ctx);
-    if (ctx.Request.Headers)
-    {
-
-    }
-    Console.WriteLine("step 1  zamknij"); 
-});
-app.Use(async (ctx, next) =>
-{
-    Console.WriteLine("step 2 otworz ");
-    await next(ctx);
-    Console.WriteLine("step 2  zamknij");
-});
-app.MapControllers();
+app.UseInfrastructure();
+// app.MapControllers(); // could be hide into infrastructure above #refactor
 
 app.Run();
