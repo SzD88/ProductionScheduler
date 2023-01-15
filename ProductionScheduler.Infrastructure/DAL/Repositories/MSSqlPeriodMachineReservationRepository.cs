@@ -14,21 +14,28 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
     internal class MSSqlPeriodMachineReservationRepository : IPeriodMachineReservationRepository
     {
 
-        private readonly ProductionSchedulerDbContext _periodMachineReservations;
+        private readonly ProductionSchedulerDbContext _dbContextReservations;
         public MSSqlPeriodMachineReservationRepository(ProductionSchedulerDbContext dbContext)
         {
-            _periodMachineReservations = dbContext;
+            _dbContextReservations = dbContext;
         }
         public Task<PeriodMachineReservation> GetAsync(MachineId id)
         {
-            return _periodMachineReservations.PeriodMachineReservations
+            return _dbContextReservations.PeriodMachineReservations
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
+        {
+            return await _dbContextReservations.PeriodMachineReservations
+                       .Include(x => x.Reservations) // eager loading a nie lazy loading 
+                       .Where(x => x.TimeForward == timeForward)
+                       .ToListAsync();
+        }
         public async Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
         {
-            var result = await _periodMachineReservations.PeriodMachineReservations
+            var result = await _dbContextReservations.PeriodMachineReservations
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .ToListAsync();
             return result.AsEnumerable();
@@ -37,20 +44,20 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
 
         public async Task CreateAsync(PeriodMachineReservation command)
         {
-            await _periodMachineReservations.AddAsync(command);
-            await _periodMachineReservations.SaveChangesAsync();
+            await _dbContextReservations.AddAsync(command);
+            await _dbContextReservations.SaveChangesAsync();
         }
         public async Task UpdateAsync(PeriodMachineReservation command)
         {
-            _periodMachineReservations.Update(command);
-            await _periodMachineReservations.SaveChangesAsync();
+            _dbContextReservations.Update(command);
+            await _dbContextReservations.SaveChangesAsync();
         }
         public async Task DeleteAsync(PeriodMachineReservation command)
         {
-            _periodMachineReservations.Remove(command);
-            await _periodMachineReservations.SaveChangesAsync();
+            _dbContextReservations.Remove(command);
+            await _dbContextReservations.SaveChangesAsync();
         }
 
-        
+
     }
 }

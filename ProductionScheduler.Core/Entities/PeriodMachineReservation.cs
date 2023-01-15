@@ -22,12 +22,16 @@ namespace ProductionScheduler.Core.Entities
 
         }
 
-        public void AddReservation(Reservation reservation, Date now)
+        //ukrywasz te metode przed innymi warstwami #refactor #26 - 40:00
+        // jezeli cos jest internal to programista mial w tym cel
+        // chcial to ukryc , szuka sie sposobu by inaczej dodac i to mialo byc przygotowane
+        //to nakierowanie jest
+        internal void AddReservation(Reservation reservation, Date now)
         {
             var date = reservation.Date;
             var from = TimeForward.From.Value.Date;
             var to = TimeForward.To.Value.Date;
-            //#tutaj 
+            //#tutaj  #refactor
             //week zadeklarowano na poczaatku servisu
             // czyli week masz od 14-20
             var one = date < from;

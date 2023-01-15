@@ -1,5 +1,6 @@
 ﻿using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
+using ProductionScheduler.Core.DomainServices;
 using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Exceptions;
 using ProductionScheduler.Core.Repositories;
@@ -11,11 +12,15 @@ namespace ProductionScheduler.Application.Services
     {
         private readonly IClock _clock;
         private readonly IPeriodMachineReservationRepository _repository;
+        private readonly IMachineReservationService _machineReservationService;
 
-        public ReservationService(IClock clock, IPeriodMachineReservationRepository repository)
+
+        public ReservationService(IClock clock, IPeriodMachineReservationRepository repository,
+            IMachineReservationService machineReservationService)
         {
             _clock = clock;
             _repository = repository;
+            _machineReservationService = machineReservationService;
         }
 
         public async Task<ReservationDto> GetAsync(Guid id)
@@ -47,13 +52,16 @@ namespace ProductionScheduler.Application.Services
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var tmp  = await _repository.GetAllAsync();
+            var allReservations = await _repository.GetAllAsync();
+            ReservationTimeForward timeforward = new ReservationTimeForward(_clock.Current());
 
-            var periodMachineReservation = tmp.SingleOrDefault(x => x.Id == machineId);
+            var periodMachineReservations = await _repository.GetByPeriodAsync(timeforward);
+
+            var machineToReserve = periodMachineReservations.SingleOrDefault(x => x.Id == machineId);
 
             // bierze wszystkie okresowe rezerwacje maszyny i 
             //sprawdza czy ktoras ma takie same id maszyny jak podane id maszyny w zapytaniu
-            if (periodMachineReservation == null)
+            if (machineToReserve == null)
             {
                 // nie ma takiej maszyny?
                 // czy nie ma rezerwacji na takiej maszynie 
@@ -63,11 +71,13 @@ namespace ProductionScheduler.Application.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-
+            //#refactor
+            _machineReservationService.ReserveMachineForUser(periodMachineReservations, EmplooyeeRank.Manager,
+                machineToReserve, reservation);
 
             //przekazujesz rezerwacje i czas obecny 
-            periodMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
-            await _repository.UpdateAsync(periodMachineReservation);
+            // machineToReserve.AddReservation(reservation, new Date(_clock.Current()));
+            await _repository.UpdateAsync(machineToReserve);
             return reservation.Id;
         }
 

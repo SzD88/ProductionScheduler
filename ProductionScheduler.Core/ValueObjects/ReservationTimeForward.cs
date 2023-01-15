@@ -2,7 +2,7 @@ namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record ReservationTimeForward
 {
-    private int _daysAhead = 7;
+    private int _daysAhead = 7; // #refactor 
     public Date From { get; }
     public Date To { get; }
 
@@ -23,11 +23,7 @@ public sealed record ReservationTimeForward
 
         To = From.AddDays(_daysAhead);
 
-        To = To.SetHour(value.Hour);
-
-
-        Console.WriteLine(); 
-        
+        To = To.SetHour(value.Hour); 
     }
 
     public override string ToString() => $"{From} -> {To}";
