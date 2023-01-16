@@ -19,13 +19,13 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
         {
             _dbContextReservations = dbContext;
         }
-        public Task<PeriodMachineReservation> GetAsync(MachineId id)
+        public Task<MachineToReserve> GetAsync(MachineId id)
         {
             return _dbContextReservations.PeriodMachineReservations
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
-        public async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
+        public async Task<IEnumerable<MachineToReserve>> GetByPeriodAsync(ReservationTimeForward timeForward)
         {
             return await _dbContextReservations.PeriodMachineReservations // zwroci taki period machine reservation,
                                                                           // //ktore jest zawarte w rezerwacjach - wsrod ktorych
@@ -41,7 +41,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
         //               .Where(x => x.TimeForward == timeForward)
         //               .ToListAsync();
         //}
-        public async Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
+        public async Task<IEnumerable<MachineToReserve>> GetAllAsync()
         {
             var result = await _dbContextReservations.PeriodMachineReservations
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
@@ -50,17 +50,17 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
         }
 
 
-        public async Task CreateAsync(PeriodMachineReservation command)
+        public async Task CreateAsync(MachineToReserve command)
         {
             await _dbContextReservations.AddAsync(command);
             await _dbContextReservations.SaveChangesAsync();
         }
-        public async Task UpdateAsync(PeriodMachineReservation command)
+        public async Task UpdateAsync(MachineToReserve command)
         {
             _dbContextReservations.Update(command);
             await _dbContextReservations.SaveChangesAsync();
         }
-        public async Task DeleteAsync(PeriodMachineReservation command)
+        public async Task DeleteAsync(MachineToReserve command)
         {
             _dbContextReservations.Remove(command);
             await _dbContextReservations.SaveChangesAsync();

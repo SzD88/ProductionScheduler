@@ -6,9 +6,9 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Infrastructure.DAL.Configurations
 {
     internal sealed class PeriodMachineReservationConfiguration 
-        : IEntityTypeConfiguration<PeriodMachineReservation>
+        : IEntityTypeConfiguration<MachineToReserve>
     {
-        public void Configure(EntityTypeBuilder<PeriodMachineReservation> builder)
+        public void Configure(EntityTypeBuilder<MachineToReserve> builder)
         {
 
             builder.HasKey(x => x.Id);

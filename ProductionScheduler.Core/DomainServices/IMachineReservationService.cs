@@ -10,8 +10,10 @@ namespace ProductionScheduler.Core.DomainServices
 {
     public interface IMachineReservationService
     {
-        void ReserveMachineForUser(IEnumerable<PeriodMachineReservation> allMachineReservations, EmplooyeeRank rank,
-            PeriodMachineReservation machineToReserve, Reservation reservation);
+        void ReserveMachineForUser(IEnumerable<MachineToReserve> allMachineReservations, EmplooyeeRank rank,
+            MachineToReserve machineToReserve, MachineReservation reservation);
+
+        void ReserveMachineForService(IEnumerable<MachineToReserve> allMachines, Date date, Hour hour);
 
     }
 }

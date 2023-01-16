@@ -3,7 +3,8 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Core.Entities
 {
-    public class PeriodMachineReservation
+    //This Class is defining 
+    public class MachineToReserve
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
         public MachineId Id { get; }
@@ -11,13 +12,13 @@ namespace ProductionScheduler.Core.Entities
         public MachineName Name { get; }
         public IEnumerable<Reservation> Reservations => _reservations;
 
-        public PeriodMachineReservation(MachineId id, ReservationTimeForward week, MachineName name)
+        public MachineToReserve(MachineId id, ReservationTimeForward timeForward, MachineName name)
         {
             Id = id;
-            TimeForward = week;
+            TimeForward = timeForward;
             Name = name;
         }
-        private PeriodMachineReservation()
+        private MachineToReserve()
         {
 
         }
@@ -66,5 +67,8 @@ namespace ProductionScheduler.Core.Entities
 
         public void RemoveReservation(ReservationId id)
        => _reservations.RemoveWhere(x => x.Id == id);
+
+        public void RemoveReservations(IEnumerable<Reservation> reservations)
+       => _reservations.RemoveWhere(x => reservations.Any(r => r.Id == x.Id))   ;
     }
 }

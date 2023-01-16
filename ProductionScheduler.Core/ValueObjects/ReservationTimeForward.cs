@@ -1,5 +1,8 @@
 namespace ProductionScheduler.Core.ValueObjects;
 
+//This class is defining how long from now  machine can be reserved MAX ,
+//// I want to try export this setting somehow
+
 public sealed record ReservationTimeForward
 {
     private int _daysAhead = 7; // #refactor 

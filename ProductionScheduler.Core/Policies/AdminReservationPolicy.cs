@@ -19,7 +19,7 @@ namespace ProductionScheduler.Core.Policies
 
         }
 
-        public bool CanReserve(IEnumerable<PeriodMachineReservation> periodMachineReservations, EmployeeName name)
+        public bool CanReserve(IEnumerable<MachineToReserve> periodMachineReservations, EmployeeName name)
         {
             return true;
         }

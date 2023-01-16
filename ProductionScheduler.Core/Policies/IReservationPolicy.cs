@@ -11,7 +11,7 @@ namespace ProductionScheduler.Core.Policies
     public interface IReservationPolicy
     {
         bool CanBeApplied(EmplooyeeRank rank);
-        bool CanReserve(IEnumerable<PeriodMachineReservation> periodMachineReservations,
+        bool CanReserve(IEnumerable<MachineToReserve> periodMachineReservations,
              EmployeeName name);
     }
 }

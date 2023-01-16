@@ -2,22 +2,20 @@
 
 namespace ProductionScheduler.Core.Entities;
 
-public class Reservation
+public abstract class Reservation
 {
     public ReservationId Id { get; }
     public MachineId MachineId { get; }
-    public EmployeeName EmployeeName { get; }
     public Hour Hour { get; private set; }
     public Date Date { get; }
 
     public Reservation(ReservationId id, MachineId machineId,
-        EmployeeName employeeName, Hour hour, Date dateTime)
+          Hour hour, Date date)
     {
         Id = id;
         MachineId = machineId;
-        EmployeeName = employeeName;
         ChangeHourOfReservation(hour);
-        Date = dateTime;
+        Date = date;
     }
     private Reservation()
     {

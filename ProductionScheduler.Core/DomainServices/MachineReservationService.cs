@@ -17,10 +17,33 @@ namespace ProductionScheduler.Core.DomainServices
             _policies = policies;
             _clock = clock;
         }
+
+        public void ReserveMachineForService(IEnumerable<MachineToReserve> allMachines, Date date, Hour hour)
+        {
+            foreach (var machine in allMachines)
+            {
+                var reservationsForSameDate = machine.Reservations
+                    .Where(x => x.Date == date)
+                    .Where(y => y.Hour == hour);
+
+                //docelowo to ma robic co innego, sprubj to potem przerobic , ma to 
+                // 1. przeszukac wszystkie maszyny i w nich rezerwacje
+                // 2. Sprawdzic date i godzine
+                //3. Nadpisac zadana godzine i date nowa rezerwacja for service 
+
+                //tutaj bedzie pozmieniane pozniej obecnie tak to zosdtawie, to ma byc na zasadzie serwisu calej hali
+
+                machine.RemoveReservations(reservationsForSameDate);
+
+                var serviceReservation = new ServiceReservation( ReservationId.Create() , machine.Id, date, hour);
+                machine.AddReservation(serviceReservation, new Date( _clock.Current()));
+            }
+        }
+
         // wzorzec #refactor wzorzec strategii - if do pojedynczej klasy #tu koniec 16 min
 
-        public void ReserveMachineForUser(IEnumerable<PeriodMachineReservation> allMachineReservations,
-            EmplooyeeRank rank, PeriodMachineReservation periodiMachineReservation, Reservation reservation)
+        public void ReserveMachineForUser(IEnumerable<MachineToReserve> allMachineReservations,
+            EmplooyeeRank rank, MachineToReserve periodiMachineReservation, MachineReservation reservation)
         {
 
             // #refactor for future - mozesz na podstawie reservation sprawdzac w policy np godziny dla danej rangi pracownika, po prostu przekaz 

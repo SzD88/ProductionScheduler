@@ -1,20 +1,24 @@
-﻿using ProductionScheduler.Core.Abstractions;
+﻿using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
     internal class InMemoryPeriodMachineReservationRepository : IPeriodMachineReservationRepository
     {
 
-        private readonly List<PeriodMachineReservation> _periodMachineReservations;
+        private readonly List<MachineToReserve> _periodMachineReservations;
 
 
         public InMemoryPeriodMachineReservationRepository(IClock clock)
         {
-            _periodMachineReservations = new List<PeriodMachineReservation>()
+            _periodMachineReservations = new List<MachineToReserve>()
             {
                 new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
                 new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
@@ -23,35 +27,32 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
                 new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
             };
         }
-        public Task<PeriodMachineReservation> GetAsync(MachineId id)
+        public Task<MachineToReserve> GetAsync(MachineId id)
         {
             return Task.FromResult(_periodMachineReservations.SingleOrDefault(x => x.Id == id));
         }
 
-        public Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
+        public Task<IEnumerable<MachineToReserve>> GetAllAsync()
         {
             return Task.FromResult(_periodMachineReservations.AsEnumerable());
         }
-        public Task CreateAsync(PeriodMachineReservation reservation)
+        public Task CreateAsync(MachineToReserve reservation)
         {
             _periodMachineReservations.Add(reservation);
             return Task.CompletedTask;
         }
 
-        public Task UpdateAsync(PeriodMachineReservation command)
+        public Task UpdateAsync(MachineToReserve command)
         {
             return Task.CompletedTask; 
         } 
 
-        public Task DeleteAsync(PeriodMachineReservation command)
+        public Task DeleteAsync(MachineToReserve command)
         {
             _periodMachineReservations.Remove(command);
             return Task.CompletedTask;
         }
 
-        public Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

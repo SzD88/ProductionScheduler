@@ -76,7 +76,7 @@ namespace ProductionScheduler.Application.Services
                 return default;
             }
 
-            var reservation = new Reservation(command.ReservationId, command.MachineId,
+            var reservation = new MachineReservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager
@@ -143,7 +143,7 @@ namespace ProductionScheduler.Application.Services
             return true;
         }
 
-        private async Task<PeriodMachineReservation> GetPeriodMachineReservationByReservationAsync(ReservationId reservationId) //
+        private async Task<MachineToReserve> GetPeriodMachineReservationByReservationAsync(ReservationId reservationId) //
 
         {
             var periodMachineReservations = await _allMachines.GetAllAsync();

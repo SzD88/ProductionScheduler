@@ -24,7 +24,7 @@ namespace ProductionScheduler.Infrastructure.DAL
 
 
                 var clock = new Clock();
-                var expectedMachinesTable = new List<PeriodMachineReservation>()
+                var expectedMachinesTable = new List<MachineToReserve>()
                     {
 
                        new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
