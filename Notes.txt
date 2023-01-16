@@ -1,4 +1,7 @@
-﻿zacznij od fragmentu odnosnie auto czynnosci w kodzie 
+﻿Initializer bazy danych powinien sprawdzac jaki jest dzien i czy iloscm aszyn sie zgadza z zalozeniami i dopiero je zaciagac kazdego jednegodnia 
+sprawdza to na starcie aplikacji 
+
+zacznij od fragmentu odnosnie auto czynnosci w kodzie 
 
 ogolnie to to dziala ale masz nawalone z godzinami dosc srogo 
 

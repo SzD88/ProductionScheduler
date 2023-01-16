@@ -22,6 +22,11 @@ namespace ProductionScheduler.Core.DomainServices
         public void ReserveMachineForUser(IEnumerable<PeriodMachineReservation> allMachineReservations,
             EmplooyeeRank rank, PeriodMachineReservation periodiMachineReservation, Reservation reservation)
         {
+
+            // #refactor for future - mozesz na podstawie reservation sprawdzac w policy np godziny dla danej rangi pracownika, po prostu przekaz 
+            // reservation to metody can reserve - mozna to rozbudować potem i bedzie w pytke 
+
+
             var machineToReserveId = periodiMachineReservation.Id;
             // przypisz te 1 polityke ktora zwroci true bo rank == jobtitle #refactor 
             var policy = _policies.SingleOrDefault(x => x.CanBeApplied(rank));
