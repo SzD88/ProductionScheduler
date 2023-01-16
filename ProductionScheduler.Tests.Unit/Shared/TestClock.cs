@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductionScheduler.Application.Services;
+using ProductionScheduler.Core.Abstractions;
 
 namespace MachineReservations.Tests.Unit.Shared
 {

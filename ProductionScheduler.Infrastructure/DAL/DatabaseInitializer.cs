@@ -8,7 +8,7 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Infrastructure.DAL
 {
     internal sealed class DatabaseInitializer : IHostedService // BackgroundService, - operations in background while true -> do smth every 5 min for example
-                             //background operations #21
+                                                               //background operations #21
     {
         private readonly IServiceProvider _serviceProvider;
         public DatabaseInitializer(IServiceProvider serviceProvider)
@@ -24,7 +24,7 @@ namespace ProductionScheduler.Infrastructure.DAL
 
 
                 var clock = new Clock();
-                var  expectedMachinesTable = new List<PeriodMachineReservation>()
+                var expectedMachinesTable = new List<PeriodMachineReservation>()
                     {
 
                        new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
@@ -38,7 +38,7 @@ namespace ProductionScheduler.Infrastructure.DAL
                 var periodMachineReservations = dbContext.PeriodMachineReservations.ToList();
 
                 if (!periodMachineReservations.Any() || periodMachineReservations.Count < expectedMachinesTable.Count) // #refactor - shouldnt it check if number of machines is 
-                    //equal to 5 or new created sum of machines?
+                                                                                                                       //equal to 5 or new created sum of machines?
                 {
                     //  var clock = new Clock();
 
@@ -48,10 +48,10 @@ namespace ProductionScheduler.Infrastructure.DAL
                     }
 
                     periodMachineReservations = expectedMachinesTable;
-                    
+
                     dbContext.AddRange(periodMachineReservations);
                     dbContext.SaveChanges();
-                } 
+                }
             }
             return Task.CompletedTask;
         }

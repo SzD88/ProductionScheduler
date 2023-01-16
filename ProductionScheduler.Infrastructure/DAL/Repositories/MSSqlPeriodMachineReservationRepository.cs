@@ -25,14 +25,22 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
-
-        async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
+        public async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
         {
-            return await _dbContextReservations.PeriodMachineReservations
-                       .Include(x => x.Reservations) // eager loading a nie lazy loading 
+            return await _dbContextReservations.PeriodMachineReservations // zwroci taki period machine reservation,
+                                                                          // //ktore jest zawarte w rezerwacjach - wsrod ktorych
+                                                                          // time forward = time forward 
+                       .Include(x => x.Reservations) // eager loading a nie lazy loading  // powiazanie do innej tabeli - reservations 
                        .Where(x => x.TimeForward == timeForward)
                        .ToListAsync();
         }
+        //async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
+        //{
+        //    return await _dbContextReservations.PeriodMachineReservations
+        //               .Include(x => x.Reservations) // eager loading a nie lazy loading 
+        //               .Where(x => x.TimeForward == timeForward)
+        //               .ToListAsync();
+        //}
         public async Task<IEnumerable<PeriodMachineReservation>> GetAllAsync()
         {
             var result = await _dbContextReservations.PeriodMachineReservations

@@ -4,8 +4,7 @@ using ProductionScheduler.Application.DTO;
 namespace ProductionScheduler.Application.Services
 {
     public interface IReservationService
-    {
-
+    { 
         Task<ReservationDto> GetAsync(Guid id);
         Task<IEnumerable<ReservationDto>> GetAllAsync();
         Task<Guid?> CreateAsync(CreateReservation command);

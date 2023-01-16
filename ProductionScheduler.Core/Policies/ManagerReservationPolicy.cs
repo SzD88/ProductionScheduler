@@ -19,6 +19,12 @@ namespace ProductionScheduler.Core.Policies
         }
 
         public bool CanReserve(IEnumerable<PeriodMachineReservation> periodMachineReservations, EmployeeName name)
-        => true;
+        {
+            var totalEmployeeReservations = periodMachineReservations.SelectMany(x => x.Reservations)
+                   .Count(x => x.EmployeeName == name);
+
+            // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu
+            return totalEmployeeReservations < 5 && _clock.Current().Day > DateTime.UtcNow.Day + 2;
+        }
     }
 }

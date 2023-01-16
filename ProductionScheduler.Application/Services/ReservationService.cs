@@ -5,13 +5,14 @@ using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Exceptions;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
+using ProductionScheduler.Core.Abstractions;
 
 namespace ProductionScheduler.Application.Services
 {
     public class ReservationService : IReservationService
     {
         private readonly IClock _clock;
-        private readonly IPeriodMachineReservationRepository _repository;
+        private readonly IPeriodMachineReservationRepository _allMachines;
         private readonly IMachineReservationService _machineReservationService;
 
 
@@ -19,7 +20,7 @@ namespace ProductionScheduler.Application.Services
             IMachineReservationService machineReservationService)
         {
             _clock = clock;
-            _repository = repository;
+            _allMachines = repository;
             _machineReservationService = machineReservationService;
         }
 
@@ -33,7 +34,7 @@ namespace ProductionScheduler.Application.Services
 
         public async Task<IEnumerable<ReservationDto>> GetAllAsync()
         {
-            var reservations = await _repository.GetAllAsync();
+            var reservations = await _allMachines.GetAllAsync();
 
             return reservations
                 .SelectMany(x => x.Reservations)
@@ -52,16 +53,20 @@ namespace ProductionScheduler.Application.Services
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
-            var allReservations = await _repository.GetAllAsync();
-            ReservationTimeForward timeforward = new ReservationTimeForward(_clock.Current());
+            var allReservations = await _allMachines.GetAllAsync();
+            var timeforward = new ReservationTimeForward(_clock.Current());
 
-            var periodMachineReservations = await _repository.GetByPeriodAsync(timeforward);
+            // lista rezerwacji we wskazanym okresie czasu, jezeli nie ma takowych to co mi szkodzi dodac?
+            // zwroci taki ktory jest powiazany z istniejacymi rezerwacjami oraz wyznaczonym czasem forward
+            // ale po co to , jak nie ma rezerwacji to zwroci puste 
+            // var periodMachineReservations = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
+            var periodMachineReservations = (await _allMachines.GetAllAsync()).ToList();
 
             var machineToReserve = periodMachineReservations.SingleOrDefault(x => x.Id == machineId);
 
             // bierze wszystkie okresowe rezerwacje maszyny i 
             //sprawdza czy ktoras ma takie same id maszyny jak podane id maszyny w zapytaniu
-            if (machineToReserve == null)
+            if ( machineToReserve is   null)
             {
                 // nie ma takiej maszyny?
                 // czy nie ma rezerwacji na takiej maszynie 
@@ -71,13 +76,13 @@ namespace ProductionScheduler.Application.Services
             var reservation = new Reservation(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-            //#refactor
-            _machineReservationService.ReserveMachineForUser(periodMachineReservations, EmplooyeeRank.Manager,
+            //#refactor hardcoded manager
+            _machineReservationService.ReserveMachineForUser(periodMachineReservations, EmplooyeeRank.Employee,
                 machineToReserve, reservation);
 
             //przekazujesz rezerwacje i czas obecny 
             // machineToReserve.AddReservation(reservation, new Date(_clock.Current()));
-            await _repository.UpdateAsync(machineToReserve);
+            await _allMachines.UpdateAsync(machineToReserve);
             return reservation.Id;
         }
 
@@ -111,7 +116,7 @@ namespace ProductionScheduler.Application.Services
             }
 
             existingReservation.ChangeHourOfReservation(command.Hour);
-            await _repository.UpdateAsync(periodMachineReservation);
+            await _allMachines.UpdateAsync(periodMachineReservation);
             return true;
         }
         public async Task<bool> DeleteAsync(DeleteReservation command)
@@ -131,14 +136,14 @@ namespace ProductionScheduler.Application.Services
                 return false;
             }
             weeklyMachineReservation.RemoveReservation(command.ReservationId);
-            await _repository.DeleteAsync(weeklyMachineReservation);
+            await _allMachines.DeleteAsync(weeklyMachineReservation);
             return true;
         }
 
         private async Task<PeriodMachineReservation> GetPeriodMachineReservationByReservationAsync(ReservationId reservationId) //
 
         {
-            var periodMachineReservations = await _repository.GetAllAsync();
+            var periodMachineReservations = await _allMachines.GetAllAsync();
 
             return periodMachineReservations.SingleOrDefault(x => x.Reservations.Any
                  (r => r.Id == reservationId));

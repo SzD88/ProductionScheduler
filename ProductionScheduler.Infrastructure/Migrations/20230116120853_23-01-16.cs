@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductionScheduler.Infrastructure.Migrations
 {
-    public partial class Init_first_20221124 : Migration
+    public partial class _230116 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

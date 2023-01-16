@@ -21,7 +21,7 @@ namespace ProductionScheduler.Core.Policies
 
         public bool CanReserve(IEnumerable<PeriodMachineReservation> periodMachineReservations, EmployeeName name)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

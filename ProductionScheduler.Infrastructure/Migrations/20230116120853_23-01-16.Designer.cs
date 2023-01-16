@@ -12,8 +12,8 @@ using ProductionScheduler.Infrastructure.DAL;
 namespace ProductionScheduler.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductionSchedulerDbContext))]
-    [Migration("20221124123004_Init_first_2022-11-24")]
-    partial class Init_first_20221124
+    [Migration("20230116120853_23-01-16")]
+    partial class _230116
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

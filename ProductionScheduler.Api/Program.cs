@@ -1,6 +1,7 @@
 using ProductionScheduler.Application;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;
+using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services
 
 
 builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

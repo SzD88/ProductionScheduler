@@ -1,4 +1,6 @@
-﻿namespace ProductionScheduler.Application.Services
+﻿using ProductionScheduler.Core.Abstractions;
+
+namespace ProductionScheduler.Application.Services
 {
     public class Clock : IClock
     {

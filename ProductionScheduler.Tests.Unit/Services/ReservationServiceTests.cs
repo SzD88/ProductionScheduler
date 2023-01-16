@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MachineReservations.Tests.Unit.Shared;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.Services;
+using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Infrastructure.DAL.Repositories;
 using Shouldly;
@@ -59,7 +60,7 @@ namespace MachineReservations.Tests.Unit.Services
             /// add all machine spots
             _clock = new TestClock();
            //  _repository = new InMemoryPeriodMachineReservationRepository(_clock);
-            _reservationService = new ReservationService(_clock, _repository);
+           // _reservationService = new ReservationService(_clock, _repository);
         }
         #endregion
     }

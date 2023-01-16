@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MachineReservations\ProductionScheduler.Api.csproj" />
+	  <ProjectReference Include="..\ProductionScheduler.Api\ProductionScheduler.Api.csproj" />
 	</ItemGroup>
 
 	 

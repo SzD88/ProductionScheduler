@@ -20,9 +20,9 @@ namespace ProductionScheduler.Core.DomainServices
         // wzorzec #refactor wzorzec strategii - if do pojedynczej klasy #tu koniec 16 min
 
         public void ReserveMachineForUser(IEnumerable<PeriodMachineReservation> allMachineReservations,
-            EmplooyeeRank rank, PeriodMachineReservation machineToReserve, Reservation reservation)
+            EmplooyeeRank rank, PeriodMachineReservation periodiMachineReservation, Reservation reservation)
         {
-            var machineToReserveId = machineToReserve.Id;
+            var machineToReserveId = periodiMachineReservation.Id;
             // przypisz te 1 polityke ktora zwroci true bo rank == jobtitle #refactor 
             var policy = _policies.SingleOrDefault(x => x.CanBeApplied(rank));
             if (policy is null)
@@ -34,7 +34,7 @@ namespace ProductionScheduler.Core.DomainServices
                 throw new CannotReserveMachineException(machineToReserveId);
             }
 
-            machineToReserve.AddReservation(reservation, new Date( _clock.Current()));
+            periodiMachineReservation.AddReservation(reservation, new Date( _clock.Current()));
         }
     }
 }

@@ -28,7 +28,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTO Include="MachineReservations.Tests.Unit" />
+		<InternalsVisibleTO Include="ProductionScheduler.Tests.Unit" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
 

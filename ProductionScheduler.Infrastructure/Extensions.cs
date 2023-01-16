@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductionScheduler.Application.Services;
+using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure.DAL;
 using ProductionScheduler.Infrastructure.Exceptions;
 

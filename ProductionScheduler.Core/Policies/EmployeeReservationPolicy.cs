@@ -22,7 +22,7 @@ namespace ProductionScheduler.Core.Policies
                 .Count(x => x.EmployeeName == name);
 
             // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu
-            return totalEmployeeReservations < 2 && _clock.Current().Hour > DateTime.UtcNow.Hour + 2;
+            return totalEmployeeReservations < 2 && _clock.Current().Day > DateTime.UtcNow.Day + 2;
               
         }
     }

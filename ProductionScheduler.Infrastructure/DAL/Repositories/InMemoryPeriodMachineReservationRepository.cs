@@ -1,12 +1,8 @@
-﻿using ProductionScheduler.Application.Services;
+﻿using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
@@ -53,6 +49,9 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
             return Task.CompletedTask;
         }
 
-
+        public Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
