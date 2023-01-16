@@ -59,6 +59,9 @@ namespace ProductionScheduler.Application.Services
             // lista rezerwacji we wskazanym okresie czasu, jezeli nie ma takowych to co mi szkodzi dodac?
             // zwroci taki ktory jest powiazany z istniejacymi rezerwacjami oraz wyznaczonym czasem forward
             // ale po co to , jak nie ma rezerwacji to zwroci puste 
+
+
+            //# tu jest problem #refactor 
             // var periodMachineReservations = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
             var periodMachineReservations = (await _allMachines.GetAllAsync()).ToList();
 
