@@ -21,6 +21,15 @@ Content-Type: application/json
   "hour": "12"
 }
 ###
+POST {{url}}/reservations/service
+Content-Type: application/json
+
+{
+  "machineId": "{{machineId}}",
+  "date": "2023-01-18", 
+  "hour": "12"
+}
+###
 PUT {{url}}/reservations/{{reservationId}}
 Content-Type: application/json    
 

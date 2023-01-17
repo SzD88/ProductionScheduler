@@ -98,15 +98,16 @@ namespace ProductionScheduler.Application.Services
 
             //#refactor - for now it reserve many machines depend on time period - at the end of the day it ll reserve 1 machine - by id of command 
             _machineReservationService.ReserveMachineForService(machines, new Date( command.Date), new Hour(command.Hour));
+            
+            
+          //  cannot use it now
+            //var tasks = machines.Select(x => _allMachines.UpdateAsync(x));
+            //await Task.WhenAll(tasks);
 
-            var tasks = machines.Select(x => _allMachines.UpdateAsync(x));
-            await Task.WhenAll(tasks);
-
-            ///cannot use it now 
-            //foreach (var item in machines)
-            //{
-            //    await _allMachines.UpdateAsync(item);
-            //}
+            foreach (var item in machines)
+            {
+                await _allMachines.UpdateAsync(item);
+            }
 
         }
 

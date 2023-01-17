@@ -2,7 +2,7 @@
 {
     public record ReserveMachineForService( // names should be behavior centric #refactor 
 
-        Guid MachineId,
+       //  Guid MachineId,
         
         DateTime Date,
         

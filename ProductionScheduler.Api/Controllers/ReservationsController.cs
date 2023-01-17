@@ -34,7 +34,7 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost("employee")]
-    public async Task<ActionResult> Post(ReserveMachineForEmployee command)
+    public async Task<ActionResult> Post(ReserveMachineForEmployee command)// #refactor name
     {
         //bo tworzac wg resta add nie podajesz godziny xD tuq
 
@@ -48,7 +48,7 @@ public class ReservationsController : ControllerBase
         
     }
     [HttpPost("service")]
-    public async Task<ActionResult> Post(ReserveMachineForService command)
+    public async Task<ActionResult> Post(ReserveMachineForService command) // #refactor name
     { 
          await _service.ReserveAllMachinesForServiceAsync(command); 
         return Ok();

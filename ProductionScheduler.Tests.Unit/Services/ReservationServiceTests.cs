@@ -5,7 +5,10 @@ using MachineReservations.Tests.Unit.Shared;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Abstractions;
+using ProductionScheduler.Core.DomainServices;
+using ProductionScheduler.Core.Policies;
 using ProductionScheduler.Core.Repositories;
+using ProductionScheduler.Core.ValueObjects;
 using ProductionScheduler.Infrastructure.DAL.Repositories;
 using Shouldly;
 using Xunit;
@@ -21,7 +24,7 @@ namespace MachineReservations.Tests.Unit.Services
             var command = new ReserveMachineForEmployee(
                 Guid.Parse("00000000-0000-0000-0000-000000000001"),
                 Guid.NewGuid(),
-                new DateTime(2022, 11, 25), // tutaj 
+                new DateTime(2023, 01, 18), // tutaj 
                 "Szop",
                 12);
 
@@ -30,6 +33,7 @@ namespace MachineReservations.Tests.Unit.Services
             // DateTime Date, 
             //  string EmployeeName,
             // short Hour
+
 
             var reservationId = await _reservationService.ReserveForEmployeeAsync(command);
 
@@ -59,8 +63,18 @@ namespace MachineReservations.Tests.Unit.Services
         {
             /// add all machine spots
             _clock = new TestClock();
-           //  _repository = new InMemoryPeriodMachineReservationRepository(_clock);
-           // _reservationService = new ReservationService(_clock, _repository);
+             _repository = new InMemoryPeriodMachineReservationRepository(_clock);
+
+            var machineReservationService = new MachineReservationService(
+              new IReservationPolicy[]
+            {
+            new EmployeeReservationPolicy(_clock),
+            new ManagerReservationPolicy(_clock),
+            new AdminReservationPolicy(_clock)
+
+            }, _clock); 
+
+            _reservationService = new ReservationService(_clock, _repository, machineReservationService);
         }
         #endregion
     }
