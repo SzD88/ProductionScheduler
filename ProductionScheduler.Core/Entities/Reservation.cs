@@ -17,9 +17,8 @@ public abstract class Reservation
         ChangeHourOfReservation(hour);
         Date = date;
     }
-    private Reservation()
-    {
-
+    protected Reservation()
+    { 
     }
     public void ChangeHourOfReservation(Hour hour)
     {

@@ -33,27 +33,34 @@ namespace ProductionScheduler.Application.Services
         }
 
         public async Task<IEnumerable<ReservationDto>> GetAllAsync()
-        {
+        {//#refactor get all or get all by time period?
             var reservations = await _allMachines.GetAllAsync();
 
             return reservations
                 .SelectMany(x => x.Reservations)
+//                .OfType<MachineReservation>() // it is correct but what about Servicing machines? 
                 .Select(x => new ReservationDto
                 {
                     Id = x.Id,
                     MachineId = x.MachineId,
-                    EmployeeName = x.EmployeeName,
+                    // jezeli x jest typu machinereservation przypisz go do y jako typ pochodny 
+                    EmployeeName = x is MachineReservation y ? y.EmployeeName : String.Empty,
                     Date = x.Date.Value.Date,
                     Hour = x.Hour
                 }); // ?? w okolicahc 13 odcinka 
         }
 
 
-        public async Task<Guid?> CreateAsync(CreateReservation command) // nullable daje to ze jak sie nie uda zwrocisz null
+        public async Task<Guid?> ReserveForEmployeeAsync(ReserveMachineForEmployee command) // nullable daje to ze jak sie nie uda zwrocisz null
         // i bedziesz mogl to wykorzystać 
         {
             var machineId = new MachineId(command.MachineId);
             var allReservations = await _allMachines.GetAllAsync();
+
+            // # i musisz to zrobic wczesniej jezeli chcesz za kursem podarzac niestety 
+            //##REFACTOR - to jest do poprawy, ty masz miec zawsze sztywny termin max rezerwacji maszyny systemowy - to ma byc ten time forward np 28 dni albo 7
+            // tam nie ma byc godziny, ten time forward zawsze ma wynosic sztywny czas od clock current - wtedy dopiero to bedzie mialo sens ponizej czyli get by period
+            // to trzeba doprowadzic do dzialania w kolejnosci zeby miec porzadek i moc jej uzywac 
             var timeforward = new ReservationTimeForward(_clock.Current());
 
             // lista rezerwacji we wskazanym okresie czasu, jezeli nie ma takowych to co mi szkodzi dodac?
@@ -62,17 +69,12 @@ namespace ProductionScheduler.Application.Services
 
 
             //# tu jest problem #refactor 
-            // var periodMachineReservations = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
-            var periodMachineReservations = (await _allMachines.GetAllAsync()).ToList();
+              var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
+           //  var periodMachineReservations = (await _allMachines.GetAllAsync()).ToList();
 
-            var machineToReserve = periodMachineReservations.SingleOrDefault(x => x.Id == machineId);
-
-            // bierze wszystkie okresowe rezerwacje maszyny i 
-            //sprawdza czy ktoras ma takie same id maszyny jak podane id maszyny w zapytaniu
+            var machineToReserve = machines.SingleOrDefault(x => x.Id == machineId); 
             if ( machineToReserve is   null)
-            {
-                // nie ma takiej maszyny?
-                // czy nie ma rezerwacji na takiej maszynie 
+            { 
                 return default;
             }
 
@@ -80,7 +82,7 @@ namespace ProductionScheduler.Application.Services
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager
-            _machineReservationService.ReserveMachineForUser(periodMachineReservations, EmplooyeeRank.Employee,
+            _machineReservationService.ReserveMachineForUser(machines, EmplooyeeRank.Employee,
                 machineToReserve, reservation);
 
             //przekazujesz rezerwacje i czas obecny 
@@ -89,16 +91,40 @@ namespace ProductionScheduler.Application.Services
             return reservation.Id;
         }
 
-        public async Task<bool> UpdateAsync(ChangeReservationHour command)
+        public async Task ReserveAllMachinesForServiceAsync(ReserveMachineForService command)
         {
-            var periodMachineReservation = await GetPeriodMachineReservationByReservationAsync(command.ReservationId);
+            var timeforward = new ReservationTimeForward(command.Date);
+             var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
 
-            if (periodMachineReservation is null)
+            //#refactor - for now it reserve many machines depend on time period - at the end of the day it ll reserve 1 machine - by id of command 
+            _machineReservationService.ReserveMachineForService(machines, new Date( command.Date), new Hour(command.Hour));
+
+            var tasks = machines.Select(x => _allMachines.UpdateAsync(x));
+            await Task.WhenAll(tasks);
+
+            ///cannot use it now 
+            //foreach (var item in machines)
+            //{
+            //    await _allMachines.UpdateAsync(item);
+            //}
+
+        }
+
+        public Task<bool> ChangeReservationDateAsync(ChangeReservationDate command)
+        { 
+            throw new NotImplementedException(); 
+        }
+
+        public async Task<bool> ChangeReservationHourAsync(ChangeReservationHour command)
+        {
+            var machineToReserve = await GetMachineByReservationIdAsync(command.ReservationId);
+
+            if (machineToReserve is null)
                 return false;
 
             var reservationId = new ReservationId(command.ReservationId);
 
-            var existingReservation = periodMachineReservation.Reservations
+            var existingReservation = machineToReserve.Reservations
                 .SingleOrDefault(x => x.Id == reservationId);
             if (existingReservation is null)
             {
@@ -119,12 +145,12 @@ namespace ProductionScheduler.Application.Services
             }
 
             existingReservation.ChangeHourOfReservation(command.Hour);
-            await _allMachines.UpdateAsync(periodMachineReservation);
+            await _allMachines.UpdateAsync(machineToReserve);
             return true;
         }
         public async Task<bool> DeleteAsync(DeleteReservation command)
         {
-            var weeklyMachineReservation = await GetPeriodMachineReservationByReservationAsync
+            var weeklyMachineReservation = await GetMachineByReservationIdAsync
                (command.ReservationId);
             if (weeklyMachineReservation is null)
             {
@@ -143,7 +169,7 @@ namespace ProductionScheduler.Application.Services
             return true;
         }
 
-        private async Task<MachineToReserve> GetPeriodMachineReservationByReservationAsync(ReservationId reservationId) //
+        private async Task<Machine> GetMachineByReservationIdAsync(ReservationId reservationId) //
 
         {
             var periodMachineReservations = await _allMachines.GetAllAsync();
@@ -151,5 +177,7 @@ namespace ProductionScheduler.Application.Services
             return periodMachineReservations.SingleOrDefault(x => x.Reservations.Any
                  (r => r.Id == reservationId));
         }
+
+       
     }
 }

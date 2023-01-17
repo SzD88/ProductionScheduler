@@ -13,7 +13,7 @@ public sealed record Date
           //  throw new DateFromPastException();
         }
 
-        Value = value; // date
+        Value = value.Date; // date // 2023-01-17 zmieniono na date - bo chce wyzej miec zgodnosc wartosci 
 
     }
 

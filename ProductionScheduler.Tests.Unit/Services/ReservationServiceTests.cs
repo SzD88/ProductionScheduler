@@ -18,7 +18,7 @@ namespace MachineReservations.Tests.Unit.Services
         [Fact] // exxpanded #18 - 1:01:01
         public async Task given_reservation_for_not_taken_date_create_reservation_should_succeed()
         {
-            var command = new CreateReservation(
+            var command = new ReserveMachineForEmployee(
                 Guid.Parse("00000000-0000-0000-0000-000000000001"),
                 Guid.NewGuid(),
                 new DateTime(2022, 11, 25), // tutaj 
@@ -31,7 +31,7 @@ namespace MachineReservations.Tests.Unit.Services
             //  string EmployeeName,
             // short Hour
 
-            var reservationId = await _reservationService.CreateAsync(command);
+            var reservationId = await _reservationService.ReserveForEmployeeAsync(command);
 
             reservationId.ShouldNotBeNull();
             reservationId.Value.ShouldBe(command.ReservationId);
@@ -41,9 +41,9 @@ namespace MachineReservations.Tests.Unit.Services
         public async Task test2()
         {
             var periodReservations = (await _repository.GetAllAsync()).First();
-            var command = new CreateReservation( periodReservations.Id, Guid.NewGuid(), DateTime.UtcNow.AddDays(1), "Szoopa",  13);
+            var command = new ReserveMachineForEmployee( periodReservations.Id, Guid.NewGuid(), DateTime.UtcNow.AddDays(1), "Szoopa",  13);
 
-            var reservationId = await _reservationService.CreateAsync(command);
+            var reservationId = await _reservationService.ReserveForEmployeeAsync(command);
 
             //assert 
             reservationId.ShouldNotBeNull();

@@ -8,7 +8,7 @@ namespace ProductionScheduler.Infrastructure.DAL
     internal  sealed class ProductionSchedulerDbContext : DbContext
     {
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<MachineToReserve> PeriodMachineReservations { get; set; }
+        public DbSet<Machine> PeriodMachineReservations { get; set; }
 
         public ProductionSchedulerDbContext(DbContextOptions<ProductionSchedulerDbContext> dbContextOptions) 
             : base(dbContextOptions)

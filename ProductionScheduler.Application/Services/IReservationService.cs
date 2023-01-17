@@ -7,8 +7,10 @@ namespace ProductionScheduler.Application.Services
     { 
         Task<ReservationDto> GetAsync(Guid id);
         Task<IEnumerable<ReservationDto>> GetAllAsync();
-        Task<Guid?> CreateAsync(CreateReservation command);
-        Task<bool> UpdateAsync(ChangeReservationHour command);
+        Task<Guid?> ReserveForEmployeeAsync(ReserveMachineForEmployee command);
+        Task ReserveAllMachinesForServiceAsync(ReserveMachineForService command);
+        Task<bool> ChangeReservationHourAsync(ChangeReservationHour command);
+        Task<bool> ChangeReservationDateAsync(ChangeReservationDate command);
         Task<bool> DeleteAsync(DeleteReservation command);
     }
 }

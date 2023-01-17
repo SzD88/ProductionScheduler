@@ -4,7 +4,7 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Core.Entities
 {
     //This Class is defining 
-    public class MachineToReserve
+    public class Machine
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
         public MachineId Id { get; }
@@ -12,13 +12,13 @@ namespace ProductionScheduler.Core.Entities
         public MachineName Name { get; }
         public IEnumerable<Reservation> Reservations => _reservations;
 
-        public MachineToReserve(MachineId id, ReservationTimeForward timeForward, MachineName name)
+        public Machine(MachineId id, ReservationTimeForward timeForward, MachineName name)
         {
             Id = id;
             TimeForward = timeForward;
             Name = name;
         }
-        private MachineToReserve()
+        private Machine()
         {
 
         }

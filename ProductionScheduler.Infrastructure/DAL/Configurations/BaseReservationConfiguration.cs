@@ -5,10 +5,10 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Infrastructure.DAL.Configurations
 {
-    internal sealed class PeriodMachineReservationConfiguration 
-        : IEntityTypeConfiguration<MachineToReserve>
+    internal sealed class BaseReservationConfiguration 
+        : IEntityTypeConfiguration<Machine>
     {
-        public void Configure(EntityTypeBuilder<MachineToReserve> builder)
+        public void Configure(EntityTypeBuilder<Machine> builder)
         {
 
             builder.HasKey(x => x.Id);

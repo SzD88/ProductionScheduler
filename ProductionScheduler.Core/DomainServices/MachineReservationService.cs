@@ -18,7 +18,7 @@ namespace ProductionScheduler.Core.DomainServices
             _clock = clock;
         }
 
-        public void ReserveMachineForService(IEnumerable<MachineToReserve> allMachines, Date date, Hour hour)
+        public void ReserveMachineForService(IEnumerable<Machine> allMachines, Date date, Hour hour)
         {
             foreach (var machine in allMachines)
             {
@@ -42,8 +42,8 @@ namespace ProductionScheduler.Core.DomainServices
 
         // wzorzec #refactor wzorzec strategii - if do pojedynczej klasy #tu koniec 16 min
 
-        public void ReserveMachineForUser(IEnumerable<MachineToReserve> allMachineReservations,
-            EmplooyeeRank rank, MachineToReserve periodiMachineReservation, MachineReservation reservation)
+        public void ReserveMachineForUser(IEnumerable<Machine> allMachineReservations,
+            EmplooyeeRank rank, Machine periodiMachineReservation, MachineReservation reservation)
         {
 
             // #refactor for future - mozesz na podstawie reservation sprawdzac w policy np godziny dla danej rangi pracownika, po prostu przekaz 

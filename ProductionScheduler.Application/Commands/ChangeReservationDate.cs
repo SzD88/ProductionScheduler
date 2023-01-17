@@ -1,9 +1,11 @@
 ﻿namespace ProductionScheduler.Application.Commands
 {
-    public record ChangeReservationHour(
+    public record ChangeReservationDate(
 
         Guid ReservationId,
-        short Hour
+       
+        DateTime Date
+     
         );
 
 }

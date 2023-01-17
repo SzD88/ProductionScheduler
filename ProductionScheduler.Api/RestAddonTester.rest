@@ -1,6 +1,6 @@
 ﻿ad﻿
 @url = https://localhost:5000 
-@reservationId = 43aa4336-4e34-4956-9b92-6398c01abc78
+@reservationId = cbf7eaff-3116-4e53-8117-ff83e40ee234
 @machineId = 00000000-0000-0000-0000-000000000001
 
 ###
@@ -11,12 +11,12 @@ GET  {{url}}/reservations
 GET  {{url}}/reservations/{{reservationId}}
  
 ###
-POST {{url}}/reservations
+POST {{url}}/reservations/employee
 Content-Type: application/json
 
 {
   "machineId": "{{machineId}}",
-  "date": "2023-01-17", 
+  "date": "2023-01-18", 
   "employeeName": "string",
   "hour": "12"
 }

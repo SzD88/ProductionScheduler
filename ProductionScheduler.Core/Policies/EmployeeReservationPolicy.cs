@@ -16,9 +16,11 @@ namespace ProductionScheduler.Core.Policies
             return rank == EmplooyeeRank.Employee;
         }
 
-        public bool CanReserve(IEnumerable<MachineToReserve> periodMachineReservations, EmployeeName name)
+        public bool CanReserve(IEnumerable<Machine> machines, EmployeeName name)
         {
-            var totalEmployeeReservations = periodMachineReservations.SelectMany(x => x.Reservations)
+            var totalEmployeeReservations = machines
+                .SelectMany(x => x.Reservations)
+                .OfType<MachineReservation>()
                 .Count(x => x.EmployeeName == name);
 
             // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu

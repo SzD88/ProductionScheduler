@@ -33,26 +33,33 @@ public class ReservationsController : ControllerBase
         return Ok(reservation);
     }
 
-    [HttpPost]
-    public async Task<ActionResult> Post(CreateReservation command)
+    [HttpPost("employee")]
+    public async Task<ActionResult> Post(ReserveMachineForEmployee command)
     {
         //bo tworzac wg resta add nie podajesz godziny xD tuq
 
-        var id = await _service.CreateAsync(command with { ReservationId = Guid.NewGuid() });
-        //na tym etapie przekazuje godzine
+        var id = await _service.ReserveForEmployeeAsync(command with { ReservationId = Guid.NewGuid() });
         if (id is null)
         {
             return BadRequest();
         }
         return CreatedAtAction(nameof(Get), new { id }, null);
-        // bylo return CreatedAtAction(nameof(Get), new { id = reservation.Id }, null);
-        //
+        //   return CreatedAtAction(nameof(Get), new { id = reservation.Id }, null); #refactor
+        
     }
+    [HttpPost("service")]
+    public async Task<ActionResult> Post(ReserveMachineForService command)
+    { 
+         await _service.ReserveAllMachinesForServiceAsync(command); 
+        return Ok();
+        
+    }
+
 
     [HttpPut("{id:guid}")]
     public async Task<ActionResult> Put(Guid id, ChangeReservationHour command)
     {
-        if (await _service.UpdateAsync(command with { ReservationId = id }))
+        if (await _service.ChangeReservationHourAsync(command with { ReservationId = id }))
         {
             return NoContent();
         }

@@ -18,7 +18,7 @@ namespace ProductionScheduler.Core.Policies
             return rank == EmplooyeeRank.Manager;
         }
 
-        public bool CanReserve(IEnumerable<MachineToReserve> periodMachineReservations, EmployeeName name)
+        public bool CanReserve(IEnumerable<Machine> periodMachineReservations, EmployeeName name)
         {
             var totalEmployeeReservations = periodMachineReservations
                 .SelectMany(x => x.Reservations)
