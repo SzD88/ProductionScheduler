@@ -1,4 +1,6 @@
-﻿namespace ProductionScheduler.Application.Commands
+﻿using ProductionScheduler.Application.Abstractions;
+
+namespace ProductionScheduler.Application.Commands
 {
     public record ReserveMachineForService( // names should be behavior centric #refactor 
 
@@ -7,6 +9,6 @@
         DateTime Date,
         
         short Hour
-        );
+        ) : ICommand;
 
 }

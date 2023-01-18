@@ -69,8 +69,8 @@ namespace ProductionScheduler.Application.Services
 
 
             //# tu jest problem #refactor 
-              var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
-           //  var periodMachineReservations = (await _allMachines.GetAllAsync()).ToList();
+           //   var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
+             var machines = (await _allMachines.GetAllAsync()).ToList();
 
             var machineToReserve = machines.SingleOrDefault(x => x.Id == machineId); 
             if ( machineToReserve is   null)

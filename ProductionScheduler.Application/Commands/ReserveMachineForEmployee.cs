@@ -1,4 +1,6 @@
-﻿namespace ProductionScheduler.Application.Commands
+﻿using ProductionScheduler.Application.Abstractions;
+
+namespace ProductionScheduler.Application.Commands
 {
     public record ReserveMachineForEmployee( // names should be behavior centric #refactor 
 
@@ -7,6 +9,7 @@
         DateTime Date,
         string EmployeeName,
         short Hour
-        );
+        ) 
+        : ICommand; // implement interface
 
 }

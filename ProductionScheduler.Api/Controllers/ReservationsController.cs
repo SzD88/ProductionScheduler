@@ -34,21 +34,21 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost("employee")]
-    public async Task<ActionResult> Post(ReserveMachineForEmployee command)// #refactor name
+    public async Task<ActionResult> CreateReservationForEmployee(ReserveMachineForEmployee command)// #refactor name
     {
         //bo tworzac wg resta add nie podajesz godziny xD tuq
-
+//#refactor
         var id = await _service.ReserveForEmployeeAsync(command with { ReservationId = Guid.NewGuid() });
-        if (id is null)
-        {
-            return BadRequest();
-        }
-        return CreatedAtAction(nameof(Get), new { id }, null);
+        //if (id is null)
+        //{
+        //    return BadRequest();
+        //}
+        return CreatedAtAction(nameof(Get), new { command.ReservationId }, null);
         //   return CreatedAtAction(nameof(Get), new { id = reservation.Id }, null); #refactor
         
     }
     [HttpPost("service")]
-    public async Task<ActionResult> Post(ReserveMachineForService command) // #refactor name
+    public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command) // #refactor name
     { 
          await _service.ReserveAllMachinesForServiceAsync(command); 
         return Ok();
