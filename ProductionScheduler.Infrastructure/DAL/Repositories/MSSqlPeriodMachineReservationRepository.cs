@@ -1,13 +1,7 @@
-﻿using ProductionScheduler.Application.Services;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
