@@ -12,11 +12,11 @@ namespace ProductionScheduler.Application.Commands.Handlers
     {
 
         private readonly IClock _clock;
-        private readonly IPeriodMachineReservationRepository _allMachines;
+        private readonly IMachinesRepository _allMachines;
         private readonly IMachineReservationService _machineReservationService;
 
 
-        public ReserveMachineForEmployeeHandler(IClock clock, IPeriodMachineReservationRepository repository,
+        public ReserveMachineForEmployeeHandler(IClock clock, IMachinesRepository repository,
             IMachineReservationService machineReservationService)
         {
             _clock = clock;

@@ -8,7 +8,7 @@ namespace ProductionScheduler.Application.Commands
         Guid ReservationId,
         DateTime Date,
         string EmployeeName,
-        short Hour
+        int Hour
         ) 
         : ICommand; // implement interface
 

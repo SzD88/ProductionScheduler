@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
-    internal class InMemoryPeriodMachineReservationRepository : IPeriodMachineReservationRepository
+    internal class InMemoryPeriodMachineReservationRepository : IMachinesRepository
     {
 
         private readonly List<Machine> _periodMachineReservations;
@@ -54,12 +54,12 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
             return Task.CompletedTask;
         }
 
-        Task<Machine> IPeriodMachineReservationRepository.GetAsync(MachineId id)
+        Task<Machine> IMachinesRepository.GetAsync(MachineId id)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Machine>> IPeriodMachineReservationRepository.GetAllAsync()
+        Task<IEnumerable<Machine>> IMachinesRepository.GetAllAsync()
         {
             throw new NotImplementedException();
         }

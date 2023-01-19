@@ -4,9 +4,9 @@ namespace ProductionScheduler.Core.ValueObjects
 {
     public record Hour
     {
-        public short Value { get; }
+        public int Value { get; }
 
-        public Hour(short value)
+        public Hour(int value)
         {
             Value = value;
              
@@ -17,12 +17,12 @@ namespace ProductionScheduler.Core.ValueObjects
 
         }
 
-        public static implicit operator short(Hour hour)
+        public static implicit operator int(Hour hour)
         {
             return hour.Value;
         }
 
-        public static implicit operator Hour(short hour)
+        public static implicit operator Hour(int hour)
         => new Hour(hour);
     }
 }

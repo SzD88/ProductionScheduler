@@ -12,11 +12,11 @@ namespace ProductionScheduler.Application.Services
     public class ReservationService : IReservationService
     {
         private readonly IClock _clock;
-        private readonly IPeriodMachineReservationRepository _allMachines;
+        private readonly IMachinesRepository _allMachines;
         private readonly IMachineReservationService _machineReservationService;
 
 
-        public ReservationService(IClock clock, IPeriodMachineReservationRepository repository,
+        public ReservationService(IClock clock, IMachinesRepository repository,
             IMachineReservationService machineReservationService)
         {
             _clock = clock;
@@ -93,22 +93,7 @@ namespace ProductionScheduler.Application.Services
 
         public async Task ReserveAllMachinesForServiceAsync(ReserveMachineForService command)
         {
-            var timeforward = new ReservationTimeForward(command.Date);
-             var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
-
-            //#refactor - for now it reserve many machines depend on time period - at the end of the day it ll reserve 1 machine - by id of command 
-            _machineReservationService.ReserveMachineForService(machines, new Date( command.Date), new Hour(command.Hour));
-            
-            
-          //  cannot use it now
-            //var tasks = machines.Select(x => _allMachines.UpdateAsync(x));
-            //await Task.WhenAll(tasks);
-
-            foreach (var item in machines)
-            {
-                await _allMachines.UpdateAsync(item);
-            }
-
+           
         }
 
         public Task<bool> ChangeReservationDateAsync(ChangeReservationDate command)
@@ -170,7 +155,7 @@ namespace ProductionScheduler.Application.Services
             return true;
         }
 
-        private async Task<Machine> GetMachineByReservationIdAsync(ReservationId reservationId) //
+        private async Task<Machine> GetMachineByReservationIdAsync(ReservationId reservationId)  
 
         {
             var periodMachineReservations = await _allMachines.GetAllAsync();

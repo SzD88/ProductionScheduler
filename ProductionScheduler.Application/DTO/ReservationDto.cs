@@ -13,6 +13,6 @@ namespace ProductionScheduler.Application.DTO
         public string EmployeeName { get; set; }
         public string Type { get; set; }
         public DateTime Date { get; set; }
-        public short Hour { get; set; }
+        public int Hour { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace ProductionScheduler.Infrastructure.DAL
             string connectionString = options.ConnectionString;
             //   string connectionString = configuration["database:connectionstring"]  ;
             services.AddDbContext<ProductionSchedulerDbContext>(x => x.UseSqlServer(connectionString));
-            services.AddScoped<IPeriodMachineReservationRepository, MSSqlPeriodMachineReservationRepository>();
+            services.AddScoped<IMachinesRepository, MSSqlMachinesRepository>();
             services.AddHostedService<DatabaseInitializer>();
             return services;
 

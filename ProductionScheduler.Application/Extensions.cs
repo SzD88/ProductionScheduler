@@ -7,7 +7,7 @@ namespace ProductionScheduler.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IReservationService, ReservationService>();
+           //   services.AddScoped<IReservationService, ReservationService>(); // CQRS - deleted while #30 1h:10
 
             return services;
         }

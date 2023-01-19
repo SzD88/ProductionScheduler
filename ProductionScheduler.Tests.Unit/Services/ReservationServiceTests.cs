@@ -32,7 +32,6 @@ namespace MachineReservations.Tests.Unit.Services
             // Guid ReservationId,
             // DateTime Date, 
             //  string EmployeeName,
-            // short Hour
 
 
             var reservationId = await _reservationService.ReserveForEmployeeAsync(command);
@@ -57,7 +56,7 @@ namespace MachineReservations.Tests.Unit.Services
         }
         #region arrange
         private readonly IClock _clock;
-        private readonly IPeriodMachineReservationRepository _repository;
+        private readonly IMachinesRepository _repository;
         private readonly IReservationService _reservationService;
         public ReservationServiceTests()
         {

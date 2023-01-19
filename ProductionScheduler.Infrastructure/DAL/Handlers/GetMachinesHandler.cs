@@ -18,7 +18,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Handlers
 
         public async Task<IEnumerable<MachineDto>> HandleAsync(GetMachines query)
         {
-            var timeForward = query.Date.HasValue ?
+            var timeForward = query.Date.HasValue ? // # to nie ma prawa dzialac #problem #here
                   new ReservationTimeForward(query.Date.Value) : null;
             var machines = await _dbContext.PeriodMachineReservations
                 //#refactor - conditional predicate - to taki sneaki trick - jezeli powyzsze timeForward jest null,

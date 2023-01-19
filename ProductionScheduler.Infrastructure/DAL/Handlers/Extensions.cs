@@ -18,7 +18,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Handlers
                     Id = x.Id,
                     MachineId = x.MachineId,
                     EmployeeName = x is MachineReservation y ? y.EmployeeName : null,
-                    Type = x is MachineReservation ? "machine" : "service",
+                    Type = x is MachineReservation ? "machine" : "service", //#problem #here
                     Date = x.Date.Value.Date,
                     Hour = x.Hour.Value
                 })

@@ -7,7 +7,7 @@ public abstract class Reservation
     public ReservationId Id { get; }
     public MachineId MachineId { get; }
     public Hour Hour { get; private set; }
-    public Date Date { get; }
+    public Date Date { get; private set;  }
 
     public Reservation(ReservationId id, MachineId machineId,
           Hour hour, Date date)
@@ -23,6 +23,10 @@ public abstract class Reservation
     public void ChangeHourOfReservation(Hour hour)
     {
         Hour = hour;
+    }
+    public void ChangeDateOfReservation(Date date)
+    {
+        Date = date;
     }
 }
 

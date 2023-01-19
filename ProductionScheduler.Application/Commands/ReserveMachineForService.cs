@@ -8,7 +8,7 @@ namespace ProductionScheduler.Application.Commands
         
         DateTime Date,
         
-        short Hour
+        int Hour
         ) : ICommand;
 
 }

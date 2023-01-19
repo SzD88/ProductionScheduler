@@ -3,7 +3,7 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Core.Repositories
 {
-    public interface IPeriodMachineReservationRepository
+    public interface IMachinesRepository
     {
         Task<Machine> GetAsync(MachineId id);
         Task<IEnumerable<Machine>> GetAllAsync();

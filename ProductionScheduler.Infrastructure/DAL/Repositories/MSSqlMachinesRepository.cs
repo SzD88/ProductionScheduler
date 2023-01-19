@@ -5,11 +5,11 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
-    internal class MSSqlPeriodMachineReservationRepository : IPeriodMachineReservationRepository
+    internal class MSSqlMachinesRepository : IMachinesRepository
     {
 
         private readonly ProductionSchedulerDbContext _dbContextReservations;
-        public MSSqlPeriodMachineReservationRepository(ProductionSchedulerDbContext dbContext)
+        public MSSqlMachinesRepository(ProductionSchedulerDbContext dbContext)
         {
             _dbContextReservations = dbContext;
         }
