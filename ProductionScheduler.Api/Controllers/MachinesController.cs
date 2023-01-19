@@ -4,9 +4,6 @@ using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
 using ProductionScheduler.Application.Queries;
-using ProductionScheduler.Application.Services;
-using ProductionScheduler.Core.Entities;
-using ProductionScheduler.Infrastructure.DAL.Handlers;
 
 namespace ProductionScheduler.Api.Controllers;
 
@@ -19,6 +16,7 @@ public class MachinesController : ControllerBase
     private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
     private readonly ICommandHandler<ChangeReservationHour> _changeReservationHourHandler;
     private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
+    private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
     private readonly IQueryHandler<GetMachines, IEnumerable<MachineDto>> _getMachinesHandler;
 
 
@@ -27,7 +25,8 @@ public class MachinesController : ControllerBase
                               ICommandHandler<ChangeReservationDate> changeReservationDate,
                               ICommandHandler<ChangeReservationHour> changeReservationHour,
                               ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
-                              IQueryHandler<GetMachines, IEnumerable<MachineDto>> getMachines)
+                              IQueryHandler<GetMachines, IEnumerable<MachineDto>> getMachines, 
+                              ICommandHandler<DeleteReservation> deleteReservationHandler)
     {
         _reserveForEmployeeHandler = reserveForEmployee;
         _reserveForServiceHandler = reserveForService;
@@ -35,22 +34,23 @@ public class MachinesController : ControllerBase
         _changeReservationHourHandler = changeReservationHour;
         _changeReservationEmployeeNameHandler = changeReservationEmployeeName;
         _getMachinesHandler = getMachines;
+        _deleteReservationHandler = deleteReservationHandler;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query)
         => Ok(await _getMachinesHandler.HandleAsync(query));
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<Reservation>> Get(Guid id)
-    {
-        var reservation = await _service.GetAsync(id);
-        if (reservation is null)
-        {
-            return NotFound();
-        }
-        return Ok(reservation);
-    }
+    //[HttpGet("{id:guid}")] //#refactor
+    //public async Task<ActionResult<Reservation>> Get(Guid id)
+    //{
+    //    var reservation = await _service.GetAsync(id);
+    //    if (reservation is null)
+    //    {
+    //        return NotFound();
+    //    }
+    //    return Ok(reservation);
+    //}
 
     [HttpPost("{machineId:guid}/reservations/employee")]
     public async Task<ActionResult> Post(Guid machineId, ReserveMachineForEmployee command)// #refactor name
@@ -84,10 +84,8 @@ public class MachinesController : ControllerBase
     [HttpDelete("reservations/{id:guid}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        if (await _dele.DeleteAsync(new DeleteReservation(id)))
-        {
-            return NoContent();
-        }
-        return NotFound();
+        await _deleteReservationHandler.HandleAsync(new DeleteReservation(id));
+        return NoContent();
+
     }
 }

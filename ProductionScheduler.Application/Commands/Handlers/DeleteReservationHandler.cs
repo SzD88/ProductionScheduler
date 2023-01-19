@@ -1,6 +1,5 @@
 ﻿using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Exceptions;
-using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
 
