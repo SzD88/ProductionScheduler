@@ -6,8 +6,7 @@ namespace ProductionScheduler.Application.Commands
 
        //  Guid MachineId,
         
-        DateTime Date,
-        
+        DateTime Date, 
         int Hour
         ) : ICommand;
 

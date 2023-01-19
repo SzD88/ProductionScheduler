@@ -56,10 +56,15 @@ namespace ProductionScheduler.Core.DomainServices
             if (policy is null)
             {
                 throw new NoReservationPolicyFoundException(rank);
-            }
+            } //#refactor
+
+            //var totalEmployeeReservations = allMachineReservations
+            //    .SelectMany(x => x.Reservations)
+            //    .OfType<MachineReservation>()
+            //    .Count(x => x.EmployeeName ==  );
             if (policy.CanReserve(allMachineReservations, reservation.EmployeeName) is false)
             {
-                throw new CannotReserveMachineException(machineToReserveId);
+                throw new CannotReserveMachineException(machineToReserveId   );
             }
 
             periodiMachineReservation.AddReservation(reservation, new Date( _clock.Current()));

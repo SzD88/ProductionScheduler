@@ -28,7 +28,7 @@ namespace ProductionScheduler.Core.Policies
             var clockhay = _clock.Current().Hour;
 
             // pracownik moze rezerwowac tylko dzisiaj #refactor
-            var answ = totalEmployeeReservations < 2 && _clock.Current().Day == DateTime.UtcNow.Day;
+            var answ = totalEmployeeReservations < 12 && _clock.Current().Day == DateTime.UtcNow.Day;
             return answ;
         }
     }

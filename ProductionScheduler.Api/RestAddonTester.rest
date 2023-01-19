@@ -1,40 +1,37 @@
 ﻿ad﻿
 @url = https://localhost:5000 
-@reservationId = cbf7eaff-3116-4e53-8117-ff83e40ee234
-@machineId = 00000000-0000-0000-0000-000000000001
+@reservationId = 64af2ba8-00b4-40d2-89ce-5e0d49bad694
+@machineId = 00000000-0000-0000-0000-000000000002
 
 ###
 GET  {{url}}
+
 ###
 GET  {{url}}/machines
+
 ###
-GET  {{url}}/reservations/{{reservationId}}
- 
-###
-POST {{url}}/{machineId}/reservations/employee
+POST {{url}}/machines/{{machineId}}/reservations/employee
 Content-Type: application/json
 
-{
-  "machineId": "{{machineId}}",
-  "date": "2023-01-20", 
+{ 
+  "date": "2023-01-25", 
   "employeeName": "string",
-  "hour": "14"
+  "hour": "10"
 }
 ###
-POST {{url}}/reservations/service
+POST {{url}}/machines/{{machineId}}/reservations/service
 Content-Type: application/json
 
 {
-  "machineId": "{{machineId}}",
-  "date": "2023-01-19", 
+  "date": "2023-01-20", 
   "hour": "13"
 }
 ###
-PUT {{url}}/reservations/{{reservationId}}
+PUT {{url}}/machines/reservations/{{reservationId}}
 Content-Type: application/json    
 
 {   
-"hour": "13"   
+"hour": "11"   
 }
 
 ###

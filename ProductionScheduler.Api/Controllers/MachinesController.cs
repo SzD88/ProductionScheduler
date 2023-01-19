@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
@@ -8,7 +7,7 @@ using ProductionScheduler.Application.Queries;
 namespace ProductionScheduler.Api.Controllers;
 
 [ApiController] // to odpowiada za to ze nie trzeba uzywac ciagle from body - oznaczasz ze to jest tyylko api
-[Route(template: "machines")]
+[Route("machines")]
 public class MachinesController : ControllerBase
 {
     private readonly ICommandHandler<ReserveMachineForEmployee> _reserveForEmployeeHandler;
@@ -51,7 +50,7 @@ public class MachinesController : ControllerBase
     //    }
     //    return Ok(reservation);
     //}
-
+    //{machineId:guid}/reservations
     [HttpPost("{machineId:guid}/reservations/employee")]
     public async Task<ActionResult> Post(Guid machineId, ReserveMachineForEmployee command)// #refactor name
     {
