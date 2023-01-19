@@ -6,17 +6,17 @@
 ###
 GET  {{url}}
 ###
-GET  {{url}}/reservations
+GET  {{url}}/machines
 ###
 GET  {{url}}/reservations/{{reservationId}}
  
 ###
-POST {{url}}/reservations/employee
+POST {{url}}/{machineId}/reservations/employee
 Content-Type: application/json
 
 {
   "machineId": "{{machineId}}",
-  "date": "2023-01-19", 
+  "date": "2023-01-20", 
   "employeeName": "string",
   "hour": "14"
 }

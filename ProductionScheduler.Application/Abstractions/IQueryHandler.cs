@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProductionScheduler.Application.Abstractions
+﻿namespace ProductionScheduler.Application.Abstractions
 {
 
     //                                                   Musi byc typem referencyjnym (class) i musi implementowac interface iquery od tresult     

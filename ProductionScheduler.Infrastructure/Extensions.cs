@@ -6,6 +6,8 @@ using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure.DAL;
 using ProductionScheduler.Infrastructure.Exceptions;
+using ProductionScheduler.Application.Abstractions;
+
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -25,6 +27,14 @@ namespace ProductionScheduler.Infrastructure
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
              services.AddMSSql(configuration)
                 .AddSingleton<IClock,Clock>();
+
+            var infrastructureAssembly = typeof(AppOptions).Assembly;
+
+            services.Scan(s => s.FromAssemblies(infrastructureAssembly)
+                .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+
             return services;
         }
 
