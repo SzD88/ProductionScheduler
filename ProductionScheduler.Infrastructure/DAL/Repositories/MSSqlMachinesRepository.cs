@@ -47,17 +47,21 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
         public async Task CreateAsync(Machine command)
         {
             await _dbContextReservations.AddAsync(command);
-            await _dbContextReservations.SaveChangesAsync();
+         //   await _dbContextReservations.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Machine command)
+        public   Task UpdateAsync(Machine command)
         {
-            _dbContextReservations.Update(command);
-            await _dbContextReservations.SaveChangesAsync();
+             _dbContextReservations.Update(command);
+           // await _dbContextReservations.SaveChangesAsync();
+           return Task.CompletedTask;
         }
-        public async Task DeleteAsync(Machine command)
+        public   Task DeleteAsync(Machine command)
         {
             _dbContextReservations.Remove(command);
-            await _dbContextReservations.SaveChangesAsync();
+            //  await _dbContextReservations.SaveChangesAsync();
+            return Task.CompletedTask;
+
+
         }
 
 

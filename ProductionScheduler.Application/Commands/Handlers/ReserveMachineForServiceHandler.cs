@@ -1,8 +1,6 @@
 ﻿using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Exceptions;
-using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Core.DomainServices;
-using ProductionScheduler.Core.Entities;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
 
@@ -42,10 +40,13 @@ namespace ProductionScheduler.Application.Commands.Handlers
             _reservationService.ReserveMachineForService(machines,
                 date, hour);
 
-            foreach (var item in machines)
-            {
-                await _repository.UpdateAsync(item);
-            } 
+            //foreach (var item in machines)
+            //{
+            //    await _repository.UpdateAsync(item);
+            //} 
+
+            var tasks = machines.Select(x => _repository.UpdateAsync(x));
+            await Task.WhenAll(tasks); //#refactor bo posiadamy globalny dekorator zawierajacy docelowa transakcje  
         }
     }
 }

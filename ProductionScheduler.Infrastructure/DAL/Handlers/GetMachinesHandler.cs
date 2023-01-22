@@ -30,7 +30,8 @@ namespace ProductionScheduler.Infrastructure.DAL.Handlers
                 .AsNoTracking()
                 .ToListAsync();
 
-            return machines.Select(x => x.AsDto());
+            var cos = machines.Select(x => x.AsDto());
+            return cos;
         }
     }
 }

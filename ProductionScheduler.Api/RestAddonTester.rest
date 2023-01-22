@@ -11,7 +11,7 @@ GET  {{url}}/machines
 
 ###
 POST {{url}}/machines/{{machineId}}/reservations/employee
-Content-Type: application/json
+Content-Type: application/jsona
 
 { 
   "date": "2023-01-25", 
@@ -23,7 +23,7 @@ POST {{url}}/machines/{{machineId}}/reservations/service
 Content-Type: application/json
 
 {
-  "date": "2023-01-20", 
+  "date": "2023-01-23", 
   "hour": "13"
 }
 ###

@@ -63,7 +63,7 @@ public class MachinesController : ControllerBase
         return CreatedAtAction(nameof(Get), new { command.ReservationId }, null);
 
     }
-    [HttpPost("reservations/service")]
+    [HttpPost("{machineId:guid}/reservations/service")]
     public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command) // #refactor name
     {
         await _reserveForServiceHandler.HandleAsync(command);

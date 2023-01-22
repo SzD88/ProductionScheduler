@@ -17,8 +17,9 @@ namespace ProductionScheduler.Infrastructure.DAL.Handlers
                 {
                     Id = x.Id,
                     MachineId = x.MachineId,
-                    EmployeeName = x is MachineReservation y ? y.EmployeeName : null,
-                    Type = x is MachineReservation ? "machine" : "service", //#problem #here
+                    EmployeeName = x is MachineReservation y ? y.EmployeeName : "service",  // #refactor = docelowo zmienia na service ale mialo
+                    //tego nie byc , bez ttego walilo null reference 
+                    Type = x is MachineReservation ? "machine" : "service", //#problem #here #refactor
                     Date = x.Date.Value.Date,
                     Hour = x.Hour.Value
                 })
