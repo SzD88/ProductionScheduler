@@ -29,12 +29,8 @@ namespace ProductionScheduler.Infrastructure.Logging
                             .Console()
                            .WriteTo
                            .File("logs/logs.txt")
-                          // .WriteTo
-                         //  .Seq()
-                           
-                           ;
-                    }
-                    );
+                           .WriteTo
+                           .Seq("http://localhost:5341"); } );
 
             return builder;
         }
