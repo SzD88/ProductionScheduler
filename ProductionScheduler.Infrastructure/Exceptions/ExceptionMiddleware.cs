@@ -1,5 +1,6 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Exceptions;
 
@@ -8,6 +9,13 @@ namespace ProductionScheduler.Infrastructure.Exceptions
     // cuz it is internal ! #refactor
     internal sealed class ExceptionMiddleware : IMiddleware
     {
+        public ILogger<ExceptionMiddleware> _logger { get; }
+
+        public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger )
+        {
+            _logger = logger;
+        }
+
 
         //public ExceptionMiddleware(IServiceProvider prov)
         //{
@@ -25,7 +33,8 @@ namespace ProductionScheduler.Infrastructure.Exceptions
             //}
             catch (Exception exception)
             {
-                Console.WriteLine(exception.ToString());
+                // Console.WriteLine(exception.ToString()); replaced with logger
+                _logger.LogError(exception, exception.Message);
                 await HandleExceptionAsync(exception, context);
             }
         }

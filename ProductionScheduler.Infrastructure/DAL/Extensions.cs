@@ -5,6 +5,7 @@ using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Infrastructure.DAL.Decorators;
 using ProductionScheduler.Infrastructure.DAL.Repositories;
+using ProductionScheduler.Infrastructure.Logging.Decorators;
 
 namespace ProductionScheduler.Infrastructure.DAL
 {
@@ -37,7 +38,7 @@ namespace ProductionScheduler.Infrastructure.DAL
             // czyli kazda ktora jest typu 1 jesdt dekorowana wg typu of 2
             // jego cykl zycia jesdt taki sam jak obiektu dekorowanego  
             //ponizej dodano dodatkowy command handler i tutaj ma kolejnosc znaczenie duze podobno 
-            services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
+          // przeniesiono do logging/extensions.cs services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
             // z tego co rozumiem to idzie od dolu najpeierw logging potem do gory w unit of work zadziala 
 
             services.AddHostedService<DatabaseInitializer>();

@@ -7,7 +7,7 @@ using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure.DAL;
 using ProductionScheduler.Infrastructure.Exceptions;
 using ProductionScheduler.Application.Abstractions;
-
+using ProductionScheduler.Infrastructure.Logging;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -27,6 +27,8 @@ namespace ProductionScheduler.Infrastructure
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
              services.AddMSSql(configuration)
                 .AddSingleton<IClock,Clock>();
+
+            services.AddCustomLogging(); // po mssql - bo dopiero po bazie danych ma byc uzyte 
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
 

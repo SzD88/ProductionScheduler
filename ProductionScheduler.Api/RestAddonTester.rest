@@ -11,11 +11,11 @@ GET  {{url}}/machines
 
 ###
 POST {{url}}/machines/{{machineId}}/reservations/employee
-Content-Type: application/jsona
+Content-Type: application/json
 
 { 
   "date": "2023-01-25", 
-  "employeeName": "string",
+  "employeeName": "employeeRest",
   "hour": "10"
 }
 ###

@@ -3,6 +3,8 @@ using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;
 using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure;
+using ProductionScheduler.Infrastructure.Logging;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -13,6 +15,7 @@ builder.Services
     .AddInfrastructure(builder.Configuration)//sql wolasz razem z cala infrastruktura
     .AddControllers();
 
+builder.UseSerilog();
 
 builder.Services.AddSwaggerGen();
 
