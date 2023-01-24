@@ -1,5 +1,5 @@
-﻿ad﻿
-@url = https://localhost:5000 
+﻿ 
+@url = https://localhost:5000
 @reservationId = 64af2ba8-00b4-40d2-89ce-5e0d49bad694
 @machineId = 00000000-0000-0000-0000-000000000002
 
@@ -35,7 +35,7 @@ POST {{url}}/machines/{{machineId}}/reservations/service
 Content-Type: application/json
 
 {
-  "date": "2023-01-23", 
+  "date": "2023-01-25", 
   "hour": "13"
 }
 ###

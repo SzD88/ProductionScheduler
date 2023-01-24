@@ -8,7 +8,7 @@ namespace ProductionScheduler.Infrastructure.DAL
 {
     internal interface IUnitOfWork
     {
-        // dowolna operacja synchroniczna, dowolny callback
+        // dowolna operacja synchroniczna, dowolny callback #refactor
         Task ExecuteAsync(Func<Task> action);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Exceptions;
 
 namespace ProductionScheduler.Infrastructure.Exceptions
@@ -15,31 +14,20 @@ namespace ProductionScheduler.Infrastructure.Exceptions
         {
             _logger = logger;
         }
-
-
-        //public ExceptionMiddleware(IServiceProvider prov)
-        //{
-
-        //}
+         
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
                 await next(context);
-            }
-           // catch (CustomException ce) // tej moj #refactor usun komentarz
-            //{ 
-            
-            //}
+            } 
             catch (Exception exception)
             {
                 // Console.WriteLine(exception.ToString()); replaced with logger
                 _logger.LogError(exception, exception.Message);
                 await HandleExceptionAsync(exception, context);
             }
-        }
-
-
+        } 
         private async Task HandleExceptionAsync(Exception exception, HttpContext context)
         {
             //extension Humanizer - underscore 

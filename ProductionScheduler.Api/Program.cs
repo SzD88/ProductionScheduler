@@ -12,7 +12,7 @@ builder.Services
     .AddSingleton<IClock, Clock>()
     .AddCore()
     .AddApplication()
-    .AddInfrastructure(builder.Configuration)//sql wolasz razem z cala infrastruktura
+    .AddInfrastructure(builder.Configuration) 
     .AddControllers();
 
 builder.UseSerilog();
@@ -27,7 +27,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseInfrastructure();
-// app.MapControllers(); // could be hide into infrastructure above #refactor
+app.UseInfrastructure(); 
 
 app.Run();

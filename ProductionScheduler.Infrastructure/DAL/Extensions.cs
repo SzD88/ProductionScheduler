@@ -27,7 +27,7 @@ namespace ProductionScheduler.Infrastructure.DAL
             string connectionString = options.ConnectionString;
             //   string connectionString = configuration["database:connectionstring"]  ;
             services.AddDbContext<ProductionSchedulerDbContext>(x => x.UseSqlServer(connectionString));
-            services.AddScoped<IMachinesRepository, MSSqlMachinesRepository>();
+            services.AddScoped<IMachinesRepository, MSSqlMachineRepository>();
 
             services.AddScoped<IUnitOfWork, MSSqlUnitOfWork>();
             // chcemy zarezerwować kazdy commandhandler  w calej solucji globalnie , aby jedna operacja żeby za każdym razem

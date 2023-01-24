@@ -15,8 +15,7 @@ namespace ProductionScheduler.Infrastructure.Logging.Decorators
         {
             _commandHandler = commandHandler;
             _logger = logger;
-        }
-
+        } 
 
         public async Task HandleAsync(TCommand command)
         {

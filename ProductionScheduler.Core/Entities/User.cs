@@ -1,17 +1,20 @@
-﻿namespace ProductionScheduler.Core.Entities
+﻿using ProductionScheduler.Core.ValueObjects;
+
+namespace ProductionScheduler.Core.Entities
 {
     public class User
     {
-     
-        // #refactor primitives 
-        public Guid Id { get; private set; }
-        public string Email { get; private set; }
-        public string UserName { get; private set; }
-        public string Password   { get; private set; }
-        public string FullName { get; private set; }
-        public string Role { get; private set; }
+        public UserId Id { get; private set; }
+        public Email Email { get; private set; }
+        public UserName UserName { get; private set; }
+        public Password Password { get; private set; }
+        public FullName FullName { get; private set; }
+        public Role Role { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public User(Guid id, string email, string userName, string password, string fullName, string role, DateTime createdAt)
+
+        public User(UserId id, Email email, UserName userName,
+            Password password, FullName fullName, Role role,
+             DateTime createdAt)
         {
             Id = id;
             Email = email;
