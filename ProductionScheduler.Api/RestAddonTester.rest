@@ -4,6 +4,18 @@
 @machineId = 00000000-0000-0000-0000-000000000002
 
 ###
+POST {{url}}/users
+Content-Type: application/json
+
+{ 
+  "email": "szop@szio.pl", 
+  "userName": "Szop1",  
+  "password": "zabezpieczmnie123", 
+  "fullName": "Roman G", 
+  "role": "employee"
+}
+
+###
 GET  {{url}}
 
 ###

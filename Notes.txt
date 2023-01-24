@@ -1,4 +1,6 @@
-﻿Initializer bazy danych powinien sprawdzac jaki jest dzien i czy iloscm aszyn sie zgadza z zalozeniami i dopiero je zaciagac kazdego jednegodnia 
+﻿skonczono na #33 na cieciu w minucie 33-34
+
+Initializer bazy danych powinien sprawdzac jaki jest dzien i czy iloscm aszyn sie zgadza z zalozeniami i dopiero je zaciagac kazdego jednegodnia 
 sprawdza to na starcie aplikacji 
 
 zacznij od fragmentu odnosnie auto czynnosci w kodzie 

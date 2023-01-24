@@ -8,6 +8,7 @@ using ProductionScheduler.Infrastructure.DAL;
 using ProductionScheduler.Infrastructure.Exceptions;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Infrastructure.Logging;
+using ProductionScheduler.Infrastructure.Security;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -22,6 +23,8 @@ namespace ProductionScheduler.Infrastructure
             services.Configure<AppOptions>(section); //Microsoft.Extensions.Configuration;
 
             services.AddSingleton<ExceptionMiddleware>();
+
+            services.AddSecurity();
 
          //   services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
