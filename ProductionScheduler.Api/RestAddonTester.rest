@@ -36,7 +36,7 @@ POST {{url}}/machines/{{machineId}}/reservations/service
 Content-Type: application/json
 
 {
-  "date": "2023-01-25", 
+  "date": "2023-02-03", 
   "hour": "13"
 }
 ###

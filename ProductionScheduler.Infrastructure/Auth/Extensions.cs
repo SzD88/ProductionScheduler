@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ProductionScheduler.Infrastructure.DAL;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ProductionScheduler.Application.Security;
 
 namespace ProductionScheduler.Infrastructure.Auth
 {
@@ -14,6 +15,8 @@ namespace ProductionScheduler.Infrastructure.Auth
         {
             services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
             var options = configuration.GetOptions<AuthOptions>(SectionName);
+
+            services.AddSingleton<IAuthenticator, Authenticator>();
 
             services.AddAuthentication(x =>
             {
