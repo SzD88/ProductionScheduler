@@ -6,18 +6,37 @@ using ProductionScheduler.Infrastructure;
 using ProductionScheduler.Infrastructure.Logging;
 using Serilog;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy
+
+                           .WithOrigins("http://localhost:4200/")
+                            .SetIsOriginAllowed((host) => true);
+                          policy // .AllowAnyOrigin()
+                                .AllowAnyMethod()
+                               .AllowAnyHeader();
+                          //  .AllowCredentials();
+                      });
+});
+
 builder.Services
 
     .AddSingleton<IClock, Clock>()
     .AddCore()
     .AddApplication()
-    .AddInfrastructure(builder.Configuration) 
+    .AddInfrastructure(builder.Configuration)
     .AddControllers();
 
 builder.UseSerilog();
 
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -27,6 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseInfrastructure(); 
+app.UseInfrastructure();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();

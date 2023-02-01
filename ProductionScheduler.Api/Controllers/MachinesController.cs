@@ -3,6 +3,8 @@ using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
 using ProductionScheduler.Application.Queries;
+using System.Web.Http.Cors;
+
 
 namespace ProductionScheduler.Api.Controllers;
 
@@ -37,8 +39,10 @@ public class MachinesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query)
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query) //
         => Ok(await _getMachinesHandler.HandleAsync(query));
+ 
 
     //[HttpGet("{id:guid}")] //#refactor
     //public async Task<ActionResult<Reservation>> Get(Guid id)

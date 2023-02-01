@@ -9,6 +9,7 @@ using ProductionScheduler.Infrastructure.Exceptions;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Infrastructure.Logging;
 using ProductionScheduler.Infrastructure.Security;
+using ProductionScheduler.Infrastructure.Auth;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -25,6 +26,7 @@ namespace ProductionScheduler.Infrastructure
             services.AddSingleton<ExceptionMiddleware>();
 
             services.AddSecurity();
+            services.AddAuth(configuration);
 
          //   services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();

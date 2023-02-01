@@ -11,6 +11,7 @@
 
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
 		<PackageReference Include="Scrutor.AspNetCore" Version="3.3.0" />
 	</ItemGroup>
 	<ItemGroup>
