@@ -39,9 +39,9 @@ namespace ProductionScheduler.Infrastructure.Auth
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                    .GetBytes(options.SigningKey)),
                };
-           }
-
+           } 
             );
+            services.AddAuthorization();
             return services;
         }
     }
