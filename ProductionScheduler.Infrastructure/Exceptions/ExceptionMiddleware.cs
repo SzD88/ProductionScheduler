@@ -38,7 +38,7 @@ namespace ProductionScheduler.Infrastructure.Exceptions
             {   // jezeli jest to ustawiony przez ciebie blad - wtedy zwraca bad request i tresc przez ciebie zaplanowana
                 CustomException => (StatusCodes.Status400BadRequest, new Error(name, exception.Message)), 
                 // jezeli to jest kazdy inny blad wtedy zwraca tylko informacje ze to error bo to moze byc niebezpieczy wyciek danych #refactor 
-                _ => (StatusCodes.Status500InternalServerError, new Error(name, "There was an error"))
+                _ => (StatusCodes.Status500InternalServerError, new Error(name, $"There was an error + {exception.Message}"))
             };
 
             context.Response.StatusCode = statusCode;

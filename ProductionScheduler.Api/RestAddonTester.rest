@@ -23,11 +23,17 @@ GET  {{url}}
 GET  {{url}}/machines
 
 ###
+GET  {{url}}/users/jwt
+
+### 
+GET  {{url}}/users/me
+
+###
 POST {{url}}/machines/{{machineId}}/reservations/employee
 Content-Type: application/json
 
 { 
-  "date": "2023-01-25", 
+  "date": "2023-02-03", 
   "employeeName": "employeeRest",
   "hour": "10"
 }

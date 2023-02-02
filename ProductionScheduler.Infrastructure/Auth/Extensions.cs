@@ -13,27 +13,33 @@ namespace ProductionScheduler.Infrastructure.Auth
         private const string SectionName = "auth";
         public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
+
+
+          //  services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
+
             var options = configuration.GetOptions<AuthOptions>(SectionName);
 
-            services.AddSingleton<IAuthenticator, Authenticator>();
+            // services.AddSingleton<IAuthenticator, Authenticator>();
 
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.Audience = options.Audience;
-                x.IncludeErrorDetails = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidIssuer = options.Issuer,
-                    ClockSkew = TimeSpan.Zero, //dodatkowy bufor czasu zycia tokena #refactor
+            services
+                .Configure<AuthOptions>(configuration.GetRequiredSection(SectionName))
+            .AddSingleton<IAuthenticator, Authenticator>()
+           .AddAuthentication(x =>
+           {
+               x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           }).AddJwtBearer(x =>
+           {
+               x.Audience = options.Audience;
+               x.IncludeErrorDetails = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidIssuer = options.Issuer,
+                   ClockSkew = TimeSpan.Zero, //dodatkowy bufor czasu zycia tokena #refactor
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                    .GetBytes(options.SigningKey)),
-                };
-            }
+                   .GetBytes(options.SigningKey)),
+               };
+           }
 
             );
             return services;

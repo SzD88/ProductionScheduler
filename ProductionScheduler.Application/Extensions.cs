@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProductionScheduler.Application.Abstractions;
-using ProductionScheduler.Application.Commands;
-using ProductionScheduler.Application.Commands.Handlers;
-using Scrutor;
 
 namespace ProductionScheduler.Application
 {
@@ -17,6 +14,7 @@ namespace ProductionScheduler.Application
 
             // zbiera wszystko #30 1:19
             var appAssembly = typeof(ICommandHandler<>).Assembly;
+
             services.Scan(s => s.FromAssemblies(appAssembly)
                 .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
                 .AsImplementedInterfaces()

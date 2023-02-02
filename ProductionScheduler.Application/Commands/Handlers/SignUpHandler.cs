@@ -16,9 +16,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
         public SignUpHandler(IUserRepository userRepository, IPasswordManager passwordManager, IClock clock)
         {
-            _clock = clock;
             _userRepository = userRepository;
             _passwordManager = passwordManager;
+            _clock = clock;
+
         }
         public async Task HandleAsync(SignUp command)
         {

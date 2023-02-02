@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Core.DomainServices;
 using ProductionScheduler.Core.Policies;
 
@@ -14,6 +13,7 @@ namespace ProductionScheduler.Core
             services.AddSingleton<IReservationPolicy, ManagerReservationPolicy>();
             services.AddSingleton<IReservationPolicy, AdminReservationPolicy>();
             services.AddSingleton<IMachineReservationService, MachineReservationService>();
+
             return services;
         }
     }

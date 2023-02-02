@@ -26,6 +26,13 @@ namespace ProductionScheduler.Infrastructure.DAL.Handlers
             };
             return asDto;
         }
+        public static UserDto AsDto(this User entity)
+       => new()
+       {
+           Id = entity.Id,
+           UserName = entity.UserName,
+           FullName = entity.FullName
+       };
     }
 }
 

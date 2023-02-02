@@ -39,7 +39,7 @@ public class MachinesController : ControllerBase
     }
 
     [HttpGet]
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")] //#refactor delete
     public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query) //
         => Ok(await _getMachinesHandler.HandleAsync(query));
  
