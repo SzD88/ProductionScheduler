@@ -24,6 +24,7 @@ namespace ProductionScheduler.Infrastructure.Auth
             services
                 .Configure<AuthOptions>(configuration.GetRequiredSection(SectionName))
             .AddSingleton<IAuthenticator, Authenticator>()
+            .AddSingleton<ITokenStorage, HttpContextTokenStorage>()
            .AddAuthentication(x =>
            {
                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
