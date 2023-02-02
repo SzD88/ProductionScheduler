@@ -30,13 +30,15 @@ namespace ProductionScheduler.Infrastructure.Auth
         public JwtDto CreateToken(Guid userId, string role)
         {
             var now = _clock.Current();
-            var expires = now.Add(_expiry);
             var claims = new List<Claim>
             {
             new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
             new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
             new Claim( ClaimTypes.Role, role)
             };
+
+            var expires = now.Add(_expiry);
+
 
             var jwt = new JwtSecurityToken(_issuer, _audience, claims, now, expires, _singingCredentials);
 

@@ -51,9 +51,9 @@ namespace ProductionScheduler.Infrastructure
 
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseAuthentication(); // musi byc przed kontrolerem, bo kontroler 
-            // oddal by juz ostatni punkt
-            app.MapControllers(); // could be hidden here #refactor
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.MapControllers();
             return app;
         }
     }

@@ -3,7 +3,6 @@
 @reservationId = 64af2ba8-00b4-40d2-89ce-5e0d49bad694
 @machineId = 00000000-0000-0000-0000-000000000002
 @test = https://localhost:5000/machines
-@accessToken = {{}}
 
 
 ###
@@ -25,22 +24,26 @@ Content-Type: application/json
 
 { 
   "email": "szop@szio.pl", 
-  "userName": "Szop1",  
- 
+  "password": "zabezpieczmnie123" 
 }
 
 ###
-GET  {{url}}
+@accessToken = {{sign.in.response.body.$.accessToken}}
+
 
 ###
 GET  {{url}}/machines
+
+###
+GET  {{url}}/users
 
 ###
 GET  {{url}}/users/jwt
  
 ### 
 GET  {{url}}/users/me
-Authorization: Bearer {{accessToken}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhNjZlNDgwMC04NWYyLTRlMmEtYTliNC0yMTU3ODRiMTBhZjQiLCJ1bmlxdWVfbmFtZSI6ImE2NmU0ODAwLTg1ZjItNGUyYS1hOWI0LTIxNTc4NGIxMGFmNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzUzNTk2MTksImV4cCI6MTY3NTM2MzIxOSwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.HKOayYEFF8n2zMcM4QJ8zUv4yunDT7y571QZlUMcpfE
+
 
 ###
 POST {{url}}/machines/{{machineId}}/reservations/employee

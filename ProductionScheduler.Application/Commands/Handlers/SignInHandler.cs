@@ -15,13 +15,14 @@ internal sealed class SignInHandler : ICommandHandler<SignIn>
     private readonly IPasswordManager _passwordManager;
     private readonly ITokenStorage _tokenStorage;
 
-    public SignInHandler(IUserRepository userRepository, IAuthenticator authenticator, IPasswordManager passwordManager)
-       // ITokenStorage tokenStorage)
+    public SignInHandler(IUserRepository userRepository, IAuthenticator authenticator, 
+        IPasswordManager passwordManager,
+        ITokenStorage tokenStorage)
     {
         _userRepository = userRepository;
         _authenticator = authenticator;
         _passwordManager = passwordManager;
-     //   _tokenStorage = tokenStorage;  //#refactor #34 : 47 min
+       _tokenStorage = tokenStorage;  //#refactor #34 : 47 min
     }
 
     public async Task HandleAsync(SignIn command)
