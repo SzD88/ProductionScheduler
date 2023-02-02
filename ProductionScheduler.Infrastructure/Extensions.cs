@@ -27,7 +27,7 @@ namespace ProductionScheduler.Infrastructure
 
             services.AddSecurity();
             services.AddAuth(configuration);
-            services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor(); //#34 / 55 min
 
          //   services.AddSingleton<IClock, Clock>();
            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
