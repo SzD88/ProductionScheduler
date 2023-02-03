@@ -9,6 +9,7 @@ using ProductionScheduler.Application.Security;
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
+    [Authorize] // globalnie  + [AllowAnonymous] pod metodami ktore chcemy zeby byly dozwolone - ale to juz znasz //#refactor
     [Route("[controller]")]
     public class UsersController : ControllerBase
 
@@ -45,10 +46,14 @@ namespace ProductionScheduler.Api.Controllers
 
             return jwt;
         }
-
+        // ---------------- 
         [HttpGet("{userId:guid}")]
         public async Task<ActionResult<UserDto>> Get(Guid userId)
         {
+            if (HttpContext.User.IsInRole("admin"))
+            {
+                return Forbid();
+            }
             var user = await _getUserHandler.HandleAsync(new GetUser { UserId = userId });
             if (user is null)
             {
@@ -56,14 +61,26 @@ namespace ProductionScheduler.Api.Controllers
             }
             return user;
         }
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsers query)
+     => Ok(await _getUsersHandler.HandleAsync(query));
+        // ---------------------
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("me")]
-        [Authorize] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
+       //  [Authorize(Roles ="admin")] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
+        [Authorize(Policy ="is-admin")] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
 
         public async Task<ActionResult<UserDto>> GetCosTam()
         {
+            //if (!HttpContext.User.IsInRole("admin")) // czy rola spelniona ! - jako nie 
+            //{
+            //    return Forbid();
+            //}
             if (string.IsNullOrWhiteSpace(HttpContext.User.Identity?.Name))
             {
                 return NotFound();
@@ -75,13 +92,7 @@ namespace ProductionScheduler.Api.Controllers
                 return NotFound();
             return user;
         }
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsers query)
-      => Ok(await _getUsersHandler.HandleAsync(query));
-
+       
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

@@ -31,6 +31,9 @@
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.1-dev-00901" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
 		<PackageReference Include="Serilog.Sinks.Seq" Version="5.2.3-dev-00260" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -42,7 +42,15 @@ namespace ProductionScheduler.Infrastructure.Auth
                };
            } 
             );
-            services.AddAuthorization();
+            services.AddAuthorization(authorization =>
+
+            authorization.AddPolicy("is-admin", policy =>
+             {
+                 policy.RequireRole("admin");
+                   //   .RequireUserName().RequireClaim();
+            }
+
+            ));
             return services;
         }
     }
