@@ -9,7 +9,7 @@ using ProductionScheduler.Application.Security;
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
-    [Authorize] // globalnie  + [AllowAnonymous] pod metodami ktore chcemy zeby byly dozwolone - ale to juz znasz //#refactor
+   // [Authorize] // globalnie  + [AllowAnonymous] pod metodami ktore chcemy zeby byly dozwolone - ale to juz znasz //#refactor
     [Route("[controller]")]
     public class UsersController : ControllerBase
 
@@ -36,7 +36,7 @@ namespace ProductionScheduler.Api.Controllers
             _signInHandler = signInHandler;
             _tokenStorage = tokenStorage;
         }
-        [HttpGet("jwt")]
+        [HttpGet("jwt")] //#refactor - dowywalenia 
         public async Task<ActionResult<JwtDto>> GetJWT()
         {
             var userId = Guid.NewGuid();
@@ -73,9 +73,9 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("me")]
        //  [Authorize(Roles ="admin")] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
-        [Authorize(Policy ="is-admin")] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
+        [Authorize(Policy ="is-user")] // [Authorize(AuthenticationSchemes = ...)] //  tu sie tez da wskazac ze jest bearer ale masz to gdzie indziej juz wpisane
 
-        public async Task<ActionResult<UserDto>> GetCosTam()
+        public async Task<ActionResult<UserDto>> GetUser()
         {
             //if (!HttpContext.User.IsInRole("admin")) // czy rola spelniona ! - jako nie 
             //{

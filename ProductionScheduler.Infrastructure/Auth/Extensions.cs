@@ -15,7 +15,7 @@ namespace ProductionScheduler.Infrastructure.Auth
         {
 
 
-          //  services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
+            //  services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
 
             var options = configuration.GetOptions<AuthOptions>(SectionName);
 
@@ -37,20 +37,24 @@ namespace ProductionScheduler.Infrastructure.Auth
                {
                    ValidIssuer = options.Issuer,
                    ClockSkew = TimeSpan.Zero, //dodatkowy bufor czasu zycia tokena #refactor
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                    .GetBytes(options.SigningKey)),
                };
-           } 
+           }
             );
             services.AddAuthorization(authorization =>
 
             authorization.AddPolicy("is-admin", policy =>
-             {
-                 policy.RequireRole("admin");
-                   //   .RequireUserName().RequireClaim();
-            }
+            {
+                policy.RequireRole("admin");
+                 //   .RequireUserName().RequireClaim();
+             }));
+            services.AddAuthorization(authorization =>
 
-            ));
+            authorization.AddPolicy("is-user", policy =>
+            {
+                policy.RequireRole("user");
+            }));
             return services;
         }
     }

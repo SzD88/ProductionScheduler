@@ -3,7 +3,7 @@
 @reservationId = 64af2ba8-00b4-40d2-89ce-5e0d49bad694
 @machineId = 00000000-0000-0000-0000-000000000002
 @test = https://localhost:5000/machines
-
+@accesstoken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzhhNWVkNS05YTJmLTRiNWEtOTJkZi1jNGE3YzkyMTk1MjYiLCJ1bmlxdWVfbmFtZSI6ImJjOGE1ZWQ1LTlhMmYtNGI1YS05MmRmLWM0YTdjOTIxOTUyNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU3ODgxNDIsImV4cCI6MTY3NTc5MTc0MiwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.E_jawqeD2F_Tl9OW-87CgVRkNYJCHgMRz5Qrf_LUKdE
 
 ###
 POST {{url}}/users
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ###
-@accessToken = {{sign.in.response.body.$.accessToken}}
+@accessToken = {{sign_in.response.body.$.accessToken}}
 
 
 ###
@@ -38,14 +38,14 @@ GET  {{url}}/machines
 GET  {{url}}/users
 
 ###
-GET  {{url}}/users/78a5262e-dc3c-47ff-9061-4a7529721d9b
+GET  {{url}}/users/bc8a5ed5-9a2f-4b5a-92df-c4a7c9219526
 
 ###
 GET  {{url}}/users/jwt
  
 ### 
 GET  {{url}}/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OGE1MjYyZS1kYzNjLTQ3ZmYtOTA2MS00YTc1Mjk3MjFkOWIiLCJ1bmlxdWVfbmFtZSI6Ijc4YTUyNjJlLWRjM2MtNDdmZi05MDYxLTRhNzUyOTcyMWQ5YiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU0MTkxMjksImV4cCI6MTY3NTQyMjcyOSwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.HZ_C4R0ygxfGK_Q1jzDM_l_CnRuXY5L1Y8Lq6Z1pNEE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzhhNWVkNS05YTJmLTRiNWEtOTJkZi1jNGE3YzkyMTk1MjYiLCJ1bmlxdWVfbmFtZSI6ImJjOGE1ZWQ1LTlhMmYtNGI1YS05MmRmLWM0YTdjOTIxOTUyNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU3OTQ0MjQsImV4cCI6MTY3NTc5ODAyNCwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.XUaNEFJrCK89EiW6jhMFChTIPLylpKI3o4JrKV2kHtw
 
 
 ###

@@ -1,4 +1,6 @@
-﻿44 min ale cofnij
+﻿// poprawic kontrolery - zobic odpowiednie naglowki zwracanych wartosci
+// put rezerwacji nie dziala jakbys chcial bo nie zwraca not found
+
 
 skonczono na #33 na cieciu w minucie 33-34
 
