@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ProductionScheduler.Infrastructure;
+using WebApi.Controllers;
 
 namespace ProductionScheduler.Api.Controllers
 {
-    [Route("")] // #22 - settings from json app settings
-    public class HomeController : ControllerBase
+    [Route("")] 
+    public class HomeController : BaseController
     {
-        private readonly string _name;
-        public HomeController(IOptions<AppOptions> options) //IOptionsSnapshot - constant changes but memory hurting//extensions.options // 
+        private readonly AppOptions _appOptions; 
+        public HomeController(IOptions<AppOptions> options)
         {
-            _name = options.Value.Name; 
+            _appOptions = options.Value; 
         }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet]
-        public ActionResult<string> Get() => _name;
+        public ActionResult<string> Get()
+        {
+            return Ok(_appOptions.Name);
+        }
     }
 }

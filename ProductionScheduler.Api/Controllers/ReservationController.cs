@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
-using ProductionScheduler.Application.DTO;
-using ProductionScheduler.Application.Queries;
-using System.Web.Http.Cors;
+using WebApi.Controllers;
 
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
+    [Authorize] 
     [Route("machines")]
-    public class ReservationController : ControllerBase
+    public class ReservationController : BaseController
     {
         private readonly ICommandHandler<ReserveMachineForEmployee> _reserveForEmployeeHandler;
         private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
@@ -17,7 +17,6 @@ namespace ProductionScheduler.Api.Controllers
         private readonly ICommandHandler<ChangeReservationHour> _changeReservationHourHandler;
         private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
         private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
-
         public ReservationController(ICommandHandler<ReserveMachineForEmployee> reserveForEmployee,
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
@@ -34,40 +33,46 @@ namespace ProductionScheduler.Api.Controllers
         }
 
         [HttpPost("{machineId:guid}/reservations/employee")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post(Guid machineId, ReserveMachineForEmployee command)// #refactor name
         {
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
                 MachineId = machineId
-            });
-
-            return CreatedAtAction(nameof(Get), new { command.ReservationId }, null); 
+            }); 
+            return NoContent(); 
         }
+
+
         [HttpPost("{machineId:guid}/reservations/service")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command) // #refactor name
         {
             await _reserveForServiceHandler.HandleAsync(command);
-            return NoContent();
-
+            return NoContent(); 
         }
        
 
         [HttpPut("reservations/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Put(Guid id, ChangeReservationHour command) // #refactor
         {
             await _changeReservationHourHandler.HandleAsync(command with { ReservationId = id });
 
-            return NoContent();
-
+            return NoContent(); 
         }
-        [HttpDelete("reservations/{id:guid}")]
+
+        [HttpDelete("reservations/{id:guid}")] 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Delete(Guid id)
         {
             await _deleteReservationHandler.HandleAsync(new DeleteReservation(id));
-            return NoContent();
-
+            return NoContent(); 
         }
-    }
-
+    } 
 }

@@ -1,34 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
-using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
 using ProductionScheduler.Application.Queries;
-using System.Web.Http.Cors;
-
+using Swashbuckle.AspNetCore.Annotations;
+using WebApi.Controllers;
 
 namespace ProductionScheduler.Api.Controllers;
 
-[ApiController] // to odpowiada za to ze nie trzeba uzywac ciagle from body - oznaczasz ze to jest tyylko api
+[ApiController]
 [Route("machines")]
-public class MachinesController : ControllerBase
+public class MachinesController : BaseController
 {
-    private readonly ICommandHandler<ReserveMachineForEmployee> _reserveForEmployeeHandler;
-    private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
-    private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
-    private readonly ICommandHandler<ChangeReservationHour> _changeReservationHourHandler;
-    private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
-    private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
     private readonly IQueryHandler<GetMachines, IEnumerable<MachineDto>> _getMachinesHandler;
 
-
-    public MachinesController(IQueryHandler<GetMachines, IEnumerable<MachineDto>> getMachines,
+    public MachinesController(IQueryHandler<GetMachines, IEnumerable<MachineDto>> getMachines)
     {
-
         _getMachinesHandler = getMachines;
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [SwaggerOperation(Summary = "Retrieves all machines")]
     public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query)
-        => Ok(await _getMachinesHandler.HandleAsync(query));
+        => OkOrNotFound(await _getMachinesHandler.HandleAsync(query));
 
 }
