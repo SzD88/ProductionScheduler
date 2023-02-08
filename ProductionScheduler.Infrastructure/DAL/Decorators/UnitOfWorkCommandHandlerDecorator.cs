@@ -17,9 +17,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Decorators
             _commandHandler = commandHandler;
             _unitOfWork = unitOfWork;
         }
-
-      
-
+         
         public async Task HandleAsync(TCommand command)
         {
             await _unitOfWork.ExecuteAsync(() => _commandHandler.HandleAsync(command));

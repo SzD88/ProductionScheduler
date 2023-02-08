@@ -1,10 +1,79 @@
 ﻿ 
 @url = https://localhost:5000
-@reservationId = 64af2ba8-00b4-40d2-89ce-5e0d49bad694
+@reservationId = "68245dc2-20fe-437b-bfb5-b02fc642c5c9"
 @machineId = 00000000-0000-0000-0000-000000000002
 @test = https://localhost:5000/machines
-@accesstoken2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzhhNWVkNS05YTJmLTRiNWEtOTJkZi1jNGE3YzkyMTk1MjYiLCJ1bmlxdWVfbmFtZSI6ImJjOGE1ZWQ1LTlhMmYtNGI1YS05MmRmLWM0YTdjOTIxOTUyNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU3ODgxNDIsImV4cCI6MTY3NTc5MTc0MiwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.E_jawqeD2F_Tl9OW-87CgVRkNYJCHgMRz5Qrf_LUKdE
+@accesstokefdfdn2 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzhhNWVkNS05YTJmLTRiNWEtOTJkZi1jNGE3YzkyMTk1MjYiLCJ1bmlxdWVfbmFtZSI6ImJjOGE1ZWQ1LTlhMmYtNGI1YS05MmRmLWM0YTdjOTIxOTUyNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU3ODgxNDIsImV4cCI6MTY3NTc5MTc0MiwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.E_jawqeD2F_Tl9OW-87CgVRkNYJCHgMRz5Qrf_LUKdE
 
+# USER SECTION -----------------------------
+
+# @name login
+POST {{url}}/users/sign-in
+Content-Type: application/json
+
+{ 
+  "email": "szop@szio.pl", 
+  "password": "zabezpieczmnie123" 
+}
+
+# @name login
+POST {{url}}/users/sign-in
+Content-Type: application/json
+
+{ 
+ "email": "szop@seeeezio.pl",   
+  "password": "zabezpieczmnie123"
+  
+}
+
+###
+
+@authToken = {{login.response.headers.X-AuthToken}}
+
+# @name createComment
+POST {{url}}/machines/test
+Content-Type: application/json
+
+{
+    "text": "fake content"
+}
+
+###
+GET {{url}}
+ 
+  
+###
+
+@authToken = {{login.response.headers.X-AuthToken}}
+
+POST {{url}}/cos?text={{zz}}
+Content-Type: application/json
+
+{ 
+  "text": "szop@szio.pl"
+} 
+
+### 
+POST {{url}}/users/sign-in
+Content-Type: application/json
+
+{ 
+  "email": "szop@szio.pl", 
+  "password": "zabezpieczmnie123" 
+} 
+
+ 
+
+
+###
+GET  {{url}}/users
+
+###
+GET  {{url}}/users/bc8a5ed5-9a2f-4b5a-92df-c4a7c9219526
+
+### 
+GET  {{url}}/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODI0NWRjMi0yMGZlLTQzN2ItYmZiNS1iMDJmYzY0MmM1YzkiLCJ1bmlxdWVfbmFtZSI6IjY4MjQ1ZGMyLTIwZmUtNDM3Yi1iZmI1LWIwMmZjNjQyYzVjOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjc1ODg0ODIzLCJleHAiOjE2NzU4ODg0MjMsImlzcyI6InByb2R1Y3Rpb25zY2hlZHVsZXItaXNzdWVyIiwiYXVkIjoicHJvZHVjdGlvbnNjaGVkdWxlci1hdWRpZW5jZSJ9.pmMsDI__I2GLzJp6J1lLtQ_zk_4xxx38SMaQGMV8qOE
 ###
 POST {{url}}/users
 Content-Type: application/json
@@ -18,34 +87,25 @@ Content-Type: application/json
 }
 
 ###
-# @name sign_in
-POST {{url}}/users/sign-in
+POST {{url}}/users
 Content-Type: application/json
 
 { 
-  "email": "szop@szio.pl", 
-  "password": "zabezpieczmnie123" 
+  "email": "szop@seeeezio.pl", 
+  "userName": "Szop12",  
+  "password": "zabezpieczmnie123", 
+  "fullName": "Roman G", 
+  "role": "admin"
 }
 
-###
-@accessToken = {{sign_in.response.body.$.accessToken}}
-
-
+# GET MACHINES SECTION --------------------------
+ 
 ###
 GET  {{url}}/machines
-
-###
-GET  {{url}}/users
-
-###
-GET  {{url}}/users/bc8a5ed5-9a2f-4b5a-92df-c4a7c9219526
-
-###
-GET  {{url}}/users/jwt
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODI0NWRjMi0yMGZlLTQzN2ItYmZiNS1iMDJmYzY0MmM1YzkiLCJ1bmlxdWVfbmFtZSI6IjY4MjQ1ZGMyLTIwZmUtNDM3Yi1iZmI1LWIwMmZjNjQyYzVjOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjc1ODg0ODIzLCJleHAiOjE2NzU4ODg0MjMsImlzcyI6InByb2R1Y3Rpb25zY2hlZHVsZXItaXNzdWVyIiwiYXVkIjoicHJvZHVjdGlvbnNjaGVkdWxlci1hdWRpZW5jZSJ9.pmMsDI__I2GLzJp6J1lLtQ_zk_4xxx38SMaQGMV8qOE
  
-### 
-GET  {{url}}/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OGE1MjYyZS1kYzNjLTQ3ZmYtOTA2MS00YTc1Mjk3MjFkOWIiLCJ1bmlxdWVfbmFtZSI6Ijc4YTUyNjJlLWRjM2MtNDdmZi05MDYxLTRhNzUyOTcyMWQ5YiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2NzU4NDkxODAsImV4cCI6MTY3NTg1Mjc4MCwiaXNzIjoicHJvZHVjdGlvbnNjaGVkdWxlci1pc3N1ZXIiLCJhdWQiOiJwcm9kdWN0aW9uc2NoZWR1bGVyLWF1ZGllbmNlIn0.3OWMXM3KaXKgYa1WUKajjBwim69qEGdOmWM3zjCwzAY
+
+# RESERVATIONS section -----------------------
 
 ###
 POST {{url}}/machines/{{machineId}}/reservations/employee
@@ -65,7 +125,8 @@ Content-Type: application/json
   "hour": "13"
 }
 ###
-PUT {{url}}/machines/reservations/{{reservationId}}
+PUT {{url}}/machines/reservations/b986e139-17dc-462a-aaf4-4172a56c9dbf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODI0NWRjMi0yMGZlLTQzN2ItYmZiNS1iMDJmYzY0MmM1YzkiLCJ1bmlxdWVfbmFtZSI6IjY4MjQ1ZGMyLTIwZmUtNDM3Yi1iZmI1LWIwMmZjNjQyYzVjOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjc1ODg0ODIzLCJleHAiOjE2NzU4ODg0MjMsImlzcyI6InByb2R1Y3Rpb25zY2hlZHVsZXItaXNzdWVyIiwiYXVkIjoicHJvZHVjdGlvbnNjaGVkdWxlci1hdWRpZW5jZSJ9.pmMsDI__I2GLzJp6J1lLtQ_zk_4xxx38SMaQGMV8qOE
 Content-Type: application/json    
 
 {   

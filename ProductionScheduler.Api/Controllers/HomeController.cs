@@ -5,13 +5,13 @@ using WebApi.Controllers;
 
 namespace ProductionScheduler.Api.Controllers
 {
-    [Route("")] 
+    [Route("")]
     public class HomeController : BaseController
     {
-        private readonly AppOptions _appOptions; 
+        private readonly AppOptions _appOptions;
         public HomeController(IOptions<AppOptions> options)
         {
-            _appOptions = options.Value; 
+            _appOptions = options.Value;
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -19,6 +19,12 @@ namespace ProductionScheduler.Api.Controllers
         public ActionResult<string> Get()
         {
             return Ok(_appOptions.Name);
+        }
+
+        [HttpPost("/cos")]
+        public testQ Test([FromQuery] testQ enter)
+        {
+            return enter;
         }
     }
 }

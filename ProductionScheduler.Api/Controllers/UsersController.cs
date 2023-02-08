@@ -64,6 +64,7 @@ namespace ProductionScheduler.Api.Controllers
             {
                 return NotFound();
             }
+            var role =  HttpContext.User.IsInRole("user");
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
             var user = await _getUserHandler.HandleAsync(new GetUser { UserId = userId });
             if (user is null)

@@ -49,11 +49,12 @@ namespace ProductionScheduler.Infrastructure.Auth
                 policy.RequireRole("admin");
                  //   .RequireUserName().RequireClaim();
              }));
+           
             services.AddAuthorization(authorization =>
 
-            authorization.AddPolicy("is-user", policy =>
+            authorization.AddPolicy("is-manager_or_admin", policy =>
             {
-                policy.RequireRole("user");
+                policy.RequireRole("manager", "admin");
             }));
             return services;
         }

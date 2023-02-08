@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.DTO;
 using ProductionScheduler.Application.Queries;
@@ -18,7 +19,15 @@ public class MachinesController : BaseController
         _getMachinesHandler = getMachines;
     }
 
+    [HttpPost("/test")]
+    public async Task<ActionResult<testQ>> Test([FromQuery] testQ enter)
+    {
+       await Task.Delay(1000);
+        return Ok(enter);
+    }
+
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation(Summary = "Retrieves all machines")]

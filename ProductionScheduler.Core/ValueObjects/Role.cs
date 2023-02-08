@@ -4,8 +4,8 @@ namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record Role
 {
-
-    public static IEnumerable<string> AvailableRoles { get; } = new[] {"admin", "user"};
+    //#refactor - roles 
+    public static IEnumerable<string> AvailableRoles { get; } = new[] {"admin", "manager", "user"};
 
     public string Value { get; }
 

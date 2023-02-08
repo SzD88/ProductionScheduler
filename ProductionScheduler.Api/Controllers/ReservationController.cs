@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
+using Swashbuckle.AspNetCore.Annotations;
 using WebApi.Controllers;
 
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
-    [Authorize] 
+      [Authorize] 
     [Route("machines")]
     public class ReservationController : BaseController
     {
@@ -33,9 +34,10 @@ namespace ProductionScheduler.Api.Controllers
         }
 
         [HttpPost("{machineId:guid}/reservations/employee")]
+        [SwaggerOperation("Create reservation for employee")] 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Post(Guid machineId, ReserveMachineForEmployee command)// #refactor name
+        public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployee command) 
         {
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
@@ -44,23 +46,37 @@ namespace ProductionScheduler.Api.Controllers
             }); 
             return NoContent(); 
         }
-
-
+         
         [HttpPost("{machineId:guid}/reservations/service")]
+        [SwaggerOperation("Create reservation for service")]
+        [Authorize(Policy = "is-admin")] 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command) // #refactor name
+        public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command)  
         {
             await _reserveForServiceHandler.HandleAsync(command);
             return NoContent(); 
         }
-       
-
+        
         [HttpPut("reservations/{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Put(Guid id, ChangeReservationHour command) // #refactor
         {
+            // chcesz tutaj wyciagnac id znowu , bo kazdy user ma swoje id
+            // wtedy chcesz jak w "me" sprawdzic czy user id zgadza sie z rezerwacja usera
+            // id
+
+
+            var userId = Guid.Parse(HttpContext.User.Identity?.Name);
+           
+ 
+
+           // var userId = Guid.Parse(HttpContext.User.Identity?.Name);
+          //  var user = await _getUserHandler.HandleAsync(new GetUser { UserId  //userId });
+         //   if (user is null)
+          //      return NotFound();
+           // var userRole = HttpContext.User.?.role
             await _changeReservationHourHandler.HandleAsync(command with { ReservationId = id });
 
             return NoContent(); 
