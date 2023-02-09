@@ -2,8 +2,7 @@
 using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Core.Entities
-{
-    //This Class is defining 
+{ 
     public class Machine
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
@@ -21,12 +20,7 @@ namespace ProductionScheduler.Core.Entities
         private Machine()
         {
 
-        }
-
-        //ukrywasz te metode przed innymi warstwami #refactor #26 - 40:00
-        // jezeli cos jest internal to programista mial w tym cel
-        // chcial to ukryc , szuka sie sposobu by inaczej dodac i to mialo byc przygotowane
-        //to nakierowanie jest
+        } 
         internal void AddReservation(Reservation reservation, Date now)
         {
             var date = reservation.Date;

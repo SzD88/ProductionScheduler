@@ -61,23 +61,17 @@ namespace ProductionScheduler.Api.Controllers
         [HttpPut("reservations/{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Put(Guid id, ChangeReservationHour command) // #refactor
-        {
-            // chcesz tutaj wyciagnac id znowu , bo kazdy user ma swoje id
-            // wtedy chcesz jak w "me" sprawdzic czy user id zgadza sie z rezerwacja usera
-            // id
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> Put(Guid reservationId, Guid userId, ChangeReservationHour command) // #refactor
+        { 
+            var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
+            var userIdentityRole= HttpContext.User.IsInRole("user");
 
-
-            var userId = Guid.Parse(HttpContext.User.Identity?.Name);
-           
- 
-
-           // var userId = Guid.Parse(HttpContext.User.Identity?.Name);
-          //  var user = await _getUserHandler.HandleAsync(new GetUser { UserId  //userId });
-         //   if (user is null)
-          //      return NotFound();
-           // var userRole = HttpContext.User.?.role
-            await _changeReservationHourHandler.HandleAsync(command with { ReservationId = id });
+            if (userIdentityId != userId && userIdentityRole)
+            {
+                return Forbid();
+            } 
+            await _changeReservationHourHandler.HandleAsync(command with { ReservationId = reservationId });
 
             return NoContent(); 
         }
