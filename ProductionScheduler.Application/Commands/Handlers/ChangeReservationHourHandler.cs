@@ -6,7 +6,7 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Application.Commands.Handlers
 {
-    public class ChangeReservationHourHandler : DataChangeHandlerBase, ICommandHandler<ChangeReservationTime>
+    public class ChangeReservationHourHandler : DataChangeHandlerBase, ICommandHandler<ChangeReservationHour>
     {
         private readonly IMachinesRepository _repository;
 
@@ -14,8 +14,8 @@ namespace ProductionScheduler.Application.Commands.Handlers
         {
             _repository = repository;
         }
-        public async Task HandleAsync(ChangeReservationTime command)
-        {
+        public async Task HandleAsync(ChangeReservationHour command)
+        { 
             var machine = await GetMachineByReservationIdAsync(_repository, command.ReservationId);
 
             if (machine is null)
@@ -25,9 +25,8 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
-                .OfType<ReservationForUser>()
+                .OfType<Reservation>()
                 .SingleOrDefault(x => x.Id == reservationId);
-
 
             if (reservation is null)
             {

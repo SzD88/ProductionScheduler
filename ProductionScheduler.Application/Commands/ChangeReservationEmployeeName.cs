@@ -4,10 +4,8 @@ namespace ProductionScheduler.Application.Commands
 {
     public record ChangeReservationEmployeeName(
 
-        Guid ReservationId,
-       
-        string EmployeeName
-     
+        Guid ReservationId, 
+        string EmployeeName 
         ) : ICommand;
 
 }

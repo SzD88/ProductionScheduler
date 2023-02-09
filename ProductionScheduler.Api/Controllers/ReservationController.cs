@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
+using ProductionScheduler.Application.DTO;
 using Swashbuckle.AspNetCore.Annotations;
 using WebApi.Controllers;
 
@@ -14,20 +15,20 @@ namespace ProductionScheduler.Api.Controllers
         private readonly ICommandHandler<ReserveMachineForEmployee> _reserveForEmployeeHandler;
         private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
         private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
-        private readonly ICommandHandler<ChangeReservationTime> _changeReservationHourHandler;
+        private readonly ICommandHandler<ChangeReservationHour> _changeReservationTimeHandler;
         private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
         private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
         public ReservationController(ICommandHandler<ReserveMachineForEmployee> reserveForEmployee,
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
-                            ICommandHandler<ChangeReservationTime> changeReservationHour,
+                            ICommandHandler<ChangeReservationHour> changeReservationHour,
                             ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
                             ICommandHandler<DeleteReservation> deleteReservationHandler)
         {
             _reserveForEmployeeHandler = reserveForEmployee;
             _reserveForServiceHandler = reserveForService;
             _changeReservationDateHandler = changeReservationDate;
-            _changeReservationHourHandler = changeReservationHour;
+            _changeReservationTimeHandler = changeReservationHour;
             _changeReservationEmployeeNameHandler = changeReservationEmployeeName;
             _deleteReservationHandler = deleteReservationHandler;
         }
@@ -37,7 +38,7 @@ namespace ProductionScheduler.Api.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployee command)
         {
             await _reserveForEmployeeHandler.HandleAsync(command with
@@ -67,22 +68,22 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> EditReservation(Guid reservationId, Guid userId, ChangeReservationTime command) // #refactor
+        public async Task<ActionResult> EditReservationTime(Guid reservationId, ChangeReservationDateAndTimeDto dto)
         {
-            var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
-            var userIdentityRole = HttpContext.User.IsInRole("user");
-
-            if (userIdentityId != userId && userIdentityRole)
-            {
+            var userId = Guid.Parse(HttpContext.User.Identity?.Name);
+             
+            if (!HttpContext.User.IsInRole("admin"))
                 return Forbid();
-            }
-            await _changeReservationHourHandler.HandleAsync(command with { ReservationId = reservationId });
+            
+            var command = new ChangeReservationHour(reservationId, userId, dto.Date, dto.Hour);
+             
+            await _changeReservationTimeHandler.HandleAsync(command with { ReservationId = reservationId });
 
             return NoContent();
         }
 
         [HttpDelete("reservations/{reservationId:guid}")]
-        [SwaggerOperation("Delete reservation by id")] 
+        [SwaggerOperation("Delete reservation by id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -101,7 +101,7 @@ namespace ProductionScheduler.Application.Services
             throw new NotImplementedException(); 
         }
 
-        public async Task<bool> ChangeReservationHourAsync(ChangeReservationTime command)
+        public async Task<bool> ChangeReservationHourAsync(ChangeReservationHour command)
         {
             var machineToReserve = await GetMachineByReservationIdAsync(command.ReservationId);
 
