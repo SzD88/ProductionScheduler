@@ -67,7 +67,7 @@ namespace ProductionScheduler.Infrastructure
 
 
             app.UseSwagger();
-              app.UseSwaggerUI();
+            //  app.UseSwaggerUI();
             app.UseReDoc(reDoc =>
             {
                 reDoc.RoutePrefix = "docs";

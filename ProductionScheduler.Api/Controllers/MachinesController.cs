@@ -17,18 +17,11 @@ public class MachinesController : BaseController
     public MachinesController(IQueryHandler<GetMachines, IEnumerable<MachineDto>> getMachines)
     {
         _getMachinesHandler = getMachines;
-    }
-
-    [HttpPost("/test")]
-    public async Task<ActionResult<testQ>> Test([FromQuery] testQ enter)
-    {
-       await Task.Delay(1000);
-        return Ok(enter);
-    }
-
+    } 
     [HttpGet]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation(Summary = "Retrieves all machines")]
     public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query)

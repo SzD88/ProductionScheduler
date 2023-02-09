@@ -19,12 +19,6 @@ namespace ProductionScheduler.Api.Controllers
         public ActionResult<string> Get()
         {
             return Ok(_appOptions.Name);
-        }
-
-        [HttpPost("/cos")]
-        public testQ Test([FromQuery] testQ enter)
-        {
-            return enter;
-        }
+        } 
     }
 }

@@ -8,7 +8,7 @@ using WebApi.Controllers;
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
-      [Authorize] 
+    [Authorize]
     [Route("machines")]
     public class ReservationController : BaseController
     {
@@ -34,55 +34,68 @@ namespace ProductionScheduler.Api.Controllers
         }
 
         [HttpPost("{machineId:guid}/reservations/employee")]
-        [SwaggerOperation("Create reservation for employee")] 
+        [SwaggerOperation("Create reservation for employee")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployee command) 
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
+        public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployee command)
         {
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
                 MachineId = machineId
-            }); 
-            return NoContent(); 
+            });
+            return NoContent();
         }
-         
+
         [HttpPost("{machineId:guid}/reservations/service")]
         [SwaggerOperation("Create reservation for service")]
-        [Authorize(Policy = "is-admin")] 
+        [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command)  
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command)
         {
             await _reserveForServiceHandler.HandleAsync(command);
-            return NoContent(); 
+            return NoContent();
         }
-        
-        [HttpPut("reservations/{id:guid}")]
+
+        [HttpPut("reservations/{reservationId:guid}")]
+        [SwaggerOperation("Edit reservation by id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> Put(Guid reservationId, Guid userId, ChangeReservationHour command) // #refactor
-        { 
+        public async Task<ActionResult> EditReservation(Guid reservationId, Guid userId, ChangeReservationHour command) // #refactor
+        {
             var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
-            var userIdentityRole= HttpContext.User.IsInRole("user");
+            var userIdentityRole = HttpContext.User.IsInRole("user");
 
             if (userIdentityId != userId && userIdentityRole)
             {
                 return Forbid();
-            } 
+            }
             await _changeReservationHourHandler.HandleAsync(command with { ReservationId = reservationId });
 
-            return NoContent(); 
+            return NoContent();
         }
 
-        [HttpDelete("reservations/{id:guid}")] 
+        [HttpDelete("reservations/{reservationId:guid}")]
+        [SwaggerOperation("Delete reservation by id")] 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Delete(Guid id)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> DeleteReservation(Guid reservationId, Guid userId)
         {
-            await _deleteReservationHandler.HandleAsync(new DeleteReservation(id));
-            return NoContent(); 
+            var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
+            var userIdentityRole = HttpContext.User.IsInRole("user");
+
+            if (userIdentityId != userId && userIdentityRole)
+            {
+                return Forbid();
+            }
+            await _deleteReservationHandler.HandleAsync(new DeleteReservation(reservationId));
+            return NoContent();
         }
-    } 
+    }
 }

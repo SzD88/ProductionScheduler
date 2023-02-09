@@ -38,7 +38,7 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDto>> Get(Guid userId)
+        public async Task<ActionResult<UserDto>> GetUser(Guid userId)
         {
             var user = await _getUserHandler.HandleAsync(new GetUser { UserId = userId });
             return OkOrNotFound(user);
@@ -48,9 +48,8 @@ namespace ProductionScheduler.Api.Controllers
         [SwaggerOperation("Retrieves all users")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]// ?? no bo on jest autoryzowany tylko jest forbiden
-       // [ProducesResponseType(StatusCodes.Status403Forbidden)] //?? no bo user nie moze tego wykonac , wiec powinno zwrocic // ale nie zwroci forbiden nigdy
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsers query)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] GetUsers query)
          => Ok(await _getUsersHandler.HandleAsync(query));
 
         [HttpGet("me")]
@@ -58,7 +57,7 @@ namespace ProductionScheduler.Api.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<UserDto>> GetUser()
+        public async Task<ActionResult<UserDto>> GetSelf()
         {
             if (string.IsNullOrWhiteSpace(HttpContext.User.Identity?.Name))
             {
@@ -67,22 +66,20 @@ namespace ProductionScheduler.Api.Controllers
             var role =  HttpContext.User.IsInRole("user");
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
             var user = await _getUserHandler.HandleAsync(new GetUser { UserId = userId });
-            if (user is null)
-                return NotFound();
-            return user;
+            
+            return OkOrNotFound(user);
         }
 
         [HttpPost]
-        [SwaggerOperation("Create the user account")]
+        [SwaggerOperation("Create a user account")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post(SignUp command)
-        {
-            //nadpisanie commendy
+        { 
             command = command with { UserId = Guid.NewGuid() };
 
             await _signUpHandler.HandleAsync(command);
-            return CreatedAtAction(nameof(Get), new { command.UserId }, null);
+            return CreatedAtAction(nameof(GetUser), new { command.UserId }, null);
         }
 
         [HttpPost("sign-in")]

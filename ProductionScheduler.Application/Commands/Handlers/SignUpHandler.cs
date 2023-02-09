@@ -22,9 +22,9 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
         }
         public async Task HandleAsync(SignUp command)
-        {
-            //validate input
+        { 
             var userId = new UserId(command.UserId);
+            var userId2 = new UserId(Guid.NewGuid());
             var email = new Email(command.Email);
             var userName = new UserName(command.UserName);
             var password = new Password(command.Password);
