@@ -44,7 +44,7 @@ namespace ProductionScheduler.Application.Services
                     Id = x.Id,
                     MachineId = x.MachineId,
                     // jezeli x jest typu machinereservation przypisz go do y jako typ pochodny 
-                    EmployeeName = x is MachineReservation y ? y.EmployeeName : String.Empty,
+                    EmployeeName = x is ReservationForUser y ? y.EmployeeName : String.Empty,
                     Date = x.Date.Value.Date,
                     Hour = x.Hour
                 }); // ?? w okolicahc 13 odcinka 
@@ -78,7 +78,7 @@ namespace ProductionScheduler.Application.Services
                 return default;
             }
 
-            var reservation = new MachineReservation(command.ReservationId, command.MachineId,
+            var reservation = new ReservationForUser(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager

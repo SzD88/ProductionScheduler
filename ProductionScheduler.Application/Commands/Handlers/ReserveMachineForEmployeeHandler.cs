@@ -52,7 +52,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
               throw new  MachineNotFoundException(machineId);
             }
 
-            var reservation = new MachineReservation(command.ReservationId, command.MachineId,
+            var reservation = new ReservationForUser(command.ReservationId, command.MachineId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager

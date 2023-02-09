@@ -26,7 +26,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
-                .OfType<MachineReservation>()
+                .OfType<ReservationForUser>()
                 .SingleOrDefault(x => x.Id == reservationId);
 
 

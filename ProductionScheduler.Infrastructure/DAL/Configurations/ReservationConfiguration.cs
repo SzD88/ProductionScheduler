@@ -28,8 +28,8 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
 
             builder
                 .HasDiscriminator<string>("Type")
-                .HasValue<ServiceReservation>(nameof(ServiceReservation))
-                .HasValue<MachineReservation>(nameof(MachineReservation));
+                .HasValue<ReservationForService>(nameof(ReservationForService))
+                .HasValue<ReservationForUser>(nameof(ReservationForUser));
             
 
         }

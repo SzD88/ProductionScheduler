@@ -22,7 +22,7 @@ namespace ProductionScheduler.Core.Policies
         {
             var totalEmployeeReservations = periodMachineReservations
                 .SelectMany(x => x.Reservations)
-                .OfType<MachineReservation>()
+                .OfType<ReservationForUser>()
                    .Count(x => x.EmployeeName == name);
 
             // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu

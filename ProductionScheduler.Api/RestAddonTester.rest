@@ -46,7 +46,7 @@ GET {{url}}
 
 @authToken = {{login.response.headers.X-AuthToken}}
 
-POST {{url}}/cos?text={{zz}}
+POST {{url}}/ 
 Content-Type: application/json
 
 { 

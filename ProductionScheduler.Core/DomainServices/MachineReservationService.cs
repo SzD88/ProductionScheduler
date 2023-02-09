@@ -35,7 +35,7 @@ namespace ProductionScheduler.Core.DomainServices
 
                 machine.RemoveReservations(reservationsForSameDate);
 
-                var serviceReservation = new ServiceReservation( ReservationId.Create() , machine.Id, date, hour);
+                var serviceReservation = new ReservationForService( ReservationId.Create() , machine.Id, date, hour);
                 machine.AddReservation(serviceReservation, new Date( _clock.Current()));
             }
         }
@@ -43,7 +43,7 @@ namespace ProductionScheduler.Core.DomainServices
         // wzorzec #refactor wzorzec strategii - if do pojedynczej klasy #tu koniec 16 min
 
         public void ReserveMachineForUser(IEnumerable<Machine> allMachineReservations,
-            EmplooyeeRank rank, Machine periodiMachineReservation, MachineReservation reservation)
+            EmplooyeeRank rank, Machine periodiMachineReservation, ReservationForUser reservation)
         {
 
             // #refactor for future - mozesz na podstawie reservation sprawdzac w policy np godziny dla danej rangi pracownika, po prostu przekaz 
