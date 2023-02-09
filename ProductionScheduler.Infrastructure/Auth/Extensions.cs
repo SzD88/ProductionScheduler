@@ -52,7 +52,7 @@ namespace ProductionScheduler.Infrastructure.Auth
            
             services.AddAuthorization(authorization =>
 
-            authorization.AddPolicy("is-manager_or_admin", policy =>
+            authorization.AddPolicy("is-manager-or-admin", policy =>
             {
                 policy.RequireRole("manager", "admin");
             }));

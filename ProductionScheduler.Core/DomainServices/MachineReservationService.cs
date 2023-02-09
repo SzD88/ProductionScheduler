@@ -35,8 +35,8 @@ namespace ProductionScheduler.Core.DomainServices
 
                 machine.RemoveReservations(reservationsForSameDate);
 
-                var serviceReservation = new ReservationForService( ReservationId.Create() , machine.Id, date, hour);
-                machine.AddReservation(serviceReservation, new Date( _clock.Current()));
+                var serviceReservation = new ReservationForService(ReservationId.Create(), machine.Id, date, hour);
+                machine.AddReservation(serviceReservation, new Date(_clock.Current()));
             }
         }
 
@@ -64,10 +64,10 @@ namespace ProductionScheduler.Core.DomainServices
             //    .Count(x => x.EmployeeName ==  );
             if (policy.CanReserve(allMachineReservations, reservation.EmployeeName) is false)
             {
-                throw new CannotReserveMachineException(machineToReserveId   );
+                throw new CannotReserveMachineException(machineToReserveId);
             }
 
-            periodiMachineReservation.AddReservation(reservation, new Date( _clock.Current()));
+            periodiMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
         }
     }
 }

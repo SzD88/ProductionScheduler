@@ -1,7 +1,7 @@
 ﻿
 namespace ProductionScheduler.Application.DTO
 {
-    public record ChangeReservationDateAndTimeDto(
+    public record ChangeReservationDateAndHourDto(
         DateTime Date,
         int Hour
         );

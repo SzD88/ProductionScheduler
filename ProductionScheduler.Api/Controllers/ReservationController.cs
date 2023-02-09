@@ -62,37 +62,36 @@ namespace ProductionScheduler.Api.Controllers
         }
 
         [HttpPut("reservations/{reservationId:guid}")]
-        [SwaggerOperation("Edit reservation by id")]
-        [Authorize]
+        [SwaggerOperation("Edit reservation date and hour by id")]
+        [Authorize(Policy = "is-manager-or-admin")] 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> EditReservationTime(Guid reservationId, ChangeReservationDateAndTimeDto dto)
+        public async Task<ActionResult> EditReservationDateAndHour(Guid reservationId, ChangeReservationDateAndHourDto dto)
         {
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
-             
-            if (!HttpContext.User.IsInRole("admin"))
-                return Forbid();
-            
-            var command = new ChangeReservationHour(reservationId, userId, dto.Date, dto.Hour);
-             
-            await _changeReservationTimeHandler.HandleAsync(command with { ReservationId = reservationId });
+              
+            var commandHour = new ChangeReservationHour(reservationId, dto.Hour); 
+            await _changeReservationTimeHandler.HandleAsync(commandHour with { ReservationId = reservationId });
+
+            var commandDate = new ChangeReservationDate(reservationId, dto.Date); 
+            await _changeReservationDateHandler.HandleAsync(commandDate with { ReservationId = reservationId });
 
             return NoContent();
         }
 
         [HttpDelete("reservations/{reservationId:guid}")]
         [SwaggerOperation("Delete reservation by id")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteReservation(Guid reservationId, Guid userId)
+        public async Task<ActionResult> DeleteReservation(Guid reservationId )
         {
             var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
             var userIdentityRole = HttpContext.User.IsInRole("user");
 
-            if (userIdentityId != userId && userIdentityRole)
+            if ( userIdentityRole)
             {
                 return Forbid();
             }

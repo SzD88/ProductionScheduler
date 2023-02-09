@@ -13,8 +13,7 @@ namespace ProductionScheduler.Core.ValueObjects
             if (Value is < 7 or > 14)
             {
                 throw new InvalidHourException(value);
-            }
-
+            } 
         }
 
         public static implicit operator int(Hour hour)

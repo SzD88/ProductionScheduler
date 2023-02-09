@@ -15,6 +15,13 @@ namespace ProductionScheduler.Application.Commands.Handlers
         }
         public async Task HandleAsync(DeleteReservation command)
         {
+            // mozesz dzialac na user name z repozytorium userow jakbys je tutaj wstrzykna
+
+            // z controlera otrzymasz role, user id -> znajdz name
+
+            // tutaj w repozytorium znajdz rezerwacje 
+
+            //zastanow sie co otrzymujesz z repo i jak to tutaj rozdmuchać 
             var machine = await GetMachineByReservationIdAsync(_repository, command.ReservationId);
 
             if (machine is null)
