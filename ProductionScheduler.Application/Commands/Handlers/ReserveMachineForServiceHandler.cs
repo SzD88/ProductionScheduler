@@ -7,8 +7,7 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Application.Commands.Handlers
 {
     public class ReserveMachineForServiceHandler : ICommandHandler<ReserveMachineForService>
-    {
-
+    { 
         private readonly IMachinesRepository _repository;
         private readonly IMachineReservationService _reservationService;
 
@@ -19,11 +18,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             _reservationService = machineReservationService;
         }
         public async Task HandleAsync(ReserveMachineForService command)
-        {
-            // version with getbyperiod 
-            //var timeforward = new ReservationTimeForward(command.Date);
-            //var machines = (await _allMachines.GetByPeriodAsync(timeforward)).ToList();
-
+        { 
             var machines = (await _repository.GetAllAsync()).ToList();
 
             foreach (var item in machines)
@@ -39,14 +34,9 @@ namespace ProductionScheduler.Application.Commands.Handlers
              
             _reservationService.ReserveMachineForService(machines,
                 date, hour);
-
-            //foreach (var item in machines)
-            //{
-            //    await _repository.UpdateAsync(item);
-            //} 
-
+              
             var tasks = machines.Select(x => _repository.UpdateAsync(x));
-            await Task.WhenAll(tasks); //#refactor bo posiadamy globalny dekorator zawierajacy docelowa transakcje  
+            await Task.WhenAll(tasks);  
         }
     }
 }

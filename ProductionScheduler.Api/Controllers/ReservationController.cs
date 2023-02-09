@@ -14,13 +14,13 @@ namespace ProductionScheduler.Api.Controllers
         private readonly ICommandHandler<ReserveMachineForEmployee> _reserveForEmployeeHandler;
         private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
         private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
-        private readonly ICommandHandler<ChangeReservationHour> _changeReservationHourHandler;
+        private readonly ICommandHandler<ChangeReservationTime> _changeReservationHourHandler;
         private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
         private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
         public ReservationController(ICommandHandler<ReserveMachineForEmployee> reserveForEmployee,
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
-                            ICommandHandler<ChangeReservationHour> changeReservationHour,
+                            ICommandHandler<ChangeReservationTime> changeReservationHour,
                             ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
                             ICommandHandler<DeleteReservation> deleteReservationHandler)
         {
@@ -67,7 +67,7 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> EditReservation(Guid reservationId, Guid userId, ChangeReservationHour command) // #refactor
+        public async Task<ActionResult> EditReservation(Guid reservationId, Guid userId, ChangeReservationTime command) // #refactor
         {
             var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
             var userIdentityRole = HttpContext.User.IsInRole("user");
