@@ -39,12 +39,16 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployee command)
+        public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployeeDto dto)
         {
+            var userName = "cos";
+            var command = new ReserveMachineForEmployee(dto.MachineId, Guid.NewGuid(), dto.Date, userName, dto.Hour);
+
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
-                MachineId = machineId
+                MachineId = machineId, // tu bys znowu musial dto zrobic  HttpContext.User.Identity?.Name // bo tez bo nei masz imienia zaszytego xD
+                EmployeeName = command.EmployeeName,
             });
             return NoContent();
         }
@@ -63,18 +67,18 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpPut("reservations/{reservationId:guid}")]
         [SwaggerOperation("Edit reservation date and hour by id")]
-        [Authorize(Policy = "is-manager-or-admin")] 
+        [Authorize(Policy = "is-manager-or-admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> EditReservationDateAndHour(Guid reservationId, ChangeReservationDateAndHourDto dto)
         {
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
-              
-            var commandHour = new ChangeReservationHour(reservationId, dto.Hour); 
+
+            var commandHour = new ChangeReservationHour(reservationId, dto.Hour);
             await _changeReservationTimeHandler.HandleAsync(commandHour with { ReservationId = reservationId });
 
-            var commandDate = new ChangeReservationDate(reservationId, dto.Date); 
+            var commandDate = new ChangeReservationDate(reservationId, dto.Date);
             await _changeReservationDateHandler.HandleAsync(commandDate with { ReservationId = reservationId });
 
             return NoContent();
@@ -88,18 +92,10 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> DeleteReservation(Guid reservationId)
         {
-            var httpcontextUser = HttpContext;
-            var httpcontextUser2 = HttpContext.User;
-            var httpcontextUser3 = HttpContext.User.Identities;
-            var httpcontextUser4 = HttpContext.User.Identity;
             var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
-            var userIdentityRole = HttpContext.User.IsInRole("user");
+            var userRole = HttpContext.User.IsInRole("user") ? "user" : (HttpContext.User.IsInRole("manager") ? "manager" : "admin");
 
-            if ( userIdentityRole)
-            {
-                return Forbid();
-            }
-            await _deleteReservationHandler.HandleAsync(new DeleteReservation(reservationId));
+            await _deleteReservationHandler.HandleAsync(new DeleteReservation(reservationId, userIdentityId, userRole));
             return NoContent();
         }
     }

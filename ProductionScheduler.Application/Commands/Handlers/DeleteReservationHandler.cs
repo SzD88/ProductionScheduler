@@ -8,17 +8,19 @@ namespace ProductionScheduler.Application.Commands.Handlers
     public class DeleteReservationHandler : DataChangeHandlerBase, ICommandHandler<DeleteReservation>
     {
         private readonly IMachinesRepository _repository;
+       //  private readonly Ireserva _reservationsRepository;
 
         public DeleteReservationHandler(IMachinesRepository repository)
         {
             _repository = repository;
         }
         public async Task HandleAsync(DeleteReservation command)
-        {
-            // mozesz dzialac na user name z repozytorium userow jakbys je tutaj wstrzykna
-
-            // z controlera otrzymasz role, user id -> znajdz name
-
+        { 
+            var reservationId = new ReservationId(command.ReservationId);
+            var userId = new UserId(command.UserId);
+            var userRole = new Role(command.UserRole);
+            // if role is user - check if reservation id == user name 
+            //# tu skonczyles #finish
             // tutaj w repozytorium znajdz rezerwacje 
 
             //zastanow sie co otrzymujesz z repo i jak to tutaj rozdmuchać 
@@ -29,9 +31,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
                 throw new MachineNotFoundException(command.ReservationId);
             }
 
-            var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
                 .SingleOrDefault(x => x.Id == reservationId);
+
+           //  var employeeName = new EmployeeName(reservation.name);
 
 
             if (reservation is null)

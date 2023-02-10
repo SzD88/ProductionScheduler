@@ -6,8 +6,8 @@ namespace ProductionScheduler.Application.Commands
 
         Guid MachineId,
         Guid ReservationId,
+        Guid UserId, 
         DateTime Date,
-        string EmployeeName,
         int Hour
         ) 
         : ICommand; // implement interface
