@@ -18,7 +18,8 @@ namespace ProductionScheduler.Core.Policies
             return rank == EmplooyeeRank.Admin;
 
         } 
-        public bool CanReserve(IEnumerable<Machine> periodMachineReservations, EmployeeName name)
+        public bool CanReserve(IEnumerable<Machine> 
+            MachineReservations, EmployeeName name)
         {
             return true;
         }

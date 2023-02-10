@@ -27,14 +27,14 @@ namespace ProductionScheduler.Infrastructure.DAL
                 var expectedMachinesTable = new List<Machine>()
                     {// #refactor
 
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "P3"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "M1"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "M2"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "M3"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "M4"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "M5")
                     };
 
-                var machinesToReserve = dbContext.PeriodMachineReservations.ToList();
+                var machinesToReserve = dbContext.Machines.ToList();
 
                 var firstMachine = machinesToReserve.FirstOrDefault();
                 bool clearTable = false;
@@ -70,7 +70,7 @@ namespace ProductionScheduler.Infrastructure.DAL
         }
         public async Task ClearTimeForwardAsync(ProductionSchedulerDbContext dbContext)
         {
-            var machines = await dbContext.PeriodMachineReservations.ToListAsync();
+            var machines = await dbContext.Machines.ToListAsync();
 
             foreach (var item in machines)
             {

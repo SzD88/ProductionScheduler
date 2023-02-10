@@ -86,8 +86,12 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteReservation(Guid reservationId )
+        public async Task<ActionResult> DeleteReservation(Guid reservationId)
         {
+            var httpcontextUser = HttpContext;
+            var httpcontextUser2 = HttpContext.User;
+            var httpcontextUser3 = HttpContext.User.Identities;
+            var httpcontextUser4 = HttpContext.User.Identity;
             var userIdentityId = Guid.Parse(HttpContext.User.Identity?.Name);
             var userIdentityRole = HttpContext.User.IsInRole("user");
 

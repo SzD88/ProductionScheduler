@@ -35,7 +35,7 @@ namespace ProductionScheduler.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PeriodMachineReservations");
+                    b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>
@@ -109,21 +109,21 @@ namespace ProductionScheduler.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.MachineReservation", b =>
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForService", b =>
+                {
+                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
+
+                    b.HasDiscriminator().HasValue("ReservationForService");
+                });
+
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForUser", b =>
                 {
                     b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
 
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("MachineReservation");
-                });
-
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.ServiceReservation", b =>
-                {
-                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
-
-                    b.HasDiscriminator().HasValue("ServiceReservation");
+                    b.HasDiscriminator().HasValue("ReservationForUser");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>
