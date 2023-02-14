@@ -94,7 +94,7 @@ Authorization: Bearer {{bearer}}
   "userId": "283d4855-97fd-42fc-b923-942058b59bd3",
   "date": "2023-02-16", 
   "employeeName": "zzTestRest",
-  "hour": "10"
+  "hour": "13"
 }
 ###
 POST {{url}}/machines/{{machineId}}/reservations/service

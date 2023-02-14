@@ -16,7 +16,8 @@ namespace ProductionScheduler.Core.Policies
             return rank == EmplooyeeRank.Employee;
         }
 
-        public bool CanReserve(IEnumerable<Machine> machines, EmployeeName name)
+        public bool CanReserve(IEnumerable<Machine> machines, EmployeeName name) //#refactor zmienic na user id zamiast name  ?  reservationDate ? jezeli chcesz pozwolic
+            // na rezerwacje tylko danego dnia  ale moze nie komplikowac juz ? 
         {
             var totalEmployeeReservations = machines
                 .SelectMany(x => x.Reservations)
@@ -26,9 +27,12 @@ namespace ProductionScheduler.Core.Policies
             // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu
             var clockDay = _clock.Current().Day;
             var clockhay = _clock.Current().Hour;
+            var daysForwardUserCanReserve = 2;
+
+            var toWhenEmployeeCanReserve = DateTime.UtcNow.AddDays(daysForwardUserCanReserve);
 
             // pracownik moze rezerwowac tylko dzisiaj #refactor
-            var answ = totalEmployeeReservations < 12 && _clock.Current().Day == DateTime.UtcNow.Day;
+            var answ = totalEmployeeReservations < 12;  // && _clock.Current().Day == DateTime.UtcNow.Day;
             return answ;
         }
     }

@@ -35,18 +35,18 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpPost("{machineId:guid}/reservations/employee")]
         [SwaggerOperation("Create reservation for employee")]
-        [Authorize]
+      //  [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployeeDto dto)
         {
-            var command = new ReserveMachineForEmployee(dto.MachineId, Guid.NewGuid(), dto.UserId,  dto.Date, dto.Hour, dto.employeeName);
+            var command = new ReserveMachineForEmployee(dto.MachineId, Guid.NewGuid(), dto.UserId, dto.Date, dto.Hour, dto.employeeName);
 
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
-                MachineId = machineId, 
+                MachineId = machineId,
                 UserId = dto.UserId,
                 EmployeeName = command.EmployeeName,
             });

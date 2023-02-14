@@ -39,7 +39,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             if (userRole == "user" && proj.UserId != userId)
             {
-                throw new DeleteReservationNotAllowed();
+                throw new DeleteReservationNotAllowed(command.ReservationId);
             } 
             machine.RemoveReservation(reservationId);
 

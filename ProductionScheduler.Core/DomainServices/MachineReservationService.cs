@@ -43,14 +43,14 @@ namespace ProductionScheduler.Core.DomainServices
         // wzorzec #refactor wzorzec strategii - if do pojedynczej klasy #tu koniec 16 min
 
         public void ReserveMachineForUser(IEnumerable<Machine> allMachineReservations,
-            EmplooyeeRank rank, Machine periodiMachineReservation, ReservationForUser reservation)
+            EmplooyeeRank rank, Machine machine, ReservationForUser reservation)
         {
 
             // #refactor for future - mozesz na podstawie reservation sprawdzac w policy np godziny dla danej rangi pracownika, po prostu przekaz 
             // reservation to metody can reserve - mozna to rozbudować potem i bedzie w pytke 
 
 
-            var machineToReserveId = periodiMachineReservation.Id;
+            var machineToReserveId = machine.Id;
             // przypisz te 1 polityke ktora zwroci true bo rank == jobtitle #refactor 
             var policy = _policies.SingleOrDefault(x => x.CanBeApplied(rank));
             if (policy is null)
@@ -67,7 +67,7 @@ namespace ProductionScheduler.Core.DomainServices
                 throw new CannotReserveMachineException(machineToReserveId);
             }
 
-            periodiMachineReservation.AddReservation(reservation, new Date(_clock.Current()));
+            machine.AddReservation(reservation, new Date(_clock.Current()));
         }
     }
 }
