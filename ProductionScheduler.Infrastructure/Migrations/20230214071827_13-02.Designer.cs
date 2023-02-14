@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductionScheduler.Infrastructure.DAL;
 
@@ -11,9 +12,10 @@ using ProductionScheduler.Infrastructure.DAL;
 namespace ProductionScheduler.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductionSchedulerDbContext))]
-    partial class ProductionSchedulerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214071827_13-02")]
+    partial class _1302
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

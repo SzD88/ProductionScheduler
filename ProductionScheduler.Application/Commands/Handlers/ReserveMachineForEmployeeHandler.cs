@@ -23,7 +23,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             _allMachines = repository;
             _machineReservationService = machineReservationService;
         }
-        public async Task HandleAsync(ReserveMachineForEmployee command) 
+        public async Task HandleAsync(ReserveMachineForEmployee command)
         {
             // klasa ma enkapsulowac logike dla danej czynnosci 
 
@@ -49,10 +49,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
             var machineToReserve = machines.SingleOrDefault(x => x.Id == machineId);
             if (machineToReserve is null)
             {
-              throw new  MachineNotFoundException(machineId);
+                throw new MachineNotFoundException(machineId);
             }
 
-            var reservation = new ReservationForUser(command.ReservationId, command.MachineId,
+            var reservation = new ReservationForUser(command.ReservationId, command.MachineId, command.UserId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager

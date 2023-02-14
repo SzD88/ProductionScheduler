@@ -41,13 +41,13 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> CreateReservationForEmployee(Guid machineId, ReserveMachineForEmployeeDto dto)
         {
-            var userName = "cos";
-            var command = new ReserveMachineForEmployee(dto.MachineId, Guid.NewGuid(), dto.Date, userName, dto.Hour);
+            var command = new ReserveMachineForEmployee(dto.MachineId, Guid.NewGuid(), dto.UserId,  dto.Date, dto.Hour, dto.employeeName);
 
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
                 MachineId = machineId, // tu bys znowu musial dto zrobic  HttpContext.User.Identity?.Name // bo tez bo nei masz imienia zaszytego xD
+                UserId = dto.UserId,
                 EmployeeName = command.EmployeeName,
             });
             return NoContent();

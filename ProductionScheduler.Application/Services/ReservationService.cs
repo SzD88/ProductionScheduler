@@ -78,7 +78,7 @@ namespace ProductionScheduler.Application.Services
                 return default;
             }
 
-            var reservation = new ReservationForUser(command.ReservationId, command.MachineId,
+            var reservation = new ReservationForUser(command.ReservationId, command.MachineId, command.UserId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
             //#refactor hardcoded manager

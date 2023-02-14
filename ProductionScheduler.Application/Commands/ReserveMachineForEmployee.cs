@@ -2,14 +2,16 @@
 
 namespace ProductionScheduler.Application.Commands
 {
-    public record ReserveMachineForEmployee( // names should be behavior centric #refactor 
+    public record ReserveMachineForEmployee(  
 
         Guid MachineId,
         Guid ReservationId,
         Guid UserId, 
         DateTime Date,
-        int Hour
-        ) 
-        : ICommand; // implement interface
+        int Hour,
+        string EmployeeName
+
+        )
+        : ICommand;  
 
 }

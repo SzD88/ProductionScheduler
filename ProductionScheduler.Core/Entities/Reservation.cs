@@ -9,7 +9,7 @@ public abstract class Reservation
     public Hour Hour { get; private set; }
     public Date Date { get; private set;  }
 
-    public Reservation(ReservationId id, MachineId machineId,
+    public Reservation(ReservationId id, MachineId machineId, 
           Hour hour, Date date)
     {
         Id = id;
