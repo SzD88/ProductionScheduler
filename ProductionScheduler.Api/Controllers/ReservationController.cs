@@ -9,6 +9,7 @@ using WebApi.Controllers;
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
+   //   [Authorize] 
     [Route("machines")]
     public class ReservationController : BaseController
     {

@@ -34,7 +34,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpGet("{userId:guid}")]
         [SwaggerOperation("Retrieves user by id")]
-        [Authorize(Policy = "is-admin")]
+       // [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -54,7 +54,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpGet("me")]
         [SwaggerOperation("Retrieves the currently logged in user")]
-        [Authorize]
+      //  [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<UserDto>> GetSelf()

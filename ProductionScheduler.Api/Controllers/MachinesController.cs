@@ -19,7 +19,7 @@ public class MachinesController : BaseController
         _getMachinesHandler = getMachines;
     } 
     [HttpGet]
-    [Authorize]
+   // [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
