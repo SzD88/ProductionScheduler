@@ -12,8 +12,8 @@ using ProductionScheduler.Infrastructure.DAL;
 namespace ProductionScheduler.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductionSchedulerDbContext))]
-    [Migration("20230119173300_2023-01-19")]
-    partial class _20230119
+    [Migration("20230214071827_13-02")]
+    partial class _1302
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace ProductionScheduler.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PeriodMachineReservations");
+                    b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>
@@ -67,21 +67,68 @@ namespace ProductionScheduler.Infrastructure.Migrations
                     b.HasDiscriminator<string>("Type").HasValue("Reservation");
                 });
 
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.MachineReservation", b =>
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForService", b =>
+                {
+                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
+
+                    b.HasDiscriminator().HasValue("ReservationForService");
+                });
+
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForUser", b =>
                 {
                     b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
 
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("MachineReservation");
-                });
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.ServiceReservation", b =>
-                {
-                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
-
-                    b.HasDiscriminator().HasValue("ServiceReservation");
+                    b.HasDiscriminator().HasValue("ReservationForUser");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>

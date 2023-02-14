@@ -18,7 +18,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
             builder.Property(x => x.MachineId)
                .HasConversion(x => x.Value, x => new MachineId(x));
 
-           
+            
 
             builder.Property(x => x.Hour)
                .HasConversion(x => x.Value, x => new Hour(x));

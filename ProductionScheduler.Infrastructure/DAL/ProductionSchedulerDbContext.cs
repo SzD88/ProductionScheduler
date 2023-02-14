@@ -8,7 +8,7 @@ namespace ProductionScheduler.Infrastructure.DAL
     internal  sealed class ProductionSchedulerDbContext : DbContext
     {
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Machine> PeriodMachineReservations { get; set; }
+        public DbSet<Machine> Machines { get; set; }
         public DbSet<User> Users { get; set; }  
 
         public ProductionSchedulerDbContext(DbContextOptions<ProductionSchedulerDbContext> dbContextOptions) 
@@ -19,8 +19,7 @@ namespace ProductionScheduler.Infrastructure.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-        
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly); 
         }
     
     }

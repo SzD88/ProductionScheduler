@@ -12,8 +12,8 @@ using ProductionScheduler.Infrastructure.DAL;
 namespace ProductionScheduler.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductionSchedulerDbContext))]
-    [Migration("20230124191041_02-24-01")]
-    partial class _022401
+    [Migration("20230210081033_02-10")]
+    partial class _0210
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace ProductionScheduler.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PeriodMachineReservations");
+                    b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>
@@ -111,21 +111,21 @@ namespace ProductionScheduler.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.MachineReservation", b =>
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForService", b =>
+                {
+                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
+
+                    b.HasDiscriminator().HasValue("ReservationForService");
+                });
+
+            modelBuilder.Entity("ProductionScheduler.Core.Entities.ReservationForUser", b =>
                 {
                     b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
 
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("MachineReservation");
-                });
-
-            modelBuilder.Entity("ProductionScheduler.Core.Entities.ServiceReservation", b =>
-                {
-                    b.HasBaseType("ProductionScheduler.Core.Entities.Reservation");
-
-                    b.HasDiscriminator().HasValue("ServiceReservation");
+                    b.HasDiscriminator().HasValue("ReservationForUser");
                 });
 
             modelBuilder.Entity("ProductionScheduler.Core.Entities.Reservation", b =>

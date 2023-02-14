@@ -25,16 +25,20 @@ namespace ProductionScheduler.Infrastructure.DAL
 
                 var clock = new Clock();
                 var expectedMachinesTable = new List<Machine>()
-                    {// #refactor
+                    {// #refactor time forward ? jak nie jest świezy trzeba zrobić świeży w sensie w bazie dnaych czas do przodu moze byc nieaktualny wlasciwie
+                    // to co godzine powinno byc to aktualizowane, zeby czas forward byl zawsze o x dni do przodu a teraz np wisi 4 dni wstecz bo spelnia warunek i 
+                    //jest 5 rekordow w db
 
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "P3"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
+                    // gdzie jest clock nowej rezerwacji btw ? kiedy on weryfikuje czas rezerwacji ktora ma nadejsc ? 
+
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "M1"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "M2"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "M3"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "M4"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "M5")
                     };
 
-                var machinesToReserve = dbContext.PeriodMachineReservations.ToList();
+                var machinesToReserve = dbContext.Machines.ToList();
 
                 var firstMachine = machinesToReserve.FirstOrDefault();
                 bool clearTable = false;
@@ -70,7 +74,7 @@ namespace ProductionScheduler.Infrastructure.DAL
         }
         public async Task ClearTimeForwardAsync(ProductionSchedulerDbContext dbContext)
         {
-            var machines = await dbContext.PeriodMachineReservations.ToListAsync();
+            var machines = await dbContext.Machines.ToListAsync();
 
             foreach (var item in machines)
             {

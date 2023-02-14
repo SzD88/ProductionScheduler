@@ -15,29 +15,23 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
         }
         public Task<Machine> GetAsync(MachineId id)
         {
-            return _dbContextReservations.PeriodMachineReservations
+            return _dbContextReservations.Machines
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
         public async Task<IEnumerable<Machine>> GetByPeriodAsync(ReservationTimeForward timeForward)
         {
-            return await _dbContextReservations.PeriodMachineReservations // zwroci taki period machine reservation,
+            return await _dbContextReservations.Machines // zwroci taki period machine reservation,
                                                                           // //ktore jest zawarte w rezerwacjach - wsrod ktorych
                                                                           // time forward = time forward 
                        .Include(x => x.Reservations) // eager loading a nie lazy loading  // powiazanie do innej tabeli - reservations 
                        .Where(x => x.TimeForward == timeForward)
                        .ToListAsync();
         }
-        //async Task<IEnumerable<PeriodMachineReservation>> GetByPeriodAsync(ReservationTimeForward timeForward)
-        //{
-        //    return await _dbContextReservations.PeriodMachineReservations
-        //               .Include(x => x.Reservations) // eager loading a nie lazy loading 
-        //               .Where(x => x.TimeForward == timeForward)
-        //               .ToListAsync();
-        //}
+        
         public async Task<IEnumerable<Machine>> GetAllAsync()
         {
-            var result = await _dbContextReservations.PeriodMachineReservations
+            var result = await _dbContextReservations.Machines
                 .Include(x => x.Reservations) // eager loading a nie lazy loading 
                 .ToListAsync();
             return result.AsEnumerable();

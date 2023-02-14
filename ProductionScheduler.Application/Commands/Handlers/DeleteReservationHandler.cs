@@ -2,12 +2,14 @@
 using ProductionScheduler.Application.Exceptions;
 using ProductionScheduler.Core.Repositories;
 using ProductionScheduler.Core.ValueObjects;
+using ProductionScheduler.Core.Entities;
 
 namespace ProductionScheduler.Application.Commands.Handlers
 {
     public class DeleteReservationHandler : DataChangeHandlerBase, ICommandHandler<DeleteReservation>
     {
         private readonly IMachinesRepository _repository;
+        //  private readonly Ireserva _reservationsRepository;
 
         public DeleteReservationHandler(IMachinesRepository repository)
         {
@@ -15,13 +17,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
         }
         public async Task HandleAsync(DeleteReservation command)
         {
-            // mozesz dzialac na user name z repozytorium userow jakbys je tutaj wstrzykna
+            var reservationId = new ReservationId(command.ReservationId);
+            var userId = new UserId(command.UserId);
+            var userRole = new Role(command.UserRole);
 
-            // z controlera otrzymasz role, user id -> znajdz name
-
-            // tutaj w repozytorium znajdz rezerwacje 
-
-            //zastanow sie co otrzymujesz z repo i jak to tutaj rozdmuchać 
             var machine = await GetMachineByReservationIdAsync(_repository, command.ReservationId);
 
             if (machine is null)
@@ -29,16 +28,19 @@ namespace ProductionScheduler.Application.Commands.Handlers
                 throw new MachineNotFoundException(command.ReservationId);
             }
 
-            var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
                 .SingleOrDefault(x => x.Id == reservationId);
-
 
             if (reservation is null)
             {
                 throw new ReservationNotFoundException(command.ReservationId);
             }
+            var proj = (ReservationForUser)reservation;
 
+            if (userRole == "user" && proj.UserId != userId)
+            {
+                throw new DeleteReservationNotAllowed(command.ReservationId);
+            } 
             machine.RemoveReservation(reservationId);
 
             await _repository.UpdateAsync(machine);
