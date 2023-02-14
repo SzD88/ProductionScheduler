@@ -46,7 +46,7 @@ namespace ProductionScheduler.Api.Controllers
             await _reserveForEmployeeHandler.HandleAsync(command with
             {
                 ReservationId = Guid.NewGuid(),
-                MachineId = machineId, // tu bys znowu musial dto zrobic  HttpContext.User.Identity?.Name // bo tez bo nei masz imienia zaszytego xD
+                MachineId = machineId, 
                 UserId = dto.UserId,
                 EmployeeName = command.EmployeeName,
             });

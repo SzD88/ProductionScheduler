@@ -25,11 +25,19 @@ namespace ProductionScheduler.Application.Commands.Handlers
         }
         public async Task HandleAsync(ReserveMachineForEmployee command)
         {
-            // klasa ma enkapsulowac logike dla danej czynnosci 
-
-
             var machineId = new MachineId(command.MachineId);
             var allReservations = await _allMachines.GetAllAsync();
+
+            //co ja chce zrobic ? mam komende mam w niej :
+         //     Guid MachineId,
+              //Guid ReservationId,
+             // Guid UserId,
+           // DateTime Date,
+             // int Hour,
+            // string EmployeeName
+            // imo musze zwalidować wszystko , 
+            // zacznij od delete  
+            //------------------
 
             // # i musisz to zrobic wczesniej jezeli chcesz za kursem podarzac niestety 
             //##REFACTOR - to jest do poprawy, ty masz miec zawsze sztywny termin max rezerwacji maszyny systemowy - to ma byc ten time forward np 28 dni albo 7
@@ -55,15 +63,17 @@ namespace ProductionScheduler.Application.Commands.Handlers
             var reservation = new ReservationForUser(command.ReservationId, command.MachineId, command.UserId,
                 command.EmployeeName, new Hour(command.Hour), new Date(command.Date));
 
-            //#refactor hardcoded manager
+
+
+
+            //#refactor hardcoded manager no ale to jest handler dla usera iwec jak przejdzie wszystkie ify to czemu ma nie byc employee?
             _machineReservationService.ReserveMachineForUser(machines, EmplooyeeRank.Employee,
                 machineToReserve, reservation);
 
-            //przekazujesz rezerwacje i czas obecny 
-            // machineToReserve.AddReservation(reservation, new Date(_clock.Current()));
+
             await _allMachines.UpdateAsync(machineToReserve);
 
-            // no return if everything was fine controller is going to continue
+
         }
     }
 }
