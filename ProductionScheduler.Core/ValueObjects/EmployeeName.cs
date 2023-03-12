@@ -5,7 +5,7 @@ namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record EmployeeName(string value)
 {
-    private bool isNUll = IsInUs(value); //#refactor
+    private bool isNUll = IsInUs(value); //#refactor zrozum i usun lub cos 
      
     public string Value { get; } = value ?? throw new InvalidEmployeeNameException();
 //     public string Val2ue { get; } = null ?? throw new EmptyEmployeeNameException();

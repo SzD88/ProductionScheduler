@@ -1,6 +1,6 @@
 ﻿namespace ProductionScheduler.Application.Abstractions
 {
-    public interface IQuery <TResult> //kwerenda #refactor
+    public interface IQuery <TResult>  
     {
 
     }

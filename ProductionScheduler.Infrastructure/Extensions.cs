@@ -21,19 +21,15 @@ namespace ProductionScheduler.Infrastructure
             IConfiguration configuration)
         {
             var section = configuration.GetSection("app");
-            services.Configure<AppOptions>(section); //Microsoft.Extensions.Configuration;
+            services.Configure<AppOptions>(section);
 
             services.AddSingleton<ExceptionMiddleware>();
 
             services.AddSecurity();
             services.AddAuth(configuration);
-            services.AddHttpContextAccessor(); //#34 / 55 min
-
-            //   services.AddSingleton<IClock, Clock>();
-            //  services.AddSingleton<IPeriodMachineReservationRepository, InMemoryPeriodMachineReservationRepository>();
+            services.AddHttpContextAccessor();
             services.AddMSSql(configuration)
                .AddSingleton<IClock, Clock>();
-
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
 
@@ -42,8 +38,8 @@ namespace ProductionScheduler.Infrastructure
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
-            services.AddCustomLogging(); // po mssql - bo dopiero po bazie danych ma byc uzyte 
-            services.AddEndpointsApiExplorer(); //refactor #refactor do minimal api
+            services.AddCustomLogging();
+            services.AddEndpointsApiExplorer();
 
             services.AddSwaggerGen(swagger =>
             {
@@ -53,27 +49,21 @@ namespace ProductionScheduler.Infrastructure
                     Title = "Production Sheduler API",
                     Version = "v1"
                 });
-
             });
-
             return services;
         }
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-
-
             app.UseMiddleware<ExceptionMiddleware>();
 
-
             app.UseSwagger();
-              app.UseSwaggerUI();
+            app.UseSwaggerUI();
             app.UseReDoc(reDoc =>
             {
                 reDoc.RoutePrefix = "docs";
                 reDoc.DocumentTitle = "Production Sheduler API";
                 reDoc.SpecUrl = ("/swagger/v1/swagger.json");
-
             }
             ); ;
 

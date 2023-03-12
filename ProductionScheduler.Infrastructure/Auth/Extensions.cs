@@ -12,15 +12,9 @@ namespace ProductionScheduler.Infrastructure.Auth
     {
         private const string SectionName = "auth";
         public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
-        {
-
-
-            //  services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
-
+        { 
             var options = configuration.GetOptions<AuthOptions>(SectionName);
-
-            // services.AddSingleton<IAuthenticator, Authenticator>();
-
+             
             services
                 .Configure<AuthOptions>(configuration.GetRequiredSection(SectionName))
             .AddSingleton<IAuthenticator, Authenticator>()
@@ -36,7 +30,7 @@ namespace ProductionScheduler.Infrastructure.Auth
                x.TokenValidationParameters = new TokenValidationParameters
                {
                    ValidIssuer = options.Issuer,
-                   ClockSkew = TimeSpan.Zero, //dodatkowy bufor czasu zycia tokena #refactor
+                   ClockSkew = TimeSpan.Zero, 
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                    .GetBytes(options.SigningKey)),
                };
@@ -47,7 +41,6 @@ namespace ProductionScheduler.Infrastructure.Auth
             authorization.AddPolicy("is-admin", policy =>
             {
                 policy.RequireRole("admin");
-                 //   .RequireUserName().RequireClaim();
              }));
            
             services.AddAuthorization(authorization =>

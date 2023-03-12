@@ -12,8 +12,6 @@ namespace ProductionScheduler.Infrastructure.Security
             services
                 .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
                 .AddSingleton<IPasswordManager, PasswordManager>();
-            // singleton wystarczy to nie zawiera w sobie stanu aplikacji ktory zmienia po prostu odpowiada za dodatkowa logike infrastruktury #refactor
-
             return services;
         }
     }

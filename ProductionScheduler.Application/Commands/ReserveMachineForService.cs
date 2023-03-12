@@ -2,10 +2,7 @@
 
 namespace ProductionScheduler.Application.Commands
 {
-    public record ReserveMachineForService(  // #refactor 
-
-       //  Guid MachineId,
-        
+    public record ReserveMachineForService(  
         DateTime Date, 
         int Hour
         ) : ICommand;

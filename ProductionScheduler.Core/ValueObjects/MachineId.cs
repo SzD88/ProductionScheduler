@@ -1,16 +1,16 @@
+using ProductionScheduler.Core.Exceptions;
+
 namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record MachineId
 {
-    public Guid Value { get; }
-
+    public Guid Value { get; } 
     public MachineId(Guid value)
     {
         if (value == Guid.Empty)
         {
-            throw new Exception(); // value // #refactor 
-        }
-
+            throw new EmptyMachinIdException();  
+        } 
         Value = value;
     }
 

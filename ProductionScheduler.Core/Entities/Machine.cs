@@ -25,16 +25,13 @@ namespace ProductionScheduler.Core.Entities
         {
             var date = reservation.Date;
             var from = TimeForward.From.Value.Date;
-            var to = TimeForward.To.Value.Date;
-            //#tutaj  #refactor
-            //week zadeklarowano na poczaatku servisu
-            // czyli week masz od 14-20
+            var to = TimeForward.To.Value.Date; 
             var one = date < from;
             var two = date > to;
             var three = date < now;
-            var isInvalidDate = date < from  //14
-                || date > to //20
-                || date < now; // .Date? // sprawdza dzien 
+            var isInvalidDate = date < from  
+                || date > to  
+                || date < now;  
 
             if (isInvalidDate)
             {

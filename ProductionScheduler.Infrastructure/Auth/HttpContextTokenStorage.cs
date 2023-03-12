@@ -13,8 +13,6 @@ internal sealed class HttpContextTokenStorage : ITokenStorage
     {
         _httpContextAccessor = httpContextAccessor;
     }
-
-    //items ciekawe do dzielenia danych w ramach cyklu zycia #refactor #34 / 53 min
     public void Set(JwtDto jwt) => _httpContextAccessor.HttpContext?.Items.TryAdd(TokenKey, jwt);
 
     public JwtDto Get()
