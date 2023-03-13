@@ -5,6 +5,5 @@ namespace ProductionScheduler.Application.Queries
 {
     public class GetMachines : IQuery<IEnumerable<MachineDto>>
     {
-      //   public DateTime? Date { get; set; }
     }
 }

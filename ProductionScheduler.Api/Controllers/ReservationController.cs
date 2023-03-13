@@ -9,7 +9,7 @@ using WebApi.Controllers;
 namespace ProductionScheduler.Api.Controllers
 {
     [ApiController]
-   //   [Authorize] 
+    [Authorize]
     [Route("machines")]
     public class ReservationController : BaseController
     {
@@ -36,7 +36,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpPost("{machineId:guid}/reservations/employee")]
         [SwaggerOperation("Create reservation for employee")]
-      //  [Authorize]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

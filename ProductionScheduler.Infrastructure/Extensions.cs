@@ -10,6 +10,10 @@ using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Infrastructure.Logging;
 using ProductionScheduler.Infrastructure.Security;
 using ProductionScheduler.Infrastructure.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure
@@ -48,6 +52,26 @@ namespace ProductionScheduler.Infrastructure
                 {
                     Title = "Production Sheduler API",
                     Version = "v1"
+                });
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter JWT Bearer token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // must be lower case
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                swagger.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
                 });
             });
             return services;

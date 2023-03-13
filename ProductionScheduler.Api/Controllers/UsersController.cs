@@ -34,7 +34,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpGet("{userId:guid}")]
         [SwaggerOperation("Retrieves user by id")]
-       // [Authorize(Policy = "is-admin")]
+        [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,13 +48,13 @@ namespace ProductionScheduler.Api.Controllers
         [SwaggerOperation("Retrieves all users")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers([FromQuery] GetUsers query)
          => Ok(await _getUsersHandler.HandleAsync(query));
 
         [HttpGet("me")]
         [SwaggerOperation("Retrieves the currently logged in user")]
-      //  [Authorize]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<UserDto>> GetSelf()
@@ -63,10 +63,10 @@ namespace ProductionScheduler.Api.Controllers
             {
                 return NotFound();
             }
-            var role =  HttpContext.User.IsInRole("user");
+            var role = HttpContext.User.IsInRole("user");
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
             var user = await _getUserHandler.HandleAsync(new GetUser { UserId = userId });
-            
+
             return OkOrNotFound(user);
         }
 
@@ -75,7 +75,7 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post(SignUp command)
-        { 
+        {
             command = command with { UserId = Guid.NewGuid() };
 
             await _signUpHandler.HandleAsync(command);
@@ -92,6 +92,5 @@ namespace ProductionScheduler.Api.Controllers
             var jwt = _tokenStorage.Get();
             return Ok(jwt);
         }
-    } 
+    }
 }
-

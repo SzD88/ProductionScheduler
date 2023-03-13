@@ -15,7 +15,6 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-
                            .WithOrigins("http://localhost:4200/")
                             .SetIsOriginAllowed((host) => true);
                           policy // .AllowAnyOrigin()
@@ -26,7 +25,6 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services
-
     .AddSingleton<IClock, Clock>()
     .AddCore()
     .AddApplication()
@@ -35,16 +33,7 @@ builder.Services
 
 builder.UseSerilog();
 
-// builder.Services.AddSwaggerGen();
-
-
 var app = builder.Build();
-
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
 
 app.UseInfrastructure();
 app.UseCors(MyAllowSpecificOrigins);

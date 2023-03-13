@@ -19,12 +19,12 @@ public class MachinesController : BaseController
         _getMachinesHandler = getMachines;
     } 
     [HttpGet]
-   // [Authorize]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation(Summary = "Retrieves all machines")]
-    public async Task<ActionResult<IEnumerable<MachineDto>>> Get(GetMachines query) // #refactor - rozwaz jak ma byc ten controller zrobiony - wzor [FromQuery] 
+    public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query)  
         => OkOrNotFound(await _getMachinesHandler.HandleAsync(query));
 
 }
