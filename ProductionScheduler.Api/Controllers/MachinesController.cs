@@ -24,7 +24,6 @@ public class MachinesController : BaseController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerOperation(Summary = "Retrieves all machines")]
-    public async Task<ActionResult<IEnumerable<MachineDto>>> Get(GetMachines query) //[FromQuery] 
-        => OkOrNotFound(await _getMachinesHandler.HandleAsync(query));
-
+    public async Task<ActionResult<IEnumerable<MachineDto>>> Get([FromQuery] GetMachines query) //[FromQuery] 
+        => OkOrNotFound(await _getMachinesHandler.HandleAsync(query)); 
 }

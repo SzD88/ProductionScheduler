@@ -32,16 +32,10 @@ Content-Type: application/json
    "email": "333szop@szio.pl", 
   "password": "zabezpieczmnie123"
 } 
-
  
-
 ###
 GET {{url}}
- 
-   
-
- 
-
+  
 ###
 GET  {{url}}/users
 Authorization: Bearer {{bearer}}
