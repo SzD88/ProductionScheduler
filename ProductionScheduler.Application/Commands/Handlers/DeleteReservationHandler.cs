@@ -8,9 +8,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
 {
     public class DeleteReservationHandler : DataChangeHandlerBase, ICommandHandler<DeleteReservation>
     {
-        private readonly IMachinesRepository _repository;
-        //  private readonly Ireserva _reservationsRepository;
-
+        private readonly IMachinesRepository _repository;  
         public DeleteReservationHandler(IMachinesRepository repository)
         {
             _repository = repository;
@@ -35,16 +33,18 @@ namespace ProductionScheduler.Application.Commands.Handlers
             {
                 throw new ReservationNotFoundException(command.ReservationId);
             }
-            var proj = (ReservationForUser)reservation;
-
-            if (userRole == "user" && proj.UserId != userId)
+              
+            if (userRole == "user")
             {
-                throw new DeleteReservationNotAllowed(command.ReservationId);
-            } 
+                var proj = (ReservationForUser)reservation;
+                if (proj.UserId != userId)
+                {
+                    throw new DeleteReservationNotAllowed(command.ReservationId);
+                }
+            }
             machine.RemoveReservation(reservationId);
 
-            await _repository.UpdateAsync(machine);
-
+            await _repository.UpdateAsync(machine); 
         }
     }
 }

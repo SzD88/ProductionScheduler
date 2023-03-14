@@ -68,7 +68,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpPut("reservations/{reservationId:guid}")]
         [SwaggerOperation("Edit reservation date and hour by id")]
-        [Authorize(Policy = "is-manager-or-admin")]
+        [Authorize(Policy = "is-manager-or-admin")] // a nie powinno byc jak w delete ? robota...
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
