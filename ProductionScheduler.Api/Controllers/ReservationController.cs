@@ -18,7 +18,6 @@ namespace ProductionScheduler.Api.Controllers
         private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
         private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
         private readonly ICommandHandler<ChangeReservationHour> _changeReservationTimeHandler;
-        private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler; // #refactor usunac ? 
         private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
         private readonly IMemoryCache _memoryCache;
         public ILogger<HomeController> _logger { get; }
@@ -33,7 +32,6 @@ namespace ProductionScheduler.Api.Controllers
             _reserveForServiceHandler = reserveForService;
             _changeReservationDateHandler = changeReservationDate;
             _changeReservationTimeHandler = changeReservationHour;
-            _changeReservationEmployeeNameHandler = changeReservationEmployeeName;
             _deleteReservationHandler = deleteReservationHandler;
             _memoryCache = memoryCache;
             _logger = logger;
