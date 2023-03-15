@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Commands;
 using ProductionScheduler.Application.DTO;
@@ -17,14 +18,16 @@ namespace ProductionScheduler.Api.Controllers
         private readonly ICommandHandler<ReserveMachineForService> _reserveForServiceHandler;
         private readonly ICommandHandler<ChangeReservationDate> _changeReservationDateHandler;
         private readonly ICommandHandler<ChangeReservationHour> _changeReservationTimeHandler;
-        private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler;
+        private readonly ICommandHandler<ChangeReservationEmployeeName> _changeReservationEmployeeNameHandler; // #refactor usunac ? 
         private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
+        private readonly IMemoryCache _memoryCache;
+        public ILogger<HomeController> _logger { get; }
         public ReservationController(ICommandHandler<ReserveMachineForEmployee> reserveForEmployee,
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
                             ICommandHandler<ChangeReservationHour> changeReservationHour,
                             ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
-                            ICommandHandler<DeleteReservation> deleteReservationHandler)
+                            ICommandHandler<DeleteReservation> deleteReservationHandler, IMemoryCache memoryCache, ILogger<HomeController> logger)
         {
             _reserveForEmployeeHandler = reserveForEmployee;
             _reserveForServiceHandler = reserveForService;
@@ -32,6 +35,8 @@ namespace ProductionScheduler.Api.Controllers
             _changeReservationTimeHandler = changeReservationHour;
             _changeReservationEmployeeNameHandler = changeReservationEmployeeName;
             _deleteReservationHandler = deleteReservationHandler;
+            _memoryCache = memoryCache;
+            _logger = logger;
         }
 
         [HttpPost("{machineId:guid}/reservations/employee")]
@@ -51,6 +56,7 @@ namespace ProductionScheduler.Api.Controllers
                 UserId = dto.UserId,
                 EmployeeName = command.EmployeeName,
             });
+            ClearCache();
             return NoContent();
         }
 
@@ -63,6 +69,7 @@ namespace ProductionScheduler.Api.Controllers
         public async Task<ActionResult> CreateReservationForService(ReserveMachineForService command)
         {
             await _reserveForServiceHandler.HandleAsync(command);
+            ClearCache();
             return NoContent();
         }
 
@@ -81,7 +88,7 @@ namespace ProductionScheduler.Api.Controllers
 
             var commandDate = new ChangeReservationDate(reservationId, dto.Date);
             await _changeReservationDateHandler.HandleAsync(commandDate with { ReservationId = reservationId });
-
+            ClearCache();
             return NoContent();
         }
 
@@ -97,7 +104,14 @@ namespace ProductionScheduler.Api.Controllers
             var userRole = HttpContext.User.IsInRole("user") ? "user" : (HttpContext.User.IsInRole("manager") ? "manager" : "admin");
 
             await _deleteReservationHandler.HandleAsync(new DeleteReservation(reservationId, userIdentityId, userRole));
+            ClearCache();
             return NoContent();
+        }
+
+        internal void ClearCache()
+        {
+            _memoryCache.Remove("machines");
+            _logger.LogInformation("Machines cleared from cache");
         }
     }
 }

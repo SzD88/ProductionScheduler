@@ -1,3 +1,4 @@
+using ProductionScheduler.Api.Controllers;
 using ProductionScheduler.Application;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;
@@ -11,6 +12,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
+
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
@@ -23,9 +25,11 @@ builder.Services.AddCors(options =>
                           //  .AllowCredentials();
                       });
 });
+builder.Services.AddMemoryCache(); // to powinnjo isc do jakiegos exdtensiona z API jak sa extensiony innych warstw #refactor
 
 builder.Services
-    .AddSingleton<IClock, Clock>()
+    .AddSingleton<IClock, Clock>() // jw
+     
     .AddCore()
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
@@ -34,6 +38,7 @@ builder.Services
 builder.UseSerilog();
 
 var app = builder.Build();
+
 
 app.UseInfrastructure();
 app.UseCors(MyAllowSpecificOrigins);
