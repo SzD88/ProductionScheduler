@@ -2,10 +2,10 @@
 
 WebApi / rest api / restful api?, based on .NET 6. REST architecture. Entityframework, "code first" database. CQRS. 
 
-Instalation:
+Installation:
 1. Clone repository
 2. Update database
-3. Run
+3. Run ProductionScheduler.Api
 
 App: https://localhost:5000
 
