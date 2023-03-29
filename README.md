@@ -1,6 +1,6 @@
 # ProductionScheduler
 
-WebApi / rest api / restful api?, based on .NET 6. REST architecture. Entityframework, code first for database. CQRS. 
+WebApi / rest api / restful api?, based on .NET 6. REST architecture. Entityframework, "code first" database. CQRS. 
 
 Instalation:
 1. Clone repository
