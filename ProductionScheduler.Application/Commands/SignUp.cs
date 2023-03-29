@@ -8,7 +8,5 @@ namespace ProductionScheduler.Application.Commands
         string UserName, 
         string Password, 
         string FullName, 
-        string Role) : ICommand;
-
-
+        string Role) : ICommand; 
 }

@@ -1,10 +1,9 @@
-﻿namespace ProductionScheduler.Core.Exceptions
-{ 
-    public sealed class EmptyMachinIdException : CustomException
+﻿namespace ProductionScheduler.Core.Exceptions;
+
+public sealed class EmptyMachinIdException : CustomException
+{
+    public EmptyMachinIdException() : base("Machine ID is empty")
     {
-        public EmptyMachinIdException() : base("Machine ID is empty")
-        {
-        }
-    } 
-}
+    }
+} 
 

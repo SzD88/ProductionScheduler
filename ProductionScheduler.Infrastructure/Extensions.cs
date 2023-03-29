@@ -1,19 +1,17 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core.Abstractions;
+using ProductionScheduler.Infrastructure.Auth;
 using ProductionScheduler.Infrastructure.DAL;
 using ProductionScheduler.Infrastructure.Exceptions;
-using ProductionScheduler.Application.Abstractions;
 using ProductionScheduler.Infrastructure.Logging;
 using ProductionScheduler.Infrastructure.Security;
-using ProductionScheduler.Infrastructure.Auth;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("MachineReservations.Tests.Unit")]
 namespace ProductionScheduler.Infrastructure

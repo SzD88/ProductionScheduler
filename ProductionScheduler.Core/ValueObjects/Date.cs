@@ -7,11 +7,7 @@ public sealed record Date
     public DateTimeOffset Value { get; }
 
     public Date(DateTimeOffset value)
-    {
-        if (value.Date < DateTime.UtcNow.Date)
-        {
-          //  throw new DateFromPastException();
-        } 
+    { 
         Value = value.Date;  
     }
 
@@ -24,7 +20,7 @@ public sealed record Date
         if (Value.Hour < 14 || Value.Hour > 0)
         {
             var currHour = Value.Hour; 
-            toAdd = 14 - currHour;//#refactor  zrozum potem usun 
+            toAdd = 14 - currHour; 
         }
         return new Date(Value.AddHours(toAdd));
 
@@ -54,6 +50,5 @@ public sealed record Date
         => date1.Value.Day >= date2.Value.Day;
 
     public static Date Now => new(DateTimeOffset.Now);
-
     public override string ToString() => Value.ToString("d");
 }

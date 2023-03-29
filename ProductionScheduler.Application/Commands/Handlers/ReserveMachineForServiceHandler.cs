@@ -9,10 +9,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
     public class ReserveMachineForServiceHandler : ICommandHandler<ReserveMachineForService>
     { 
         private readonly IMachinesRepository _repository;
-        private readonly IMachineReservationService _reservationService;
+        private readonly IMachineService _reservationService;
 
         public ReserveMachineForServiceHandler(IMachinesRepository repository,
-            IMachineReservationService machineReservationService)
+            IMachineService machineReservationService)
         {
             _repository = repository;
             _reservationService = machineReservationService;

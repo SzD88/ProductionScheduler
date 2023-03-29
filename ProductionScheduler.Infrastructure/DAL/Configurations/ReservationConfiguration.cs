@@ -9,17 +9,14 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
         : IEntityTypeConfiguration<Reservation>
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
-        {
-            //Table per Hierarchy (TPH)
+        { 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .HasConversion(x => x.Value, x => new ReservationId(x));
 
             builder.Property(x => x.MachineId)
                .HasConversion(x => x.Value, x => new MachineId(x));
-
-            
-
+             
             builder.Property(x => x.Hour)
                .HasConversion(x => x.Value, x => new Hour(x));
 
@@ -29,9 +26,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
             builder
                 .HasDiscriminator<string>("Type")
                 .HasValue<ReservationForService>(nameof(ReservationForService))
-                .HasValue<ReservationForUser>(nameof(ReservationForUser));
-            
-
+                .HasValue<ReservationForUser>(nameof(ReservationForUser)); 
         }
     }
 }

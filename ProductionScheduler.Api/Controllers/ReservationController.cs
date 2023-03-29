@@ -25,7 +25,7 @@ namespace ProductionScheduler.Api.Controllers
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
                             ICommandHandler<ChangeReservationHour> changeReservationHour,
-                            ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
+                           // ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
                             ICommandHandler<DeleteReservation> deleteReservationHandler, IMemoryCache memoryCache, ILogger<HomeController> logger)
         {
             _reserveForEmployeeHandler = reserveForEmployee;
@@ -77,7 +77,7 @@ namespace ProductionScheduler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> EditReservationDateAndHour(Guid reservationId, ChangeReservationDateAndHourDto dto)
+        public async Task<ActionResult> EditReservationTime(Guid reservationId, ChangeReservationTimeDto dto)
         {
             var userId = Guid.Parse(HttpContext.User.Identity?.Name);
 
@@ -104,8 +104,7 @@ namespace ProductionScheduler.Api.Controllers
             await _deleteReservationHandler.HandleAsync(new DeleteReservation(reservationId, userIdentityId, userRole));
             ClearCache();
             return NoContent();
-        }
-
+        } 
         internal void ClearCache()
         {
             _memoryCache.Remove("machines");

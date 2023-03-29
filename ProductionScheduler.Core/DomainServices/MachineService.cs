@@ -6,12 +6,12 @@ using ProductionScheduler.Core.Exceptions;
 
 namespace ProductionScheduler.Core.DomainServices
 {
-    internal sealed class MachineReservationService : IMachineReservationService
+    internal sealed class MachineService : IMachineService
     {
         private readonly IEnumerable<IReservationPolicy> _policies;
         private readonly IClock _clock;
 
-        public MachineReservationService(IEnumerable<IReservationPolicy> policies, IClock clock)
+        public MachineService(IEnumerable<IReservationPolicy> policies, IClock clock)
         {
             _policies = policies;
             _clock = clock;

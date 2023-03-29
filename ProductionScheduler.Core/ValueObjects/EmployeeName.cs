@@ -1,15 +1,12 @@
 using ProductionScheduler.Core.Exceptions;
-using System.Runtime.Serialization;
 
 namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record EmployeeName(string value)
 {
-    private bool isNUll = IsInUs(value); //#refactor zrozum i usun lub cos 
+    private bool isNUll = IsInUs(value);  
      
-    public string Value { get; } = value ?? throw new InvalidEmployeeNameException();
-//     public string Val2ue { get; } = null ?? throw new EmptyEmployeeNameException();
-
+    public string Value { get; } = value ?? throw new InvalidEmployeeNameException();  
 
     public static implicit operator string(EmployeeName name)
         => name.Value ;

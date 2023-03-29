@@ -7,12 +7,11 @@ namespace ProductionScheduler.Core
     public static class Extensions
     {
         public static IServiceCollection AddCore(this IServiceCollection services)
-        {
-
+        { 
             services.AddSingleton<IReservationPolicy, EmployeeReservationPolicy>();
             services.AddSingleton<IReservationPolicy, ManagerReservationPolicy>();
             services.AddSingleton<IReservationPolicy, AdminReservationPolicy>();
-            services.AddSingleton<IMachineReservationService, MachineReservationService>();
+            services.AddSingleton<IMachineService, MachineService>();
 
             return services;
         }

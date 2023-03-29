@@ -44,9 +44,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             var securedPassword = _passwordManager.Secure(command.Password);
             var user = new User(userId, email, userName, securedPassword, fullName, role, _clock.Current());
             //Save to db
-            await _userRepository.AddAsync(user);
-
-
+            await _userRepository.AddAsync(user); 
         }
     }
 }

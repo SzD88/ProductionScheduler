@@ -7,7 +7,6 @@ namespace ProductionScheduler.Core.Entities
         private ReservationForService()
         { 
         }
-
         public ReservationForService(ReservationId id, MachineId machineId, 
           Date date, Hour hour) 
             : base (id, machineId, hour, date)

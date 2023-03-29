@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductionScheduler.Core.Entities;
 
 namespace ProductionScheduler.Infrastructure.DAL
@@ -15,12 +13,10 @@ namespace ProductionScheduler.Infrastructure.DAL
             : base(dbContextOptions)
         {
 
-        }
-
+        } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly); 
-        }
-    
+        } 
     }
 }

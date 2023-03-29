@@ -1,5 +1,4 @@
 namespace ProductionScheduler.Core.ValueObjects;
- 
 public sealed record ReservationTimeForward
 {
     private int _daysAhead = 7; // #refactor 

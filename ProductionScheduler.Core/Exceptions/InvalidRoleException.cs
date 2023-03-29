@@ -1,5 +1,4 @@
 namespace ProductionScheduler.Core.Exceptions;
-
 public sealed class InvalidRoleException : CustomException
 {
     public string Role { get; }

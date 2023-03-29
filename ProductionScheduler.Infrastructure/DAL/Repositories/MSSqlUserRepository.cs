@@ -6,8 +6,7 @@ using ProductionScheduler.Core.ValueObjects;
 namespace ProductionScheduler.Infrastructure.DAL.Repositories
 {
     internal class MSSqlUserRepository : IUserRepository
-    {
-
+    { 
         private readonly DbSet<User> _users;
 
         public MSSqlUserRepository(ProductionSchedulerDbContext dbContext)
@@ -26,8 +25,6 @@ namespace ProductionScheduler.Infrastructure.DAL.Repositories
 
         public async Task AddAsync(User user)
             => await _users.AddAsync(user);
-    }
-
-
+    } 
 }
 

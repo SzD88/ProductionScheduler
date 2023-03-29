@@ -8,8 +8,7 @@ namespace ProductionScheduler.Application.Exceptions
             : base($"Machine with id : {id} was not found ")
         {
             Id = id;
-        }
-
+        } 
         public Guid Id { get; }
     }
 }

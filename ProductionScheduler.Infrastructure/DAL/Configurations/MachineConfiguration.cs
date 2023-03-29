@@ -8,8 +8,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
     internal sealed class MachineConfiguration : IEntityTypeConfiguration<Machine>
     {
         public void Configure(EntityTypeBuilder<Machine> builder)
-        {
-
+        { 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -19,11 +18,7 @@ namespace ProductionScheduler.Infrastructure.DAL.Configurations
                .HasConversion(x => x.From.Value, x => new ReservationTimeForward(x));
 
             builder.Property(x => x.Name)
-               .HasConversion(x => x.Value, x => new MachineName(x));
-
-
-
-
+               .HasConversion(x => x.Value, x => new MachineName(x)); 
         }
     }
 }

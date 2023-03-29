@@ -2,12 +2,9 @@
 
 namespace ProductionScheduler.Application.Commands
 {
-    public record DeleteReservation(
-
+    public record DeleteReservation( 
         Guid ReservationId,
         Guid UserId,
-        string UserRole
-
-          ) : ICommand;
-
+        string UserRole 
+          ) : ICommand; 
 }

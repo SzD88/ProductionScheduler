@@ -26,8 +26,7 @@ namespace ProductionScheduler.Infrastructure.Exceptions
             }
         } 
         private async Task HandleExceptionAsync(Exception exception, HttpContext context)
-        {
-            
+        { 
             var name = exception.GetType().Name.Underscore().Replace("_exception", string.Empty);
              
             var (statusCode, error) = exception switch
@@ -39,7 +38,6 @@ namespace ProductionScheduler.Infrastructure.Exceptions
             context.Response.StatusCode = statusCode;
             await context.Response.WriteAsJsonAsync(error);
         } 
-        private record Error(string Code, string Reason);
-
+        private record Error(string Code, string Reason); 
     } 
 }

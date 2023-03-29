@@ -1,14 +1,13 @@
-﻿namespace ProductionScheduler.Core.Exceptions
+﻿namespace ProductionScheduler.Core.Exceptions;
+
+public sealed class InvalidReservationDateException : CustomException
 {
-    public sealed class InvalidReservationDateException : CustomException
+    public DateTime Date { get; }
+
+    public InvalidReservationDateException(DateTime date) :
+        base($"Reservation date: {date:d} is invalid")
     {
-        public DateTime Date { get; }
-
-        public InvalidReservationDateException(DateTime date) :
-            base($"Reservation date: {date:d} is invalid")
-        {
-            Date = date;
-        }
-
+        Date = date;
     }
+
 }

@@ -10,7 +10,6 @@ namespace ProductionScheduler.Application.Exceptions
             : base($"Reservation with id : {id} was not found ")
         {
             Id = id;
-        }
-
+        } 
     }
 }

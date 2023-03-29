@@ -13,11 +13,10 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
         private readonly IClock _clock;
         private readonly IMachinesRepository _allMachines;
-        private readonly IMachineReservationService _machineReservationService;
-
+        private readonly IMachineService _machineReservationService;
 
         public ReserveMachineForEmployeeHandler(IClock clock, IMachinesRepository repository,
-            IMachineReservationService machineReservationService)
+            IMachineService machineReservationService)
         {
             _clock = clock;
             _allMachines = repository;
@@ -42,10 +41,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             _machineReservationService.ReserveMachineForUser(machines, EmplooyeeRank.Employee,
                 machineToReserve, reservation);
 
-
             await _allMachines.UpdateAsync(machineToReserve);
-
-
         }
     }
 }

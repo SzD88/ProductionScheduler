@@ -35,10 +35,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             reservation.ChangeHourOfReservation(new Hour(command.Hour));
 
-            await _repository.UpdateAsync(machine);
-
-        }
-
-
+            await _repository.UpdateAsync(machine); 
+        } 
     }
 }

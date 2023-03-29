@@ -1,4 +1,3 @@
-using ProductionScheduler.Api.Controllers;
 using ProductionScheduler.Application;
 using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;

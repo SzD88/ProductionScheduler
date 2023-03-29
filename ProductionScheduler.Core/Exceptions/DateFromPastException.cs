@@ -1,9 +1,8 @@
-﻿namespace ProductionScheduler.Core.Exceptions
+﻿namespace ProductionScheduler.Core.Exceptions;
+
+public sealed class DateFromPastException : CustomException
 {
-    public sealed class DateFromPastException : CustomException
+    public DateFromPastException() : base("Date of reservation is from past")
     {
-        public DateFromPastException() : base("Date of reservation is from past")
-        {
-        }
     }
 }

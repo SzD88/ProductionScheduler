@@ -1,7 +1,6 @@
-﻿namespace ProductionScheduler.Core.Abstractions
+﻿namespace ProductionScheduler.Core.Abstractions;
+
+public interface IClock
 {
-    public interface IClock
-    {
-        DateTime Current();
-    }
+    DateTime Current();
 }

@@ -47,8 +47,7 @@ namespace ProductionScheduler.Infrastructure.Auth
             return new JwtDto
             {
                 AccessToken = accessToken,
-            };
-
+            }; 
         }
     }
 }

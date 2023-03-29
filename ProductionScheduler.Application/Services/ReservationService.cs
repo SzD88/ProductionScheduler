@@ -13,10 +13,10 @@ namespace ProductionScheduler.Application.Services
     {
         private readonly IClock _clock;
         private readonly IMachinesRepository _allMachines;
-        private readonly IMachineReservationService _machineReservationService;
+        private readonly IMachineService _machineReservationService;
          
         public ReservationService(IClock clock, IMachinesRepository repository,
-            IMachineReservationService machineReservationService)
+            IMachineService machineReservationService)
         {
             _clock = clock;
             _allMachines = repository;
@@ -126,9 +126,6 @@ namespace ProductionScheduler.Application.Services
                  (r => r.Id == reservationId));
         }
 
-        public Task ReserveAllMachinesForServiceAsync(ReserveMachineForService command)
-        {
-            throw new NotImplementedException(); // #refactor
-        }
+       
     }
 }

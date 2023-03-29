@@ -4,7 +4,6 @@ namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record Role
 {
-// #refactor - sprawdz w kursie na przykladzie
     public static IEnumerable<string> AvailableRoles { get; } = new[] {"admin", "manager", "user"}; 
     public string Value { get; }
 
@@ -29,6 +28,5 @@ public sealed record Role
     public static implicit operator Role(string value) => new Role(value);
 
     public static implicit operator string(Role value) => value?.Value;
-
     public override string ToString() => Value;
 }
