@@ -24,8 +24,7 @@ namespace ProductionScheduler.Api.Controllers
         public ReservationController(ICommandHandler<ReserveMachineForEmployee> reserveForEmployee,
                             ICommandHandler<ReserveMachineForService> reserveForService,
                             ICommandHandler<ChangeReservationDate> changeReservationDate,
-                            ICommandHandler<ChangeReservationHour> changeReservationHour,
-                           // ICommandHandler<ChangeReservationEmployeeName> changeReservationEmployeeName,
+                            ICommandHandler<ChangeReservationHour> changeReservationHour, 
                             ICommandHandler<DeleteReservation> deleteReservationHandler, IMemoryCache memoryCache, ILogger<HomeController> logger)
         {
             _reserveForEmployeeHandler = reserveForEmployee;
@@ -73,7 +72,7 @@ namespace ProductionScheduler.Api.Controllers
 
         [HttpPut("reservations/{reservationId:guid}")]
         [SwaggerOperation("Edit reservation date and hour by id")]
-        [Authorize(Policy = "is-manager-or-admin")] // a nie powinno byc jak w delete ? robota...
+        [Authorize(Policy = "is-manager-or-admin")]  
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

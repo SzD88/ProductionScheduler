@@ -1,7 +1,7 @@
 namespace ProductionScheduler.Core.ValueObjects;
 public sealed record ReservationTimeForward
 {
-    private int _daysAhead = 7; // #refactor 
+    private int _daysAhead = 7;  
     public Date From { get; }
     public Date To { get; } 
     public ReservationTimeForward(DateTimeOffset value)

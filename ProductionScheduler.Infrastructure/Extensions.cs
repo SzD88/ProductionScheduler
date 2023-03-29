@@ -57,7 +57,7 @@ namespace ProductionScheduler.Infrastructure
                     Description = "Enter JWT Bearer token",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
-                    Scheme = "bearer", // must be lower case
+                    Scheme = "bearer", 
                     BearerFormat = "JWT",
                     Reference = new OpenApiReference
                     {
@@ -73,8 +73,7 @@ namespace ProductionScheduler.Infrastructure
                 });
             });
             return services;
-        }
-
+        } 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
             app.UseMiddleware<ExceptionMiddleware>();

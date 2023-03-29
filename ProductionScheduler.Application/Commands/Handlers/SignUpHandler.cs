@@ -30,8 +30,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             var password = new Password(command.Password);
             var fullName = new FullName(command.FullName);
             var role = string.IsNullOrWhiteSpace(command.Role)
-                ? Role.User() : new Role(command.Role);
-            //validate if user alredy exists (email or username)
+                ? Role.User() : new Role(command.Role); 
             if (await _userRepository.GetByEmailAsync(email) is not null)
             {
                 throw new EmailAlreadyInUseException(email);
@@ -39,11 +38,9 @@ namespace ProductionScheduler.Application.Commands.Handlers
             if (await _userRepository.GetByUsernameAsync(userName) is not null)
             {
                 throw new UsernameAlreadyInUseException(userName);
-            }
-            //create user
+            } 
             var securedPassword = _passwordManager.Secure(command.Password);
-            var user = new User(userId, email, userName, securedPassword, fullName, role, _clock.Current());
-            //Save to db
+            var user = new User(userId, email, userName, securedPassword, fullName, role, _clock.Current()); 
             await _userRepository.AddAsync(user); 
         }
     }

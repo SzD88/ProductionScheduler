@@ -18,17 +18,14 @@ builder.Services.AddCors(options =>
                           policy
                            .WithOrigins("http://localhost:4200/")
                             .SetIsOriginAllowed((host) => true);
-                          policy // .AllowAnyOrigin()
-                                .AllowAnyMethod()
+                          policy
+                               .AllowAnyMethod()
                                .AllowAnyHeader();
-                          //  .AllowCredentials();
                       });
 });
-builder.Services.AddMemoryCache(); // to powinnjo isc do jakiegos exdtensiona z API jak sa extensiony innych warstw #refactor
-
+builder.Services.AddMemoryCache();
 builder.Services
-    .AddSingleton<IClock, Clock>() // jw
-     
+    .AddSingleton<IClock, Clock>() 
     .AddCore()
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
@@ -37,8 +34,7 @@ builder.Services
 builder.UseSerilog();
 
 var app = builder.Build();
-
-
+ 
 app.UseInfrastructure();
 app.UseCors(MyAllowSpecificOrigins);
 
