@@ -1,6 +1,9 @@
 # ProductionScheduler
 
-UpdateDatabase
+Instalation:
+1. Clone repository
+2. UpdateDatabase
+3. Run
 
 App: https://localhost:5000
 
