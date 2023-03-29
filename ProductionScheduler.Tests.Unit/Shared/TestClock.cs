@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProductionScheduler.Application.Services;
-using ProductionScheduler.Core.Abstractions;
+﻿using ProductionScheduler.Core.Abstractions;
+using System;
 
 namespace MachineReservations.Tests.Unit.Shared
 {
