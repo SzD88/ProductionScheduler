@@ -5,8 +5,9 @@ using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure;
 using ProductionScheduler.Infrastructure.Logging;
 using Serilog;
+using WebAPI.Installers;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
@@ -17,24 +18,26 @@ builder.Services.AddCors(options =>
                       {
                           policy
                            .WithOrigins("http://localhost:4200/")
-                            .SetIsOriginAllowed((host) => true);
+                           .SetIsOriginAllowed((host) => true);
                           policy
-                               .AllowAnyMethod()
-                               .AllowAnyHeader();
+                             .AllowAnyMethod()
+                             .AllowAnyHeader();
                       });
 });
-builder.Services.AddMemoryCache();
-builder.Services
-    .AddSingleton<IClock, Clock>() 
-    .AddCore()
-    .AddApplication()
-    .AddInfrastructure(builder.Configuration)
-    .AddControllers();
+
+builder.Services.InstallServicesInAssembly(builder.Configuration);
+
+//builder.Services.AddMemoryCache()
+//    .AddSingleton<IClock, Clock>()
+//    .AddCore()
+//    .AddApplication()
+//    .AddInfrastructure(builder.Configuration)
+//    .AddControllers();
 
 builder.UseSerilog();
 
 var app = builder.Build();
- 
+
 app.UseInfrastructure();
 app.UseCors(MyAllowSpecificOrigins);
 
