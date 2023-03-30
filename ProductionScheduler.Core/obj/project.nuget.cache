@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "L3E1RSaQH/dbH+PqEZERX2QD3L299IWPFRG07L/9yqEaPW4Y+pjCEdxkso5QPzR2qfTDmcHZ+ZwmhuNo3HW53Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DELL\\source\\repos\\ProductionScheduler\\ProductionScheduler.Core\\ProductionScheduler.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

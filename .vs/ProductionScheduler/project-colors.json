@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5e530fd5-4b65-4704-be49-8df97450e773": {
+      "ProjectGuid": "5e530fd5-4b65-4704-be49-8df97450e773",
+      "DisplayName": "MachineReservations",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "cb962ede-ce19-4814-8d6e-3b63e2018a01": {
+      "ProjectGuid": "cb962ede-ce19-4814-8d6e-3b63e2018a01",
+      "DisplayName": "MachineReservations.Tests.Unit",
+      "ColorIndex": 1
+    },
+    "a156ffc6-ee75-4c78-9744-56536e855689": {
+      "ProjectGuid": "a156ffc6-ee75-4c78-9744-56536e855689",
+      "DisplayName": "Shared",
+      "ColorIndex": 2
+    },
+    "7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0": {
+      "ProjectGuid": "7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0",
+      "DisplayName": "ProductionScheduler.Infrastructure",
+      "ColorIndex": 3
+    },
+    "7d21ddfe-59a0-431c-b485-eb000f2d9aba": {
+      "ProjectGuid": "7d21ddfe-59a0-431c-b485-eb000f2d9aba",
+      "DisplayName": "ProductionScheduler.Application",
+      "ColorIndex": 4
+    },
+    "df187127-4a0e-46b7-ae2d-4773921a3dec": {
+      "ProjectGuid": "df187127-4a0e-46b7-ae2d-4773921a3dec",
+      "DisplayName": "ProductionScheduler.Core",
+      "ColorIndex": 5
+    },
+    "f8c2c6f8-8d7b-4313-8bb9-148c0b241549": {
+      "ProjectGuid": "f8c2c6f8-8d7b-4313-8bb9-148c0b241549",
+      "DisplayName": "ProductionScheduler.Api",
+      "ColorIndex": 6
+    },
+    "72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a": {
+      "ProjectGuid": "72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a",
+      "DisplayName": "ProductionScheduler.Tests.Unit",
+      "ColorIndex": 7
+    },
+    "85528042-d0b0-40a0-8ea8-74cf13f9c4ea": {
+      "ProjectGuid": "85528042-d0b0-40a0-8ea8-74cf13f9c4ea",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 8
+    }
+  },
+  "NextColorIndex": 9
+}

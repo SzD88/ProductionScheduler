@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "vh8eAeZvAPSxdxrBjCSj2ojwHxeRxrf0e/9V7owa0L4=",
+  "Source": "ProductionScheduler.Api",
+  "BasePath": "_content/ProductionScheduler.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
