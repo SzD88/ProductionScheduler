@@ -6,7 +6,7 @@ using ProductionScheduler.Infrastructure;
 using ProductionScheduler.Infrastructure.Logging;
 using Serilog;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; //#refactor wywalic 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
