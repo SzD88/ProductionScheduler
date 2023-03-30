@@ -1,6 +1,7 @@
 # ProductionScheduler
 
-WebApi / rest api / restful api?, based on .NET 6. REST architecture. Entityframework, "code first" database. CQRS. 
+REST Api .NET 6
+Entityframework, "code first" database.
 
 Installation:
 1. Clone repository
@@ -12,3 +13,6 @@ App: https://localhost:5000
 Swagger: https://localhost:5000/swagger/index.html
 
 Redoc: https://localhost:5000/docs/index.html
+
+
+Creating unit and integration tests in progress. 
