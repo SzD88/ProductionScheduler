@@ -15,7 +15,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
             _repository = repository;
         }
         public async Task HandleAsync(ChangeReservationHour command)
-        {
+        { 
             var machine = await GetMachineByReservationIdAsync(_repository, command.ReservationId);
 
             if (machine is null)
@@ -25,9 +25,8 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
-                .OfType<MachineReservation>()
+                .OfType<Reservation>()
                 .SingleOrDefault(x => x.Id == reservationId);
-
 
             if (reservation is null)
             {
@@ -36,10 +35,7 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             reservation.ChangeHourOfReservation(new Hour(command.Hour));
 
-            await _repository.UpdateAsync(machine);
-
-        }
-
-
+            await _repository.UpdateAsync(machine); 
+        } 
     }
 }

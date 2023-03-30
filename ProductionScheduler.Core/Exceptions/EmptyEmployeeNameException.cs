@@ -1,12 +1,10 @@
-﻿namespace ProductionScheduler.Core.Exceptions
+﻿namespace ProductionScheduler.Core.Exceptions;
+
+public sealed class EmptyEmployeeNameException : CustomException
 {
-
-    public sealed class EmptyEmployeeNameException : CustomException
+    public EmptyEmployeeNameException() : base("Name was null during process")
     {
-        public EmptyEmployeeNameException() : base("Name was null during process")
-        {
-        }
     }
-
 }
+
 

@@ -19,6 +19,5 @@ public sealed record Password
     public static implicit operator Password(string value) => new(value);
 
     public static implicit operator string(Password value) => value?.Value;
-
     public override string ToString() => Value;
 }

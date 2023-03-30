@@ -1,7 +1,6 @@
 using ProductionScheduler.Core.Exceptions;
 
 namespace ProductionScheduler.Core.ValueObjects;
-
 public sealed record MachineName(string Value)
 {
     public string Value { get; } = Value ?? throw new InvalidMachineException();

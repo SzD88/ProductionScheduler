@@ -6,8 +6,7 @@ namespace ProductionScheduler.Application.Services
     {
         public DateTime Current() => DateTime.UtcNow;
         public Clock()
-        {
-
+        { 
         }
     }
 

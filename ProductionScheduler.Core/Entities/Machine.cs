@@ -2,8 +2,7 @@
 using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Core.Entities
-{
-    //This Class is defining 
+{ 
     public class Machine
     {
         private readonly HashSet<Reservation> _reservations = new HashSet<Reservation>();
@@ -21,26 +20,18 @@ namespace ProductionScheduler.Core.Entities
         private Machine()
         {
 
-        }
-
-        //ukrywasz te metode przed innymi warstwami #refactor #26 - 40:00
-        // jezeli cos jest internal to programista mial w tym cel
-        // chcial to ukryc , szuka sie sposobu by inaczej dodac i to mialo byc przygotowane
-        //to nakierowanie jest
+        } 
         internal void AddReservation(Reservation reservation, Date now)
         {
             var date = reservation.Date;
             var from = TimeForward.From.Value.Date;
-            var to = TimeForward.To.Value.Date;
-            //#tutaj  #refactor
-            //week zadeklarowano na poczaatku servisu
-            // czyli week masz od 14-20
+            var to = TimeForward.To.Value.Date; 
             var one = date < from;
             var two = date > to;
             var three = date < now;
-            var isInvalidDate = date < from  //14
-                || date > to //20
-                || date < now; // .Date? // sprawdza dzien 
+            var isInvalidDate = date < from  
+                || date > to  
+                || date < now;  
 
             if (isInvalidDate)
             {
@@ -64,10 +55,8 @@ namespace ProductionScheduler.Core.Entities
             }
             _reservations.Add(reservation);
         }
-
         public void RemoveReservation(ReservationId id)
        => _reservations.RemoveWhere(x => x.Id == id);
-
         public void RemoveReservations(IEnumerable<Reservation> reservations)
        => _reservations.RemoveWhere(x => reservations.Any(r => r.Id == x.Id));
     }

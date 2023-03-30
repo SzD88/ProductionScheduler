@@ -7,53 +7,44 @@ using ProductionScheduler.Core.ValueObjects;
 
 namespace ProductionScheduler.Infrastructure.DAL
 {
-    internal sealed class DatabaseInitializer : IHostedService // BackgroundService, - operations in background while true -> do smth every 5 min for example
-                                                               //background operations #21
+    internal sealed class DatabaseInitializer : IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
         public DatabaseInitializer(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
-        public Task StartAsync(CancellationToken cancellationToken) // on app start
+        public Task StartAsync(CancellationToken cancellationToken)
         {
             using (var scope = _serviceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ProductionSchedulerDbContext>();
                 dbContext.Database.Migrate();
-
-
                 var clock = new Clock();
                 var expectedMachinesTable = new List<Machine>()
-                    {// #refactor
-
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "P1"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "P2"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "P3"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "P4"),
-                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "P5")
+                    {
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000001"), new ReservationTimeForward(clock.Current()), "Machine 1"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000002"), new ReservationTimeForward(clock.Current()), "Machine 2"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000003"), new ReservationTimeForward(clock.Current()), "Machine 3"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000004"), new ReservationTimeForward(clock.Current()), "Machine 4"),
+                       new(Guid.Parse("00000000-0000-0000-0000-000000000005"), new ReservationTimeForward(clock.Current()), "Machine 5")
                     };
 
-                var machinesToReserve = dbContext.PeriodMachineReservations.ToList();
+                var machinesToReserve = dbContext.Machines.ToList();
 
                 var firstMachine = machinesToReserve.FirstOrDefault();
                 bool clearTable = false;
                 if (firstMachine is not null)
                 {
-                      clearTable = firstMachine.TimeForward == expectedMachinesTable.FirstOrDefault().TimeForward;
-
+                    clearTable = firstMachine.TimeForward == expectedMachinesTable.FirstOrDefault().TimeForward;
                 }
 
-                if (!machinesToReserve.Any() || machinesToReserve.Count < expectedMachinesTable.Count || clearTable) // #refactor - shouldnt it check if number of machines is 
-                                                                                                                       //equal to 5 or new created sum of machines?
+                if (!machinesToReserve.Any() || machinesToReserve.Count < expectedMachinesTable.Count || clearTable)
                 {
-                    //  var clock = new Clock();
-
                     foreach (var item in machinesToReserve)
                     {
                         dbContext.Remove(item);
                     }
-
                     machinesToReserve = expectedMachinesTable;
 
                     dbContext.AddRange(machinesToReserve);
@@ -66,17 +57,16 @@ namespace ProductionScheduler.Infrastructure.DAL
         public Task StopAsync(CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
-
         }
         public async Task ClearTimeForwardAsync(ProductionSchedulerDbContext dbContext)
         {
-            var machines = await dbContext.PeriodMachineReservations.ToListAsync();
+            var machines = await dbContext.Machines.ToListAsync();
 
             foreach (var item in machines)
             {
                 dbContext.Remove(item);
             }
-            dbContext.SaveChanges(); 
+            dbContext.SaveChanges();
         }
     }
 }

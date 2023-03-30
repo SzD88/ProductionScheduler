@@ -11,23 +11,21 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; //#refactor wywalic
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
+
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
                           policy
-
                            .WithOrigins("http://localhost:4200/")
                             .SetIsOriginAllowed((host) => true);
-                          policy // .AllowAnyOrigin()
-                                .AllowAnyMethod()
+                          policy
+                               .AllowAnyMethod()
                                .AllowAnyHeader();
-                          //  .AllowCredentials();
                       });
 });
-
+builder.Services.AddMemoryCache();
 builder.Services
-
-    .AddSingleton<IClock, Clock>()
+    .AddSingleton<IClock, Clock>() 
     .AddCore()
     .AddApplication()
     .AddInfrastructure(builder.Configuration)
@@ -35,17 +33,8 @@ builder.Services
 
 builder.UseSerilog();
 
-// builder.Services.AddSwaggerGen();
-
-
 var app = builder.Build();
-
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
+ 
 app.UseInfrastructure();
 app.UseCors(MyAllowSpecificOrigins);
 

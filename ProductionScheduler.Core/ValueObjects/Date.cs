@@ -7,14 +7,8 @@ public sealed record Date
     public DateTimeOffset Value { get; }
 
     public Date(DateTimeOffset value)
-    {
-        if (value.Date < DateTime.UtcNow.Date)
-        {
-          //  throw new DateFromPastException();
-        }
-
-        Value = value.Date; // date // 2023-01-17 zmieniono na date - bo chce wyzej miec zgodnosc wartosci 
-
+    { 
+        Value = value.Date;  
     }
 
     public bool IsSunday() => Value.DayOfWeek == DayOfWeek.Sunday;
@@ -22,12 +16,11 @@ public sealed record Date
     public Date SetHour(int hour)
     {
         int toAdd = 0;
-        // get hour
+        
         if (Value.Hour < 14 || Value.Hour > 0)
         {
-            var currHour = Value.Hour;
-            // 14-hour
-            toAdd = 14 - currHour;//#refactor 
+            var currHour = Value.Hour; 
+            toAdd = 14 - currHour; 
         }
         return new Date(Value.AddHours(toAdd));
 
@@ -57,6 +50,5 @@ public sealed record Date
         => date1.Value.Day >= date2.Value.Day;
 
     public static Date Now => new(DateTimeOffset.Now);
-
     public override string ToString() => Value.ToString("d");
 }

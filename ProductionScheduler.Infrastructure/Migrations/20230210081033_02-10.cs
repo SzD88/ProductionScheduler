@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductionScheduler.Infrastructure.Migrations
 {
-    public partial class _20230119 : Migration
+    public partial class _0210 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "PeriodMachineReservations",
+                name: "Machines",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -19,7 +19,24 @@ namespace ProductionScheduler.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PeriodMachineReservations", x => x.Id);
+                    table.PrimaryKey("PK_Machines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,9 +54,9 @@ namespace ProductionScheduler.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_PeriodMachineReservations_MachineId",
+                        name: "FK_Reservations_Machines_MachineId",
                         column: x => x.MachineId,
-                        principalTable: "PeriodMachineReservations",
+                        principalTable: "Machines",
                         principalColumn: "Id");
                 });
 
@@ -47,6 +64,18 @@ namespace ProductionScheduler.Infrastructure.Migrations
                 name: "IX_Reservations_MachineId",
                 table: "Reservations",
                 column: "MachineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UserName",
+                table: "Users",
+                column: "UserName",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -55,7 +84,10 @@ namespace ProductionScheduler.Infrastructure.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "PeriodMachineReservations");
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Machines");
         }
     }
 }

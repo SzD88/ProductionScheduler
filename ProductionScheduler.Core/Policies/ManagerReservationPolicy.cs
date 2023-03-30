@@ -7,12 +7,12 @@ namespace ProductionScheduler.Core.Policies
     internal sealed class ManagerReservationPolicy : IReservationPolicy
     {
         private readonly IClock _clock;
-
+        private readonly int numbersOfPossibleReservations = 5;
+        private readonly int daysForwardForReservations = 2;
         public ManagerReservationPolicy(IClock clock)
         {
             _clock = clock;
-        }
-
+        } 
         public bool CanBeApplied(EmplooyeeRank rank)
         {
             return rank == EmplooyeeRank.Manager;
@@ -22,11 +22,10 @@ namespace ProductionScheduler.Core.Policies
         {
             var totalEmployeeReservations = periodMachineReservations
                 .SelectMany(x => x.Reservations)
-                .OfType<MachineReservation>()
-                   .Count(x => x.EmployeeName == name);
+                .OfType<ReservationForUser>()
+                   .Count(x => x.EmployeeName == name); 
 
-            // #refactor  // w zaalozeniu pracownik regularny moze rezerwowac tylko wolna maszyne tyko 2 godziny do przodu
-            return totalEmployeeReservations < 5 && _clock.Current().Day > DateTime.UtcNow.Day + 2;
+            return totalEmployeeReservations < numbersOfPossibleReservations && _clock.Current().Day > DateTime.UtcNow.Day + daysForwardForReservations;
         }
     }
 }

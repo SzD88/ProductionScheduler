@@ -23,12 +23,10 @@ namespace ProductionScheduler.Infrastructure.Logging.Decorators
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            _logger.LogInformation("Started handling a command{commandName} ...", commandName); // serilog #32/20 - usunieto "$"
-            //    Console.WriteLine($"Processing a command {command.GetType().Name}");
+            _logger.LogInformation("Started handling a command{commandName} ...", commandName);  
             await _commandHandler.HandleAsync(command);
             stopWatch.Stop();
-            _logger.LogInformation("Completed handling a command {commandName} ... time of process : {Elapsed}", commandName, stopWatch.Elapsed);
-
+            _logger.LogInformation("Completed handling a command {commandName} ... time of process : {Elapsed}", commandName, stopWatch.Elapsed); 
         }
     }
 }

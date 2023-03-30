@@ -2,7 +2,6 @@
 {
     public sealed class AppOptions
     {
-        public string Name { get; set; }
-
+        public string Name { get; set; } 
     }
 }

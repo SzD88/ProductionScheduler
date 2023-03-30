@@ -25,18 +25,16 @@ namespace ProductionScheduler.Application.Commands.Handlers
 
             var reservationId = new ReservationId(command.ReservationId);
             var reservation = machine.Reservations
-                .OfType<MachineReservation>()
+                .OfType<ReservationForUser>()
                 .SingleOrDefault(x => x.Id == reservationId);
-
-
+             
             if (reservation is null)
             {
                 throw new ReservationNotFoundException(command.ReservationId);
             }
 
             reservation.ChangeDateOfReservation( new Date(command.Date.Date));
-            await _repository.UpdateAsync(machine);
-
+            await _repository.UpdateAsync(machine); 
         }
     }
 }

@@ -4,9 +4,7 @@ namespace ProductionScheduler.Core.ValueObjects;
 
 public sealed record Role
 {
-
-    public static IEnumerable<string> AvailableRoles { get; } = new[] {"admin", "user"};
-
+    public static IEnumerable<string> AvailableRoles { get; } = new[] {"admin", "manager", "user"}; 
     public string Value { get; }
 
     public Role(string value)
@@ -22,8 +20,7 @@ public sealed record Role
         }
 
         Value = value;
-    }
-
+    } 
     public static Role Admin() => new("admin");
     
     public static Role User() => new ("user");
@@ -31,6 +28,5 @@ public sealed record Role
     public static implicit operator Role(string value) => new Role(value);
 
     public static implicit operator string(Role value) => value?.Value;
-
     public override string ToString() => Value;
 }

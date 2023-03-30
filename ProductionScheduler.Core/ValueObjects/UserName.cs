@@ -1,7 +1,6 @@
 using ProductionScheduler.Core.Exceptions;
 
 namespace ProductionScheduler.Core.ValueObjects;
-
 public sealed record UserName
 {
     public string Value { get; }

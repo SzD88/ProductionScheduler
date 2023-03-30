@@ -12,15 +12,9 @@ namespace ProductionScheduler.Infrastructure.Auth
     {
         private const string SectionName = "auth";
         public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
-        {
-
-
-          //  services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
-
+        { 
             var options = configuration.GetOptions<AuthOptions>(SectionName);
-
-            // services.AddSingleton<IAuthenticator, Authenticator>();
-
+             
             services
                 .Configure<AuthOptions>(configuration.GetRequiredSection(SectionName))
             .AddSingleton<IAuthenticator, Authenticator>()
@@ -36,21 +30,25 @@ namespace ProductionScheduler.Infrastructure.Auth
                x.TokenValidationParameters = new TokenValidationParameters
                {
                    ValidIssuer = options.Issuer,
-                   ClockSkew = TimeSpan.Zero, //dodatkowy bufor czasu zycia tokena #refactor
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                   ClockSkew = TimeSpan.Zero, 
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                    .GetBytes(options.SigningKey)),
                };
-           } 
+           }
             );
             services.AddAuthorization(authorization =>
 
             authorization.AddPolicy("is-admin", policy =>
-             {
-                 policy.RequireRole("admin");
-                   //   .RequireUserName().RequireClaim();
-            }
+            {
+                policy.RequireRole("admin");
+             }));
+           
+            services.AddAuthorization(authorization =>
 
-            ));
+            authorization.AddPolicy("is-manager-or-admin", policy =>
+            {
+                policy.RequireRole("manager", "admin");
+            }));
             return services;
         }
     }
