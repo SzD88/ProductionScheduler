@@ -1,7 +1,3 @@
-using ProductionScheduler.Application;
-using ProductionScheduler.Application.Services;
-using ProductionScheduler.Core;
-using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure;
 using ProductionScheduler.Infrastructure.Logging;
 using Serilog;
@@ -26,13 +22,6 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.InstallServicesInAssembly(builder.Configuration);
-
-//builder.Services.AddMemoryCache()
-//    .AddSingleton<IClock, Clock>()
-//    .AddCore()
-//    .AddApplication()
-//    .AddInfrastructure(builder.Configuration)
-//    .AddControllers();
 
 builder.UseSerilog();
 
