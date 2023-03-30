@@ -1,6 +1,4 @@
-﻿using WebApi.Installers;
-
-namespace WebAPI.Installers
+﻿namespace ProductionScheduler.Api.Installers
 {
     public static class InstallerExtensions
     {

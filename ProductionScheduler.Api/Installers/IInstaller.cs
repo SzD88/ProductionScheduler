@@ -1,4 +1,4 @@
-﻿namespace WebApi.Installers
+﻿namespace ProductionScheduler.Api.Installers
 {
     public interface IInstaller
     {

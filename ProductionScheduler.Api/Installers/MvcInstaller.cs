@@ -3,10 +3,8 @@ using ProductionScheduler.Application.Services;
 using ProductionScheduler.Core;
 using ProductionScheduler.Core.Abstractions;
 using ProductionScheduler.Infrastructure;
-using Serilog;
-using WebApi.Installers;
 
-namespace WebAPI.Installers
+namespace ProductionScheduler.Api.Installers
 {
     public class MvcInstaller : IInstaller
     {

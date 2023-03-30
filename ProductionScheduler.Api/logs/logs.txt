@@ -19237,3 +19237,79 @@ VALUES (@p15, @p16, @p17, @p18, @p19),
 2023-03-30 11:27:36.246 +02:00 [INF] Executed action ProductionScheduler.Api.Controllers.ReservationController.CreateReservationForService (ProductionScheduler.Api) in 105.576ms
 2023-03-30 11:27:36.249 +02:00 [INF] Executed endpoint 'ProductionScheduler.Api.Controllers.ReservationController.CreateReservationForService (ProductionScheduler.Api)'
 2023-03-30 11:27:36.251 +02:00 [INF] Request finished HTTP/2 POST https://localhost:5000/machines/00000000-0000-0000-0000-000000000001/reservations/service application/json 54 - 204 - - 126.5851ms
+2023-03-30 11:29:16.587 +02:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-03-30 11:29:17.795 +02:00 [INF] Entity Framework Core 6.0.11 initialized 'ProductionSchedulerDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.11' with options: None
+2023-03-30 11:29:18.293 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 11:29:18.332 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 11:29:18.337 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 11:29:18.339 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 11:29:18.353 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-03-30 11:29:18.370 +02:00 [INF] No migrations were applied. The database is already up to date.
+2023-03-30 11:29:18.623 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[TimeForward]
+FROM [Machines] AS [m]
+2023-03-30 11:29:18.987 +02:00 [INF] Now listening on: https://localhost:5000
+2023-03-30 11:29:18.990 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-03-30 11:29:18.991 +02:00 [INF] Hosting environment: Development
+2023-03-30 11:29:18.992 +02:00 [INF] Content root path: C:\Users\DELL\source\repos\ProductionScheduler\ProductionScheduler.Api\
+2023-03-30 11:29:19.159 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - -
+2023-03-30 11:29:19.168 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - - - 200 11957 application/javascript;+charset=utf-8 12.0029ms
+2023-03-30 11:29:19.240 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - -
+2023-03-30 11:29:19.411 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 170.9484ms
+2023-03-30 11:29:30.778 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/machines - -
+2023-03-30 11:29:31.078 +02:00 [INF] Executing endpoint 'ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api)'
+2023-03-30 11:29:31.109 +02:00 [INF] Route matched with {action = "Get", controller = "Machines"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ProductionScheduler.Application.DTO.MachineDto]]] Get(ProductionScheduler.Application.Queries.GetMachines) on controller ProductionScheduler.Api.Controllers.MachinesController (ProductionScheduler.Api).
+2023-03-30 11:29:31.145 +02:00 [INF] Fetching from service.
+2023-03-30 11:29:31.150 +02:00 [INF] Entity Framework Core 6.0.11 initialized 'ProductionSchedulerDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.11' with options: None
+2023-03-30 11:29:31.372 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[TimeForward], [r].[Id], [r].[Date], [r].[Hour], [r].[MachineId], [r].[Type], [r].[EmployeeName], [r].[UserId]
+FROM [Machines] AS [m]
+LEFT JOIN [Reservations] AS [r] ON [m].[Id] = [r].[MachineId]
+ORDER BY [m].[Id]
+2023-03-30 11:29:31.413 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[ProductionScheduler.Core.Entities.Machine, ProductionScheduler.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ProductionScheduler.Application.DTO.MachineDto, ProductionScheduler.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-30 11:29:31.457 +02:00 [INF] Executed action ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api) in 339.5615ms
+2023-03-30 11:29:31.462 +02:00 [INF] Executed endpoint 'ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api)'
+2023-03-30 11:29:31.475 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/machines - - - 200 - application/json;+charset=utf-8 696.6856ms
+2023-03-30 11:31:47.919 +02:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-03-30 11:31:49.131 +02:00 [INF] Entity Framework Core 6.0.11 initialized 'ProductionSchedulerDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.11' with options: None
+2023-03-30 11:31:49.619 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 11:31:49.658 +02:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 11:31:49.663 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 11:31:49.665 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 11:31:49.681 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-03-30 11:31:49.707 +02:00 [INF] No migrations were applied. The database is already up to date.
+2023-03-30 11:31:49.962 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[TimeForward]
+FROM [Machines] AS [m]
+2023-03-30 11:31:50.248 +02:00 [INF] Now listening on: https://localhost:5000
+2023-03-30 11:31:50.251 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-03-30 11:31:50.252 +02:00 [INF] Hosting environment: Development
+2023-03-30 11:31:50.253 +02:00 [INF] Content root path: C:\Users\DELL\source\repos\ProductionScheduler\ProductionScheduler.Api\
+2023-03-30 11:32:06.412 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/machines - -
+2023-03-30 11:32:06.766 +02:00 [INF] Executing endpoint 'ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api)'
+2023-03-30 11:32:06.816 +02:00 [INF] Route matched with {action = "Get", controller = "Machines"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ProductionScheduler.Application.DTO.MachineDto]]] Get(ProductionScheduler.Application.Queries.GetMachines) on controller ProductionScheduler.Api.Controllers.MachinesController (ProductionScheduler.Api).
+2023-03-30 11:32:06.853 +02:00 [INF] Fetching from service.
+2023-03-30 11:32:06.888 +02:00 [INF] Entity Framework Core 6.0.11 initialized 'ProductionSchedulerDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.11' with options: None
+2023-03-30 11:32:07.074 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[TimeForward], [r].[Id], [r].[Date], [r].[Hour], [r].[MachineId], [r].[Type], [r].[EmployeeName], [r].[UserId]
+FROM [Machines] AS [m]
+LEFT JOIN [Reservations] AS [r] ON [m].[Id] = [r].[MachineId]
+ORDER BY [m].[Id]
+2023-03-30 11:32:07.108 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[ProductionScheduler.Core.Entities.Machine, ProductionScheduler.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[ProductionScheduler.Application.DTO.MachineDto, ProductionScheduler.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-03-30 11:32:07.172 +02:00 [INF] Executed action ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api) in 346.6043ms
+2023-03-30 11:32:07.177 +02:00 [INF] Executed endpoint 'ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api)'
+2023-03-30 11:32:07.194 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/machines - - - 200 - application/json;+charset=utf-8 785.6408ms
