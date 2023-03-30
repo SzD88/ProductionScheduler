@@ -4,13 +4,13 @@ i:{00000000-0000-0000-0000-000000000000}:ProductionScheduler.sln
 i:{00000000-0000-0000-0000-000000000000}:src
 ++ProductionScheduler.Core
 i:{30bd8d44-edc9-4005-9689-185226dee510}:ProductionScheduler.Core
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\bin\debug\net6.0\productionscheduler.core.dll
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\productionscheduler.core.csproj
 ++Dependencies
-i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:>552
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:>551
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>550
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1950
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1668
+i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:>4415
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:>4685
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>4600
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6083
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>5520
 ++Abstractions
 i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\abstractions\
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\abstractions\
@@ -61,10 +61,10 @@ i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionsc
 ++Extensions.cs
 i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\extensions.cs
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\extensions.cs
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\extensions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\extensions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\logging\extensions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\extensions.cs
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\extensions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\handlers\extensions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\security\extensions.cs
 ++Analyzers
@@ -87,10 +87,10 @@ i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:packages
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:packages
 ++IClock.cs
 i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\abstractions\iclock.cs
-++IMachineReservationService.cs
-i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\domainservices\imachinereservationservice.cs
-++MachineReservationService.cs
-i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\domainservices\machinereservationservice.cs
+++IMachineService.cs
+i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\domainservices\imachineservice.cs
+++MachineService.cs
+i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\domainservices\machineservice.cs
 ++Machine.cs
 i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:c:\users\dell\source\repos\productionscheduler\productionscheduler.core\entities\machine.cs
 ++Reservation.cs
@@ -176,50 +176,13 @@ i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionsc
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\microsoft.netcore.app
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\microsoft.netcore.app
 ++Microsoft.Extensions.DependencyInjection.Abstractions (6.0.0)
-i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:>2039
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2013
+i:{df187127-4a0e-46b7-ae2d-4773921a3dec}:>6162
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6120
 ++ProductionScheduler.Application
 i:{30bd8d44-edc9-4005-9689-185226dee510}:ProductionScheduler.Application
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\bin\debug\net6.0\productionscheduler.application.dll
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\productionscheduler.application.csproj
 ++Commands
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\
-++Handlers
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\handlers\
-++ChangeReservationDateHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\changereservationdatehandler.cs
-++ChangeReservationEmployeeNameHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\changereservationemployeenamehandler.cs
-++ChangeReservationHourHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\changereservationhourhandler.cs
-++DataChangeHandlerBase.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\datachangehandlerbase.cs
-++DeleteReservationHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\deletereservationhandler.cs
-++ReserveMachineForEmployeeHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\reservemachineforemployeehandler.cs
-++ReserveMachineForServiceHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\reservemachineforservicehandler.cs
-++SignInHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\signinhandler.cs
-++SignUpHandler.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\signuphandler.cs
-++ChangeReservationDate.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationdate.cs
-++ChangeReservationEmployeeName.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationemployeename.cs
-++ChangeReservationHour.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationhour.cs
-++DeleteReservation.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\deletereservation.cs
-++ReserveMachineForEmployee.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\reservemachineforemployee.cs
-++ReserveMachineForService.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\reservemachineforservice.cs
-++SignIn.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\signin.cs
-++SignUp.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\signup.cs
 ++DTO
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\dto\
 ++Queries
@@ -249,8 +212,27 @@ i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionsc
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\abstractions\iquery.cs
 ++IQueryHandler.cs
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\abstractions\iqueryhandler.cs
-++ChangeReservationDateAndHourDto.cs
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\dto\changereservationdateandhourdto.cs
+++Handlers
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\handlers\
+++ChangeReservationDate.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationdate.cs
+++ChangeReservationEmployeeName.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationemployeename.cs
+++ChangeReservationHour.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\changereservationhour.cs
+++DeleteReservation.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\deletereservation.cs
+++ReserveMachineForEmployee.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\reservemachineforemployee.cs
+++ReserveMachineForService.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\reservemachineforservice.cs
+++SignIn.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\signin.cs
+++SignUp.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\signup.cs
+++ChangeReservationTimeDto.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\dto\changereservationtimedto.cs
 ++JwtDto.cs
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\dto\jwtdto.cs
 ++MachineDto.cs
@@ -284,13 +266,35 @@ i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionsc
 ++ReservationService.cs
 i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\services\reservationservice.cs
 ++Scrutor.AspNetCore (3.3.0)
-i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:>2041
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2019
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:>6099
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6126
+++ChangeReservationDateHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\changereservationdatehandler.cs
+++ChangeReservationHourHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\changereservationhourhandler.cs
+++DataChangeHandlerBase.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\datachangehandlerbase.cs
+++DeleteReservationHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\deletereservationhandler.cs
+++ReserveMachineForEmployeeHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\reservemachineforemployeehandler.cs
+++ReserveMachineForServiceHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\reservemachineforservicehandler.cs
+++SignInHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\signinhandler.cs
+++SignUpHandler.cs
+i:{7d21ddfe-59a0-431c-b485-eb000f2d9aba}:c:\users\dell\source\repos\productionscheduler\productionscheduler.application\commands\handlers\signuphandler.cs
 ++ProductionScheduler.Infrastructure
 i:{30bd8d44-edc9-4005-9689-185226dee510}:ProductionScheduler.Infrastructure
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\bin\debug\net6.0\productionscheduler.infrastructure.dll
 ++Auth
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\
+++Authenticator.cs
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\authenticator.cs
+++AuthOptions.cs
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\authoptions.cs
+++HttpContextTokenStorage.cs
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\httpcontexttokenstorage.cs
 ++DAL
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\
 ++Configurations
@@ -300,8 +304,6 @@ i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionsc
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\logging\decorators\
 ++UnitOfWorkCommandHandlerDecorator.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\decorators\unitofworkcommandhandlerdecorator.cs
-++InMemoryPeriodMachineReservationRepository.cs
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\repositories\inmemoryperiodmachinereservationrepository.cs
 ++MSSqlMachinesRepository.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\repositories\mssqlmachinesrepository.cs
 ++MSSqlUserRepository.cs
@@ -326,12 +328,6 @@ i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionsc
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\time\
 ++AppOptions.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\appoptions.cs
-++Authenticator.cs
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\authenticator.cs
-++AuthOptions.cs
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\authoptions.cs
-++HttpContextTokenStorage.cs
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\auth\httpcontexttokenstorage.cs
 ++MachineConfiguration.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\dal\configurations\machineconfiguration.cs
 ++ReservationConfiguration.cs
@@ -380,47 +376,47 @@ i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\program files\dotnet\packs\microsoft
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\microsoft.aspnetcore.app
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\microsoft.aspnetcore.app
 ++Humanizer (2.14.1)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2021
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6128
 ++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.13)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2020
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6127
 ++Microsoft.EntityFrameworkCore (6.0.11)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2008
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6115
 ++Microsoft.EntityFrameworkCore.SqlServer (6.0.11)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2009
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6116
 ++Microsoft.EntityFrameworkCore.Tools (6.0.11)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2022
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6129
 ++Microsoft.Extensions.Configuration.Binder (6.0.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2015
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6122
 ++Microsoft.Extensions.Options.ConfigurationExtensions (6.0.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2016
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6123
 ++Serilog (2.12.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2023
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6130
 ++Serilog.AspNetCore (6.1.1-dev-00293)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2012
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6119
 ++Serilog.Extensions.Logging (3.1.1-dev-10301)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2010
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6117
 ++Serilog.Sinks.Console (4.1.1-dev-00901)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2017
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6124
 ++Serilog.Sinks.File (5.0.1-dev-00947)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2018
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6125
 ++Serilog.Sinks.Seq (5.2.3-dev-00260)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2006
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6111
 ++Swashbuckle.AspNetCore (6.5.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2011
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1971
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6118
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6151
 ++Swashbuckle.AspNetCore.Annotations (6.5.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2014
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6121
 ++Swashbuckle.AspNetCore.ReDoc (6.5.0)
-i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>2007
+i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:>6113
 ++20230210081033_02-10.Designer.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\migrations\20230210081033_02-10.designer.cs
 ++20230214071827_13-02.Designer.cs
 i:{7ddd6e10-8dcd-44b7-86cf-a6a94678e1d0}:c:\users\dell\source\repos\productionscheduler\productionscheduler.infrastructure\migrations\20230214071827_13-02.designer.cs
 ++ProductionScheduler.Api
 i:{30bd8d44-edc9-4005-9689-185226dee510}:ProductionScheduler.Api
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\bin\debug\net6.0\productionscheduler.api.dll
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\productionscheduler.api.csproj
 ++Connected Services 
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1951
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6081
 ++Properties
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\properties\
 ++launchSettings.json
@@ -437,6 +433,16 @@ i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionsc
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\controllers\reservationcontroller.cs
 ++UsersController.cs
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\controllers\userscontroller.cs
+++Installers
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\installers\
+++DBInstaller.cs
+++IInstaller.cs
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\installers\iinstaller.cs
+++InstallerExtensions.cs
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\installers\installerextensions.cs
+++MvcInstaller.cs
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\installers\mvcinstaller.cs
+++SwaggerInstaller.cs
 ++logs
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\logs\
 ++logs.txt
@@ -450,7 +456,7 @@ i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionsc
 ++RestAddonTester.rest
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\users\dell\source\repos\productionscheduler\productionscheduler.api\restaddontester.rest
 ++No service dependencies discovered
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1952
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6082
 ++Microsoft.AspNetCore.Analyzers
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
 ++Microsoft.AspNetCore.Components.Analyzers
@@ -462,38 +468,36 @@ i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\program files\dotnet\sdk\6.0.101\sdk
 ++Microsoft.NET.Sdk.Razor.SourceGenerators
 i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
 ++Microsoft.AspNet.WebApi.Cors (5.2.9)
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1972
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6152
 ++Microsoft.EntityFrameworkCore.Design (6.0.11)
-i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>1970
+i:{f8c2c6f8-8d7b-4313-8bb9-148c0b241549}:>6150
 ++tests
 i:{00000000-0000-0000-0000-000000000000}:tests
 ++ProductionScheduler.Tests.Unit
 i:{03ee3ed1-64e9-4263-97e8-6b1834d2d711}:ProductionScheduler.Tests.Unit
 ++Framework
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\framework\
-++ReservationServiceTests.cs
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\services\reservationservicetests.cs
 ++Shared
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\shared\
 ++UnitTest1.cs
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\unittest1.cs
-++PeriodMachineReservationTest.cs
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\entities\periodmachinereservationtest.cs
-++PeriodParkingSpotTest.cs
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\entities\periodparkingspottest.cs
+++MachineTest.cs
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\entities\machinetest.cs
 ++ServiceCollectionTest.cs
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\framework\servicecollectiontest.cs
+++ReservationServiceTests.cs
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\services\reservationservicetests.cs
 ++TestClock.cs
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\source\repos\productionscheduler\productionscheduler.tests.unit\shared\testclock.cs
 ++xunit.analyzers
 i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:c:\users\dell\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 ++coverlet.collector (3.1.0)
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1991
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>6109
 ++Microsoft.NET.Test.Sdk (16.11.0)
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1988
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>6102
 ++Shouldly (4.1.0)
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1987
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>6100
 ++xunit (2.4.1)
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1989
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>6105
 ++xunit.runner.visualstudio (2.4.3)
-i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>1990
+i:{72b0d4c7-7d0c-49b7-b147-e99f3ec43c9a}:>6108

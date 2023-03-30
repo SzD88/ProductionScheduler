@@ -19313,3 +19313,52 @@ ORDER BY [m].[Id]
 2023-03-30 11:32:07.172 +02:00 [INF] Executed action ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api) in 346.6043ms
 2023-03-30 11:32:07.177 +02:00 [INF] Executed endpoint 'ProductionScheduler.Api.Controllers.MachinesController.Get (ProductionScheduler.Api)'
 2023-03-30 11:32:07.194 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/machines - - - 200 - application/json;+charset=utf-8 785.6408ms
+2023-03-30 14:10:12.367 +02:00 [INF] User profile is available. Using 'C:\Users\DELL\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-03-30 14:10:13.491 +02:00 [INF] Entity Framework Core 6.0.11 initialized 'ProductionSchedulerDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.11' with options: None
+2023-03-30 14:10:13.891 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 14:10:13.923 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 14:10:13.928 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-03-30 14:10:13.931 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-03-30 14:10:13.946 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-03-30 14:10:13.970 +02:00 [INF] No migrations were applied. The database is already up to date.
+2023-03-30 14:10:14.223 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[TimeForward]
+FROM [Machines] AS [m]
+2023-03-30 14:10:14.541 +02:00 [INF] Now listening on: https://localhost:5000
+2023-03-30 14:10:14.544 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-03-30 14:10:14.545 +02:00 [INF] Hosting environment: Development
+2023-03-30 14:10:14.546 +02:00 [INF] Content root path: C:\Users\DELL\source\repos\ProductionScheduler\ProductionScheduler.Api\
+2023-03-30 14:10:17.742 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/index.html - -
+2023-03-30 14:10:18.077 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/index.html - - - 200 - text/html;charset=utf-8 338.6098ms
+2023-03-30 14:10:18.302 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - -
+2023-03-30 14:10:18.307 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - - - 200 11957 application/javascript;+charset=utf-8 5.0020ms
+2023-03-30 14:10:18.543 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/favicon-16x16.png - -
+2023-03-30 14:10:18.554 +02:00 [INF] Sending file. Request path: '/favicon-16x16.png'. Physical path: 'N/A'
+2023-03-30 14:10:18.556 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/favicon-16x16.png - - - 0 665 image/png 12.9742ms
+2023-03-30 14:10:18.640 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - -
+2023-03-30 14:10:18.784 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 143.5012ms
+2023-03-30 14:10:22.615 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/ - -
+2023-03-30 14:10:22.684 +02:00 [INF] Executing endpoint 'ProductionScheduler.Api.Controllers.HomeController.Get (ProductionScheduler.Api)'
+2023-03-30 14:10:22.694 +02:00 [INF] Route matched with {action = "Get", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.String] Get() on controller ProductionScheduler.Api.Controllers.HomeController (ProductionScheduler.Api).
+2023-03-30 14:10:22.703 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-03-30 14:10:22.710 +02:00 [INF] Executed action ProductionScheduler.Api.Controllers.HomeController.Get (ProductionScheduler.Api) in 8.4033ms
+2023-03-30 14:10:22.712 +02:00 [INF] Executed endpoint 'ProductionScheduler.Api.Controllers.HomeController.Get (ProductionScheduler.Api)'
+2023-03-30 14:10:22.713 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/ - - - 200 - text/plain;+charset=utf-8 98.1767ms
+2023-03-30 14:10:22.934 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/favicon.ico - -
+2023-03-30 14:10:22.936 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/favicon.ico - - - 404 0 - 2.0406ms
+2023-03-30 14:10:26.286 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/docs/index.html - -
+2023-03-30 14:10:26.303 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/docs/index.html - - - 200 - text/html 16.7704ms
+2023-03-30 14:10:26.393 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/docs/redoc.standalone.js - -
+2023-03-30 14:10:26.394 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - -
+2023-03-30 14:10:26.396 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/_framework/aspnetcore-browser-refresh.js - - - 200 11957 application/javascript;+charset=utf-8 1.8919ms
+2023-03-30 14:10:26.640 +02:00 [INF] Sending file. Request path: '/redoc.standalone.js'. Physical path: 'N/A'
+2023-03-30 14:10:26.643 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/docs/redoc.standalone.js - - - 200 1042511 application/javascript 250.1748ms
+2023-03-30 14:10:26.901 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - -
+2023-03-30 14:10:26.910 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5000/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 9.1764ms
